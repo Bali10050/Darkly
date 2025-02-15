@@ -354,7 +354,7 @@
          <item>
           <widget class="QRadioButton" name="_tabBarAltStyle">
            <property name="text">
-            <string>„TabBarAltStyle”</string>
+            <string>TabBarAltStyle</string>
            </property>
           </widget>
          </item>
