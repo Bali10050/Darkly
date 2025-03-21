@@ -456,7 +456,7 @@ void Decoration::recalculateBorders()
     setBorders(QMarginsF(left, top, right, bottom));
 
     // extended sizes
-    const qreal extSize = window()->snapToPixelGrid(settings()->largeSpacing());
+    const qreal extSize = KDecoration3::snapToPixelGrid(settings()->largeSpacing(), window()->nextScale());
     qreal extSides = 0;
     qreal extBottom = 0;
     if (hasNoBorders()) {
@@ -713,15 +713,15 @@ QPair<QRectF, Qt::Alignment> Decoration::captionRect() const
         return qMakePair(QRect(), Qt::AlignCenter);
     else {
         auto c = window();
-        const qreal leftOffset = c->snapToPixelGrid(m_leftButtons->buttons().isEmpty() ? Metrics::TitleBar_SideMargin * settings()->smallSpacing()
+        const qreal leftOffset = KDecoration3::snapToPixelGrid(m_leftButtons->buttons().isEmpty() ? Metrics::TitleBar_SideMargin * settings()->smallSpacing()
                                                                                        : m_leftButtons->geometry().x() + m_leftButtons->geometry().width()
-                                                            + Metrics::TitleBar_SideMargin * settings()->smallSpacing());
+                                                            + Metrics::TitleBar_SideMargin * settings()->smallSpacing(), window()->scale());
 
-        const qreal rightOffset = c->snapToPixelGrid(m_rightButtons->buttons().isEmpty() ? Metrics::TitleBar_SideMargin * settings()->smallSpacing()
+        const qreal rightOffset = KDecoration3::snapToPixelGrid(m_rightButtons->buttons().isEmpty() ? Metrics::TitleBar_SideMargin * settings()->smallSpacing()
                                                                                          : size().width() - m_rightButtons->geometry().x()
-                                                             + Metrics::TitleBar_SideMargin * settings()->smallSpacing());
+                                                             + Metrics::TitleBar_SideMargin * settings()->smallSpacing(), window()->scale());
 
-        const qreal yOffset = c->snapToPixelGrid(settings()->smallSpacing() * Metrics::TitleBar_TopMargin);
+        const qreal yOffset = KDecoration3::snapToPixelGrid(settings()->smallSpacing() * Metrics::TitleBar_TopMargin, window()->scale());
         const QRectF maxRect(leftOffset, yOffset, size().width() - leftOffset - rightOffset, captionHeight());
 
         switch (m_internalSettings->titleAlignment()) {
