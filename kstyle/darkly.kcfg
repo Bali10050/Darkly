@@ -134,6 +134,11 @@
       <default>true</default>
     </entry>
 
+    <!-- shadow underneath toolbar -->
+    <entry name="WidgetToolBarShadow" type="Bool">
+      <default>false</default>
+    </entry>
+
     <entry name="ScrollableMenu" type="Bool">
       <default>true</default>
     </entry>

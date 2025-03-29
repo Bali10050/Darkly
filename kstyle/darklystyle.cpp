@@ -5853,18 +5853,20 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
                 }
             }
 
-            bool darkTheme = _helper->isDarkTheme(palette);
+            if (StyleConfigData::widgetToolBarShadow()) {
+                bool darkTheme = _helper->isDarkTheme(palette);
 
-            if (!darkTheme) {
-                int shadowSize = 4;
-                QRect shadowRect = QRect(copy.bottomLeft() - QPoint(shadowSize, -1), QSize(copy.width() + shadowSize * 2, shadowSize));
-                _helper->renderBoxShadow(painter, shadowRect, 0, 0, shadowSize, QColor(0, 0, 0, 160), 2, true);
-            }
+                if (!darkTheme) {
+                    int shadowSize = 4;
+                    QRect shadowRect = QRect(copy.bottomLeft() - QPoint(shadowSize, -1), QSize(copy.width() + shadowSize * 2, shadowSize));
+                    _helper->renderBoxShadow(painter, shadowRect, 0, 0, shadowSize, QColor(0, 0, 0, 160), 2, true);
+                }
 
-            else {
-                QRect shadowRect(copy.bottomLeft() + QPoint(-1, 1), QSize(copy.width(), 50));
-                _helper->renderBoxShadow(painter, shadowRect, 0, 0, 8, QColor(0, 0, 0, 160), 2, true);
-                _helper->renderBoxShadow(painter, shadowRect, 0, 0, 3, QColor(0, 0, 0, 160), 2, true);
+                else {
+                    QRect shadowRect(copy.bottomLeft() + QPoint(-1, 1), QSize(copy.width(), 50));
+                    _helper->renderBoxShadow(painter, shadowRect, 0, 0, 8, QColor(0, 0, 0, 160), 2, true);
+                    _helper->renderBoxShadow(painter, shadowRect, 0, 0, 3, QColor(0, 0, 0, 160), 2, true);
+                }
             }
 
         }
