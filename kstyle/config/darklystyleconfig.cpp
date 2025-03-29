@@ -83,6 +83,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_widgetToolBarShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_shadowSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_shadowColor, &KColorCombo::activated, this, &StyleConfig::updateChanged);
     connect(_shadowStrength, SIGNAL(valueChanged(int)), _shadowStrength, SLOT(setValue(int)));
@@ -128,6 +129,7 @@ void StyleConfig::save()
     StyleConfigData::setButtonSize(_buttonSize->value());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
+    StyleConfigData::setWidgetToolBarShadow(_widgetToolBarShadow->isChecked());
     StyleConfigData::setShadowSize(_shadowSize->currentIndex());
     StyleConfigData::setShadowColor(_shadowColor->color());
     StyleConfigData::setShadowStrength(_shadowStrength->value());
@@ -225,6 +227,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_widgetDrawShadow->isChecked() != StyleConfigData::widgetDrawShadow())
         modified = true;
+    else if (_widgetToolBarShadow->isChecked() != StyleConfigData::widgetToolBarShadow())
+        modified = true;
     else if (_shadowSize->currentIndex() != StyleConfigData::shadowSize()) {
         modified = true;
     } else if (_shadowColor->color() != StyleConfigData::shadowColor())
@@ -264,6 +268,12 @@ void StyleConfig::updateChanged()
         _shadowStrength->setEnabled(true);
     }
 
+    if (!_widgetDrawShadow->isChecked()) {
+        _widgetToolBarShadow->setEnabled(false);
+    } else {
+        _widgetToolBarShadow->setEnabled(true);
+    }
+
     emit changed(modified);
 }
 
@@ -299,6 +309,12 @@ void StyleConfig::load()
     _buttonSize->setValue(StyleConfigData::buttonSize());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
     _widgetDrawShadow->setChecked(StyleConfigData::widgetDrawShadow());
+    _widgetToolBarShadow->setChecked(StyleConfigData::widgetToolBarShadow());
+
+    if (!_widgetDrawShadow->isChecked()) {
+        _widgetToolBarShadow->setEnabled(false);
+    }
+
     for (QString &item : _shadowSizes) {
         if (item == "None") {
             _shadowSize->addItem(item, "ShadowNone");

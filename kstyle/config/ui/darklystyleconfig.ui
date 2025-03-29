@@ -75,44 +75,63 @@
        <property name="spacing">
         <number>13</number>
        </property>
-       <item row="2" column="0" colspan="3">
-        <widget class="QCheckBox" name="_viewDrawFocusIndicator">
-         <property name="text">
-          <string>Draw focus indicator in lists</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="3">
-        <widget class="QCheckBox" name="_toolBarDrawItemSeparator">
-         <property name="text">
-          <string>Draw toolbar item separators</string>
-         </property>
-        </widget>
-       </item>
-       <item row="54" column="2">
-        <widget class="QLabel" name="_versionNumber">
-         <property name="font">
-          <font>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LayoutDirection::RightToLeft</enum>
-         </property>
-         <property name="text">
-          <string>VERSION</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="3">
-        <widget class="QCheckBox" name="_scrollableMenu">
-         <property name="text">
-          <string>Scrollable popup menu</string>
-         </property>
-        </widget>
+       <item row="52" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <widget class="QLabel" name="_mnemonicsLabel">
+           <property name="text">
+            <string>Keyboard accelerators visibility:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+           </property>
+           <property name="indent">
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="_mnemonicsMode">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::LeftToRight</enum>
+           </property>
+           <item>
+            <property name="text">
+             <string>Always Hide</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>When Needed</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Always Show</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
        </item>
        <item row="51" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_17">
@@ -159,64 +178,6 @@
          </item>
          <item>
           <spacer name="horizontalSpacer_9">
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="52" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_18">
-         <item>
-          <widget class="QLabel" name="_mnemonicsLabel">
-           <property name="text">
-            <string>Keyboard accelerators visibility:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-           </property>
-           <property name="indent">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="_mnemonicsMode">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LayoutDirection::LeftToRight</enum>
-           </property>
-           <item>
-            <property name="text">
-             <string>Always Hide</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>When Needed</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Always Show</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_12">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -396,6 +357,45 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="54" column="2">
+        <widget class="QLabel" name="_versionNumber">
+         <property name="font">
+          <font>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LayoutDirection::RightToLeft</enum>
+         </property>
+         <property name="text">
+          <string>VERSION</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="3">
+        <widget class="QCheckBox" name="_viewDrawFocusIndicator">
+         <property name="text">
+          <string>Draw focus indicator in lists</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="3">
+        <widget class="QCheckBox" name="_scrollableMenu">
+         <property name="text">
+          <string>Scrollable popup menu</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <widget class="QCheckBox" name="_toolBarDrawItemSeparator">
+         <property name="text">
+          <string>Draw toolbar item separators</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -1360,7 +1360,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>40</y>
+         <y>70</y>
          <width>611</width>
          <height>231</height>
         </rect>
@@ -1411,7 +1411,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Size:</string>
+              <string>Size:      </string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
@@ -1529,7 +1529,7 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Color:</string>
+              <string>Color:     </string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1621,6 +1621,19 @@
          </item>
         </layout>
        </widget>
+      </widget>
+      <widget class="QCheckBox" name="_widgetToolBarShadow">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>191</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Draw shadow under toolbar</string>
+       </property>
       </widget>
      </widget>
     </widget>
