@@ -445,9 +445,8 @@ void Decoration::recalculateBorders()
         top += KDecoration3::snapToPixelGrid(std::max(fm.height(), buttonSize()), scale);
 
         // padding below
-        // extra pixel is used for the active window outline
         const int baseSize = s->smallSpacing();
-        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin + 1, scale);
+        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin, scale);
 
         // padding above
         top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_TopMargin, scale);
