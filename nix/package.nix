@@ -2,26 +2,17 @@
   lib,
   stdenv,
   cmake,
-  qtbase,
-  wrapQtAppsHook,
-  kwindowsystem,
-  kiconthemes,
-  kdecoration,
-  kcoreaddons,
-  kcolorscheme ? null,
-  kcmutils,
-  frameworkintegration,
-  extra-cmake-modules,
-  darkly-qt6 ? null,
+  kdePackages,
+  qtPackages ? kdePackages,
 }:
 let
   inherit (builtins) baseNameOf;
   inherit (lib.sources) cleanSourceWith cleanSource;
   inherit (lib.strings) hasSuffix;
-  isQt5 = lib.versionOlder qtbase.version "6";
+  qtMajorVersion = lib.versions.major qtPackages.qtbase.version;
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "darkly-qt${if isQt5 then "5" else "6"}";
+  pname = "darkly-qt${qtMajorVersion}";
   version = lib.removeSuffix "\n" (builtins.readFile ../VERSION);
 
   src = cleanSourceWith {
@@ -34,36 +25,33 @@ stdenv.mkDerivation (finalAttrs: {
     src = cleanSource ../.;
   };
 
-  postInstall = lib.optionalString isQt5 ''
-    rm -r $out/share
-    ln -s "${darkly-qt6}/share" "$out/share"
-    ln -s "${darkly-qt6}/bin" "$out/bin"
-  '';
-
-  buildInputs = [ qtbase ];
-
-  propagatedBuildInputs =
+  buildInputs =
+    with qtPackages;
     [
-      frameworkintegration
+      qtbase
       kcmutils
       kcoreaddons
-      kdecoration
       kiconthemes
       kwindowsystem
     ]
-    ++ lib.optionals (!isQt5) [
+    ++ lib.optionals (qtMajorVersion == "5") [
+      kirigami2
+    ]
+    ++ lib.optionals (qtMajorVersion == "6") [
       kcolorscheme
+      kdecoration
+      kirigami
     ];
 
   nativeBuildInputs = [
     cmake
-    extra-cmake-modules
-    wrapQtAppsHook
+    qtPackages.wrapQtAppsHook
+    qtPackages.extra-cmake-modules
   ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "BUILD_QT5" isQt5)
-    (lib.cmakeBool "BUILD_QT6" (!isQt5))
+  cmakeFlags = map (v: lib.cmakeBool "BUILD_QT${v}" (v == qtMajorVersion)) [
+    "5"
+    "6"
   ];
 
   outputs = [
