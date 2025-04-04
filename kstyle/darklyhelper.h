@@ -432,6 +432,9 @@ public:
                         QIcon::Mode mode = QIcon::Normal,
                         QIcon::State state = QIcon::Off);
 
+    // MenuBar, ToolBar, TabBar background color opacity
+    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType) const;
+
 protected:
     //* return rounded path in a given rect, with only selected corners rounded, and for a given radius
     QPainterPath roundedPath(const QRectF &, Corners, qreal) const;

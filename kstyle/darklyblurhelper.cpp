@@ -157,7 +157,6 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
         return roundedRegion(rect, StyleConfigData::cornerRadius() + 1, true, true, true, true);
     } else {
         // blur entire window
-        // QT 6.8 now causes issues here when the alpha channel of the color scheme is < 255 with systemsettings
         if (widget->palette().color(QPalette::Window).alpha() < 255)
             return roundedRegion(rect, StyleConfigData::cornerRadius(), false, false, true, true);
 
@@ -165,7 +164,7 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
         QRegion region;
 
         // toolbar and menubar
-        if (_translucentTitlebar) {
+        if (_translucentTitlebar || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::toolBarOpacity() < 100) {
             // menubar
             int menubarHeight = 0;
             if (QMainWindow *mw = qobject_cast<QMainWindow *>(widget)) {
@@ -240,9 +239,9 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
             }
         }
 
-        // dolphin's sidebar
-        if (StyleConfigData::dolphinSidebarOpacity() < 100) {
-            if (_isDolphin) {
+        if (_isDolphin) {
+            // dolphin's sidebar
+            if (StyleConfigData::dolphinSidebarOpacity() < 100) {
                 // sidetoolbar
                 if (!_translucentTitlebar) {
                     QToolBar *toolbar = widget->window()->findChild<QToolBar *>(QString(), Qt::FindDirectChildrenOnly);
@@ -308,8 +307,38 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
             }*/
         }
 
+        // tabs
+        region += blurTabWidgetRegion(widget);
+
         return region;
     }
+}
+
+//___________________________________________________________
+QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
+{
+    QRegion region;
+    QRect tabWidgetRect = QRect();
+
+    // tabs lock down to only only blur dolphin / konsole
+    if (QTabWidget *tabWidget = widget->findChild<QTabWidget *>()) {
+        if (_isDolphin) {
+            // check if Dolphin URL location is editable otherwise transparency creates a visible line underneath
+
+            tabWidgetRect = QRect(widget->pos(), widget->rect().size());
+
+        } else {
+            if (tabWidget->parentWidget()->inherits("Konsole::MainWindow")) {
+                tabWidgetRect = QRect(widget->pos(), widget->rect().size());
+            }
+        }
+    }
+
+    if (tabWidgetRect.isValid()) {
+        region += tabWidgetRect;
+    }
+
+    return region;
 }
 
 //___________________________________________________________

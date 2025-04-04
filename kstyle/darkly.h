@@ -261,6 +261,12 @@ enum ButtonType {
     ButtonRestore
 };
 
+// toolbar, menubar, tabbar opacity
+enum BarType {
+    MenuBar,
+    ToolBar,
+    TabBar
+};
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Darkly::AnimationModes)
