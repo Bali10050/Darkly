@@ -31,7 +31,7 @@
         rec {
           default = darkly-qt6;
           darkly-qt6 = pkgs.kdePackages.callPackage ./nix/package.nix { };
-          darkly-qt5 = pkgs.libsForQt5.callPackage ./nix/package.nix { inherit darkly-qt6; };
+          darkly-qt5 = pkgs.libsForQt5.callPackage ./nix/package.nix { qtPackages = pkgs.libsForQt5; };
         }
       );
 
