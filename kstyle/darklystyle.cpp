@@ -3132,6 +3132,44 @@ QRect Style::dialSubControlRect(const QStyleOptionComplex *option, SubControl su
 }
 
 //___________________________________________________________________________________________________________________
+int Style::sliderTickMarksLength()
+{
+    const int tickLength =
+        Metrics::Slider_TickLength + Metrics::Slider_TickMarginWidth + (Metrics::Slider_GrooveThickness - Metrics::Slider_ControlThickness) / 2;
+    constexpr int builtInTickLength(5);
+    return tickLength - builtInTickLength;
+}
+
+//___________________________________________________________________________________________________________________
+QRect Style::sliderRectWithoutTickMarks(const QStyleOptionSlider *option)
+{
+    // store tick position and orientation
+    const QSlider::TickPosition tickPosition(option->tickPosition);
+    const bool horizontal(option->orientation == Qt::Horizontal);
+    const int tick = sliderTickMarksLength();
+
+    auto rect(option->rect);
+
+    if (horizontal) {
+        if (tickPosition & QSlider::TicksAbove) {
+            rect.setTop(-tick);
+        }
+        if (tickPosition & QSlider::TicksBelow) {
+            rect.setBottom(rect.bottom() + tick);
+        }
+    } else {
+        if (tickPosition & QSlider::TicksAbove) {
+            rect.setLeft(-tick);
+        }
+        if (tickPosition & QSlider::TicksBelow) {
+            rect.setRight(rect.right() + tick);
+        }
+    }
+
+    return rect;
+}
+
+//___________________________________________________________________________________________________________________
 QRect Style::sliderSubControlRect(const QStyleOptionComplex *option, SubControl subControl, const QWidget *widget) const
 {
     // cast option and check
@@ -3139,20 +3177,39 @@ QRect Style::sliderSubControlRect(const QStyleOptionComplex *option, SubControl 
     if (!sliderOption)
         return ParentStyleClass::subControlRect(CC_Slider, option, subControl, widget);
 
-    switch (subControl) {
-    case SC_SliderGroove: {
-        // direction
-        const bool horizontal(sliderOption->orientation == Qt::Horizontal);
+    // direction
+    const bool horizontal(sliderOption->orientation == Qt::Horizontal);
 
+    auto rect(sliderRectWithoutTickMarks(sliderOption));
+
+    switch (subControl) {
+    case SC_SliderHandle: {
+        QRect ret(centerRect(rect, Metrics::Slider_ControlThickness, Metrics::Slider_ControlThickness));
+
+        constexpr int len = Metrics::Slider_ControlThickness;
+        const int sliderPos = sliderPositionFromValue(sliderOption->minimum,
+                                                      sliderOption->maximum,
+                                                      sliderOption->sliderPosition,
+                                                      (horizontal ? rect.width() : rect.height()) - len,
+                                                      sliderOption->upsideDown);
+        if (horizontal) {
+            ret.moveLeft(rect.x() + sliderPos);
+        } else {
+            ret.moveTop(rect.y() + sliderPos);
+        }
+        ret = visualRect(option->direction, rect, ret);
+        return ret;
+    }
+    case SC_SliderGroove: {
         // get base class rect
-        auto grooveRect(ParentStyleClass::subControlRect(CC_Slider, option, subControl, widget));
-        grooveRect = insideMargin(grooveRect, pixelMetric(PM_DefaultFrameWidth, option, widget));
+        auto grooveRect = insideMargin(rect, pixelMetric(PM_DefaultFrameWidth, option, widget));
 
         // centering
-        if (horizontal)
-            grooveRect = centerRect(grooveRect, grooveRect.width(), Metrics::Slider_GrooveThickness);
-        else
-            grooveRect = centerRect(grooveRect, Metrics::Slider_GrooveThickness, grooveRect.height());
+        if (horizontal) {
+            grooveRect = centerRect(rect, grooveRect.width(), Metrics::Slider_GrooveThickness);
+        } else {
+            grooveRect = centerRect(rect, Metrics::Slider_GrooveThickness, grooveRect.height());
+        }
         return grooveRect;
     }
 
@@ -3258,7 +3315,7 @@ QSize Style::sliderSizeFromContents(const QStyleOption *option, const QSize &con
         return contentsSize;
 
     // store tick position and orientation
-    const QSlider::TickPosition &tickPosition(sliderOption->tickPosition);
+    const QSlider::TickPosition tickPosition(sliderOption->tickPosition);
     const bool horizontal(sliderOption->orientation == Qt::Horizontal);
 
     // do nothing if no ticks are requested
@@ -7640,7 +7697,7 @@ bool Style::drawSliderComplexControl(const QStyleOptionComplex *option, QPainter
                 painter->setPen(color);
 
                 // calculate positions and draw lines
-                int position(sliderPositionFromValue(sliderOption->minimum, sliderOption->maximum, current, available) + fudge);
+                const int position(sliderPositionFromValue(sliderOption->minimum, sliderOption->maximum, current, available) + fudge);
                 foreach (const QLine &tickLine, tickLines) {
                     if (horizontal)
                         painter->drawLine(tickLine.translated(upsideDown ? (rect.width() - position) : position, 0));
