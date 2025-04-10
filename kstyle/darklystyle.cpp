@@ -1795,7 +1795,7 @@ bool Style::eventFilterComboBoxContainer(QWidget *widget, QEvent *event)
         const auto &palette(widget->palette());
         const auto background(_helper->frameBackgroundColor(palette));
         const auto outline(_helper->frameOutlineColor(palette));
-
+    
         const bool hasAlpha(_helper->hasAlphaChannel(widget));
         if (hasAlpha) {
             painter.setCompositionMode(QPainter::CompositionMode_Source);
@@ -3858,7 +3858,7 @@ bool Style::drawFrameMenuPrimitive(const QStyleOption *option, QPainter *painter
     if (qobject_cast<const QToolBar *>(widget)) {
         const auto &palette(option->palette);
         const auto background(_helper->frameBackgroundColor(palette));
-        const auto outline(_helper->frameOutlineColor(palette));
+        const auto outline(QColor(0,0,0,0));
 
         const bool hasAlpha(_helper->hasAlphaChannel(widget));
         _helper->renderMenuFrame(painter, option->rect, background, outline, hasAlpha);
@@ -3866,7 +3866,7 @@ bool Style::drawFrameMenuPrimitive(const QStyleOption *option, QPainter *painter
     } else if (isQtQuickControl(option, widget)) {
         const auto &palette(option->palette);
         const auto background(_helper->frameBackgroundColor(palette));
-        const auto outline(_helper->frameOutlineColor(palette));
+        const auto outline(QColor(0,0,0,0));
 
         const bool hasAlpha(_helper->hasAlphaChannel(widget));
         _helper->renderMenuFrame(painter, option->rect, background, outline, hasAlpha);
