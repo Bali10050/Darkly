@@ -302,6 +302,10 @@ void Style::polish(QWidget *widget)
         }
     }
 
+    if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100) {
+        _isBarsOpaque = true;
+    }
+
     // translucent (window) color scheme support
     switch (widget->windowFlags() & Qt::WindowType_Mask) {
     case Qt::Window:
@@ -326,7 +330,10 @@ void Style::polish(QWidget *widget)
         }
 
         if (!_helper->shouldWindowHaveAlpha(widget->palette(), _isDolphin) || _isOpaque) {
-            break;
+            // register blur is required even in konsole
+            if (!_isBarsOpaque) {
+                break;
+            }
         }
 
         /* take all precautions */
@@ -338,12 +345,15 @@ void Style::polish(QWidget *widget)
             if (widget->windowFlags().testFlag(Qt::FramelessWindowHint))
                 break;
 
-            // konsole handle blur and translucency
+            // konsole handle blur and translucency for menubar/toolbar/tabbar
             if (_isKonsole) {
                 _translucentWidgets.insert(widget);
-                if (widget->palette().color(widget->backgroundRole()).alpha() < 255 || _helper->titleBarColor(true).alphaF() * 100.0 < 100) {
+                if (widget->palette().color(widget->backgroundRole()).alpha() < 255 || _helper->titleBarColor(true).alphaF() * 100.0 < 100 || _isBarsOpaque) {
                     _blurHelper->registerWidget(widget, _isDolphin);
+                    // stop flickering on translucent background
+                    widget->setAttribute(Qt::WA_NoSystemBackground, false);
                 }
+
                 // paint the background in event filter
                 addEventFilter(widget);
                 break;
@@ -478,10 +488,8 @@ void Style::polish(QWidget *widget)
 
         // opaque menubar / toolbar / tabbar
 
-    } else if (qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget) || qobject_cast<QTabWidget *>(widget)) {
-        if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100) {
-            _blurHelper->registerWidget(widget->window(), _isDolphin);
-        }
+    } else if (_isBarsOpaque) {
+        _blurHelper->registerWidget(widget->window(), _isDolphin);
     }
 
     if (_toolsAreaManager->hasHeaderColors()) {
@@ -3807,7 +3815,6 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
                 }
                 // URL location path
                 QLineEdit *dolphinLineEdit = widget->findChild<QLineEdit *>();
-                ;
                 // change the background to make it opaque aswell
                 if (dolphinLineEdit) {
                     QPalette pal(dolphinLineEdit->palette());
@@ -8572,7 +8579,9 @@ void Style::setSurfaceFormat(QWidget *widget) const
 
     else {
         if (_isPlasma || _isOpaque || !widget->isWindow() || !_helper->shouldWindowHaveAlpha(widget->palette(), _isDolphin)) {
-            return;
+            // continue if toolbar/menubar/tabbar are opaque
+            if (!_isBarsOpaque)
+                return;
         }
 
         switch (widget->windowFlags() & Qt::WindowType_Mask) {
@@ -8624,6 +8633,10 @@ void Style::setSurfaceFormat(QWidget *widget) const
         return;
 
     widget->setAttribute(Qt::WA_TranslucentBackground);
+
+    // stop flickering on translucent background
+    widget->setAttribute(Qt::WA_NoSystemBackground, false);
+
     /* distinguish forced translucency from hard-coded translucency */
     // forcedTranslucency_.insert(widget);
     // connect(widget, &QObject::destroyed, this, &Style::noTranslucency); // needed?

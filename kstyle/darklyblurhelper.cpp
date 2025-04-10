@@ -323,10 +323,7 @@ QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
     // tabs lock down to only only blur dolphin / konsole
     if (QTabWidget *tabWidget = widget->findChild<QTabWidget *>()) {
         if (_isDolphin) {
-            // check if Dolphin URL location is editable otherwise transparency creates a visible line underneath
-
             tabWidgetRect = QRect(widget->pos(), widget->rect().size());
-
         } else {
             if (tabWidget->parentWidget()->inherits("Konsole::MainWindow")) {
                 tabWidgetRect = QRect(widget->pos(), widget->rect().size());
