@@ -326,7 +326,6 @@ QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
                 } else {
                     // region += QRect(pos, rect.size());
                     region += roundedRegion(QRect(pos, rect.size()), StyleConfigData::cornerRadius(), false, false, true, false);
-                    qDebug() << "closed = " << rect.size();
                 }
             }
         } else if (w->inherits("DolphinTabWidget") || w->inherits("Konsole::TabbedViewContainer")) {
