@@ -139,6 +139,7 @@ public:
 
     bool eventFilter(QObject *, QEvent *) override;
     bool eventFilterScrollArea(QWidget *, QEvent *);
+    bool eventFilterDolphinUrlNavigator(QWidget *, QEvent *);
     bool eventFilterComboBoxContainer(QWidget *, QEvent *);
     bool eventFilterDockWidget(QDockWidget *, QEvent *);
     bool eventFilterMdiSubWindow(QMdiSubWindow *, QEvent *);
@@ -610,6 +611,9 @@ private:
     bool _subApp = false;
     //* Some apps shouldn't have translucent windows.
     bool _isOpaque = false;
+
+    // blur is required for toolbar, menubar, tabbar if opaque
+    bool _isBarsOpaque = false;
 };
 
 //_________________________________________________________________________

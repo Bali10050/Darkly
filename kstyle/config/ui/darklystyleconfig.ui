@@ -362,7 +362,7 @@
         <widget class="QLabel" name="_versionNumber">
          <property name="font">
           <font>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="layoutDirection">
@@ -986,6 +986,113 @@
        <string>Transparency</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_6">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Transparent</string>
+           </property>
+           <property name="indent">
+            <number>73</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::LayoutDirection::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Opaque</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+           <property name="indent">
+            <number>93</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="7" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_22">
+         <item>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Tabbar:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+           <property name="indent">
+            <number>5</number>
+           </property>
+           <property name="buddy">
+            <cstring>_tabBarOpacity</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_23">
+           <property name="leftMargin">
+            <number>10</number>
+           </property>
+           <item>
+            <widget class="QSlider" name="_tabBarOpacity">
+             <property name="toolTip">
+              <string>This changes the tabbar opacity inside Dolphin &amp; Konsole</string>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>100</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="tickPosition">
+              <enum>QSlider::TickPosition::TicksBelow</enum>
+             </property>
+             <property name="tickInterval">
+              <number>10</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="_tabBarOpacitySpinBox">
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+           <property name="suffix">
+            <string>%</string>
+           </property>
+           <property name="maximum">
+            <number>100</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item row="4" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
@@ -1051,57 +1158,15 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+       <item row="6" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="label_6">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+          <widget class="QLabel" name="label_8">
+           <property name="enabled">
+            <bool>true</bool>
            </property>
            <property name="text">
-            <string>Transparent</string>
-           </property>
-           <property name="indent">
-            <number>73</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LayoutDirection::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Opaque</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-           <property name="indent">
-            <number>93</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="2" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QLabel" name="label_5">
-           <property name="text">
-            <string>Si&amp;debar:</string>
+            <string>Toolbar:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1110,12 +1175,12 @@
             <number>5</number>
            </property>
            <property name="buddy">
-            <cstring>_sidebarOpacity</cstring>
+            <cstring>_toolBarOpacity</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -1123,33 +1188,18 @@
             <number>10</number>
            </property>
            <item>
-            <widget class="QSlider" name="_sidebarOpacity">
+            <widget class="QSlider" name="_toolBarOpacity">
              <property name="toolTip">
-              <string>This changes the Dolphin sidebar transparency</string>
+              <string>This changes the toolbar opacity</string>
              </property>
              <property name="maximum">
               <number>100</number>
              </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-             <property name="pageStep">
-              <number>10</number>
-             </property>
              <property name="value">
-              <number>100</number>
-             </property>
-             <property name="sliderPosition">
               <number>100</number>
              </property>
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="invertedControls">
-              <bool>false</bool>
              </property>
              <property name="tickPosition">
               <enum>QSlider::TickPosition::TicksBelow</enum>
@@ -1162,7 +1212,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="_sidebarOpacitySpinBox">
+          <widget class="QSpinBox" name="_toolBarOpacitySpinBox">
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
@@ -1256,15 +1306,12 @@
          </item>
         </layout>
        </item>
-       <item row="6" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item row="2" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QLabel" name="label_8">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
+          <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Toolbar:</string>
+            <string>Si&amp;debar:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -1273,12 +1320,12 @@
             <number>5</number>
            </property>
            <property name="buddy">
-            <cstring>_toolBarOpacity</cstring>
+            <cstring>_sidebarOpacity</cstring>
            </property>
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -1286,18 +1333,33 @@
             <number>10</number>
            </property>
            <item>
-            <widget class="QSlider" name="_toolBarOpacity">
+            <widget class="QSlider" name="_sidebarOpacity">
              <property name="toolTip">
-              <string>This changes the toolbar opacity</string>
+              <string>This changes the Dolphin sidebar transparency</string>
              </property>
              <property name="maximum">
               <number>100</number>
              </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
+             <property name="pageStep">
+              <number>10</number>
+             </property>
              <property name="value">
+              <number>100</number>
+             </property>
+             <property name="sliderPosition">
               <number>100</number>
              </property>
              <property name="orientation">
               <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="invertedAppearance">
+              <bool>false</bool>
+             </property>
+             <property name="invertedControls">
+              <bool>false</bool>
              </property>
              <property name="tickPosition">
               <enum>QSlider::TickPosition::TicksBelow</enum>
@@ -1310,7 +1372,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QSpinBox" name="_toolBarOpacitySpinBox">
+          <widget class="QSpinBox" name="_sidebarOpacitySpinBox">
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
@@ -1324,7 +1386,7 @@
          </item>
         </layout>
        </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>

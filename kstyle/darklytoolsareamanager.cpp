@@ -36,7 +36,9 @@ ToolsAreaManager::~ToolsAreaManager()
 
 void ToolsAreaManager::recreateConfigWatcher(const QString &path)
 {
-    _config = KSharedConfig::openConfig(path);
+    const auto openFlags = path.isEmpty() ? KConfig::OpenFlag::FullConfig : KConfig::OpenFlag::NoGlobals;
+    _config = KSharedConfig::openConfig(path, openFlags);
+
     if (!path.startsWith(QLatin1Char('/'))) {
         _watcher = KConfigWatcher::create(_config);
         connect(_watcher.data(), &KConfigWatcher::configChanged, this, &ToolsAreaManager::configUpdated);
@@ -45,15 +47,38 @@ void ToolsAreaManager::recreateConfigWatcher(const QString &path)
     }
 }
 
-template<class T1, class T2>
-void appendIfNotAlreadyExists(T1 *list, T2 item)
+void ToolsAreaManager::appendIfNotAlreadyExists(const QMainWindow *window, const QPointer<QToolBar> &toolBar)
 {
-    for (auto listItem : *list) {
-        if (listItem == item) {
-            return;
+    const auto windowIt = std::find_if(_windows.begin(), _windows.end(), [window](const WindowToolBars &windowToolBars) {
+        return window == windowToolBars.window;
+    });
+    if (windowIt != _windows.end()) {
+        if (!windowIt->toolBars.contains(toolBar)) {
+            windowIt->toolBars.append(toolBar);
         }
+    } else {
+        _windows.emplace_back(WindowToolBars{window, {toolBar}});
+        connect(window, &QObject::destroyed, this, [this, window] {
+            removeWindow(window);
+        });
     }
-    list->append(item);
+}
+
+void ToolsAreaManager::removeWindowToolBar(const QMainWindow *window, const QPointer<QToolBar> &toolBar)
+{
+    const auto windowIt = std::find_if(_windows.begin(), _windows.end(), [window](const WindowToolBars &windowToolBars) {
+        return window == windowToolBars.window;
+    });
+    if (windowIt != _windows.end()) {
+        windowIt->toolBars.removeAll(toolBar);
+    }
+}
+
+void ToolsAreaManager::removeWindow(const QMainWindow *window)
+{
+    std::erase_if(_windows, [window](const WindowToolBars &windowToolBars) {
+        return window == windowToolBars.window;
+    });
 }
 
 void ToolsAreaManager::registerApplication(QApplication *application)
@@ -68,24 +93,27 @@ void ToolsAreaManager::registerApplication(QApplication *application)
     configUpdated();
 }
 
-QRect ToolsAreaManager::toolsAreaRect(const QMainWindow *window)
+QRect ToolsAreaManager::toolsAreaRect(const QMainWindow &window) const
 {
-    Q_ASSERT(window);
-
-    int itemHeight = window->menuWidget() ? window->menuWidget()->height() : 0;
-    for (auto item : _windows[window]) {
-        if (!item.isNull() && item->isVisible() && window->toolBarArea(item) == Qt::TopToolBarArea) {
-            itemHeight = qMax(item->mapTo(window, item->rect().bottomLeft()).y(), itemHeight);
+    int itemHeight = window.menuWidget() ? window.menuWidget()->height() : 0;
+    const auto windowIt = std::find_if(_windows.begin(), _windows.end(), [&window](const WindowToolBars &windowToolBars) {
+        return &window == windowToolBars.window;
+    });
+    if (windowIt != _windows.end()) {
+        for (auto item : windowIt->toolBars) {
+            if (!item.isNull() && item->isVisible() && window.toolBarArea(item) == Qt::TopToolBarArea) {
+                itemHeight = qMax(item->mapTo(&window, item->rect().bottomLeft()).y(), itemHeight);
+            }
         }
     }
     if (itemHeight > 0) {
         itemHeight += 1;
     }
 
-    return QRect(0, 0, window->width(), itemHeight);
+    return QRect(0, 0, window.width(), itemHeight);
 }
 
-bool ToolsAreaManager::tryRegisterToolBar(QPointer<QMainWindow> window, QPointer<QWidget> widget)
+bool ToolsAreaManager::tryRegisterToolBar(QPointer<const QMainWindow> window, QPointer<QWidget> widget)
 {
     Q_ASSERT(!widget.isNull());
 
@@ -96,14 +124,14 @@ bool ToolsAreaManager::tryRegisterToolBar(QPointer<QMainWindow> window, QPointer
 
     if (window->toolBarArea(toolbar) == Qt::TopToolBarArea) {
         widget->setPalette(palette());
-        appendIfNotAlreadyExists(&_windows[window], toolbar);
+        appendIfNotAlreadyExists(window, toolbar);
         return true;
     }
 
     return false;
 }
 
-void ToolsAreaManager::tryUnregisterToolBar(QPointer<QMainWindow> window, QPointer<QWidget> widget)
+void ToolsAreaManager::tryUnregisterToolBar(QPointer<const QMainWindow> window, QPointer<QWidget> widget)
 {
     Q_ASSERT(!widget.isNull());
 
@@ -114,7 +142,7 @@ void ToolsAreaManager::tryUnregisterToolBar(QPointer<QMainWindow> window, QPoint
 
     if (window->toolBarArea(toolbar) != Qt::TopToolBarArea) {
         widget->setPalette(window->palette());
-        _windows[window].removeAll(toolbar);
+        removeWindowToolBar(window, toolbar);
     }
 }
 
@@ -133,11 +161,15 @@ void ToolsAreaManager::configUpdated()
     _palette.setBrush(QPalette::Inactive, QPalette::Window, inactive.background());
     _palette.setBrush(QPalette::Inactive, QPalette::WindowText, inactive.foreground());
 
-    for (auto window : _windows) {
-        for (auto toolbar : window) {
+    for (const WindowToolBars &windowToolBars : _windows) {
+        for (const auto &toolbar : windowToolBars.toolBars) {
             if (!toolbar.isNull()) {
                 toolbar->setPalette(_palette);
             }
+        }
+
+        if (QMenuBar *menuBar = windowToolBars.window->menuBar()) {
+            menuBar->setPalette(_palette);
         }
     }
 
@@ -177,7 +209,7 @@ bool ToolsAreaManager::eventFilter(QObject *watched, QEvent *event)
     Q_ASSERT(event);
 
     QPointer<QObject> parent = watched;
-    QPointer<QMainWindow> mainWindow = nullptr;
+    QPointer<const QMainWindow> mainWindow = nullptr;
     while (parent != nullptr) {
         if (qobject_cast<QMainWindow *>(parent)) {
             mainWindow = qobject_cast<QMainWindow *>(parent);
@@ -186,10 +218,17 @@ bool ToolsAreaManager::eventFilter(QObject *watched, QEvent *event)
         parent = parent->parent();
     }
 
-    if (QPointer<QMainWindow> mw = qobject_cast<QMainWindow *>(watched)) {
+    if (const QMainWindow *mw = qobject_cast<QMainWindow *>(watched)) {
         QChildEvent *ev = nullptr;
         if (event->type() == QEvent::ChildAdded || event->type() == QEvent::ChildRemoved) {
             ev = static_cast<QChildEvent *>(event);
+
+            if (event->type() == QEvent::ChildAdded) {
+                QChildEvent *childEvent = static_cast<QChildEvent *>(event);
+                if (QMenuBar *menuBar = qobject_cast<QMenuBar *>(childEvent->child())) {
+                    menuBar->setPalette(_palette);
+                }
+            }
         } else {
             return false;
         }
@@ -201,10 +240,10 @@ bool ToolsAreaManager::eventFilter(QObject *watched, QEvent *event)
 
         if (ev->added()) {
             if (mw->toolBarArea(tb) == Qt::TopToolBarArea) {
-                appendIfNotAlreadyExists(&_windows[mw], tb);
+                appendIfNotAlreadyExists(mw, tb);
             }
         } else if (ev->removed()) {
-            _windows[mw].removeAll(tb);
+            removeWindowToolBar(mw, tb);
         }
     } else if (qobject_cast<QToolBar *>(watched)) {
         if (!mainWindow.isNull()) {
@@ -220,13 +259,18 @@ void ToolsAreaManager::registerWidget(QWidget *widget)
     Q_ASSERT(widget);
     auto ptr = QPointer<QWidget>(widget);
 
-    QPointer<QMainWindow> mainWindow = qobject_cast<QMainWindow *>(ptr);
+    QPointer<const QMainWindow> mainWindow = qobject_cast<QMainWindow *>(ptr);
 
-    if (mainWindow && mainWindow == mainWindow->window()) {
+    if (mainWindow && mainWindow.data() == mainWindow->window()) {
         const auto toolBars = mainWindow->findChildren<QToolBar *>(QString(), Qt::FindDirectChildrenOnly);
         for (auto *toolBar : toolBars) {
             tryRegisterToolBar(mainWindow, toolBar);
         }
+
+        if (QMenuBar *menuBar = mainWindow->menuBar()) {
+            menuBar->setPalette(_palette);
+        }
+
         return;
     }
 
@@ -244,7 +288,7 @@ void ToolsAreaManager::registerWidget(QWidget *widget)
     if (mainWindow == nullptr) {
         return;
     }
-    if (mainWindow != mainWindow->window()) {
+    if (mainWindow.data() != mainWindow->window()) {
         return;
     }
     tryRegisterToolBar(mainWindow, widget);
@@ -255,12 +299,12 @@ void ToolsAreaManager::unregisterWidget(QWidget *widget)
     Q_ASSERT(widget);
     auto ptr = QPointer<QWidget>(widget);
 
-    if (QPointer<QMainWindow> window = qobject_cast<QMainWindow *>(ptr)) {
-        _windows.remove(window);
+    if (QPointer<const QMainWindow> window = qobject_cast<QMainWindow *>(ptr)) {
+        removeWindow(window);
         return;
     } else if (QPointer<QToolBar> toolbar = qobject_cast<QToolBar *>(ptr)) {
         auto parent = ptr;
-        QPointer<QMainWindow> mainWindow = nullptr;
+        QPointer<const QMainWindow> mainWindow = nullptr;
         while (parent != nullptr) {
             if (qobject_cast<QMainWindow *>(parent)) {
                 mainWindow = qobject_cast<QMainWindow *>(parent);
@@ -271,10 +315,9 @@ void ToolsAreaManager::unregisterWidget(QWidget *widget)
         if (mainWindow == nullptr) {
             return;
         }
-        _windows[mainWindow].removeAll(toolbar);
+        removeWindowToolBar(mainWindow, toolbar);
     }
 }
-
 bool Darkly::ToolsAreaManager::hasHeaderColors()
 {
     return _colorSchemeHasHeaderColor;

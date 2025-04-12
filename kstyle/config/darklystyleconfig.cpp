@@ -80,6 +80,10 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_toolBarOpacity, SIGNAL(valueChanged(int)), _toolBarOpacitySpinBox, SLOT(setValue(int)));
     connect(_toolBarOpacitySpinBox, SIGNAL(valueChanged(int)), _toolBarOpacity, SLOT(setValue(int)));
 
+    connect(_tabBarOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
+    connect(_tabBarOpacity, SIGNAL(valueChanged(int)), _tabBarOpacitySpinBox, SLOT(setValue(int)));
+    connect(_tabBarOpacitySpinBox, SIGNAL(valueChanged(int)), _tabBarOpacity, SLOT(setValue(int)));
+
     connect(_kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
@@ -126,6 +130,7 @@ void StyleConfig::save()
     StyleConfigData::setDolphinSidebarOpacity(_sidebarOpacity->value());
     StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
     StyleConfigData::setToolBarOpacity(_toolBarOpacity->value());
+    StyleConfigData::setTabBarOpacity(_tabBarOpacity->value());
     StyleConfigData::setButtonSize(_buttonSize->value());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
@@ -221,6 +226,9 @@ void StyleConfig::updateChanged()
     } else if (_toolBarOpacity->value() != StyleConfigData::toolBarOpacity()) {
         modified = true;
         _toolBarOpacitySpinBox->setValue(_toolBarOpacity->value());
+    } else if (_tabBarOpacity->value() != StyleConfigData::tabBarOpacity()) {
+        modified = true;
+        _tabBarOpacitySpinBox->setValue(_tabBarOpacity->value());
     } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
         modified = true;
     else if (_tabBarDrawCenteredTabs->isChecked() != StyleConfigData::tabBarDrawCenteredTabs())
@@ -274,6 +282,12 @@ void StyleConfig::updateChanged()
         _widgetToolBarShadow->setEnabled(true);
     }
 
+    if (_adjustToDarkThemes->isChecked()) {
+        _tabBGColor->setEnabled(true);
+    } else {
+        _tabBGColor->setEnabled(false);
+    }
+
     emit changed(modified);
 }
 
@@ -305,6 +319,8 @@ void StyleConfig::load()
     _menuBarOpacitySpinBox->setValue(StyleConfigData::menuBarOpacity());
     _toolBarOpacity->setValue(StyleConfigData::toolBarOpacity());
     _toolBarOpacitySpinBox->setValue(StyleConfigData::toolBarOpacity());
+    _tabBarOpacity->setValue(StyleConfigData::tabBarOpacity());
+    _tabBarOpacitySpinBox->setValue(StyleConfigData::tabBarOpacity());
 
     _buttonSize->setValue(StyleConfigData::buttonSize());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
@@ -334,12 +350,21 @@ void StyleConfig::load()
         _shadowIntensity->setEnabled(false);
         _shadowStrength->setEnabled(false);
     }
+
+    _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
+
+    if (_adjustToDarkThemes->isChecked()) {
+        _tabBGColor->setEnabled(true);
+    } else {
+        _tabBGColor->setEnabled(false);
+    }
+
     _shadowColor->setColor(StyleConfigData::shadowColor());
     _shadowStrength->setValue(StyleConfigData::shadowStrength());
     _shadowIntensity->setCurrentIndex(StyleConfigData::shadowIntensity());
     _scrollableMenu->setChecked(StyleConfigData::scrollableMenu());
     _oldTabbar->setChecked(StyleConfigData::oldTabbar());
-    _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
+
     _tabBarAltStyle->setChecked(StyleConfigData::tabBarAltStyle());
     _tabBGColor->setColor(StyleConfigData::tabBGColor());
     _transparentDolphinView->setChecked(StyleConfigData::transparentDolphinView());
