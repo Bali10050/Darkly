@@ -34,6 +34,7 @@
 
 #include <KWindowEffects>
 
+#include <QComboBox>
 #include <QEvent>
 #include <QMainWindow>
 #include <QMenu>
@@ -196,7 +197,7 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
                         orientation = tb->orientation();
                     }
 
-                    // test against the previous best caditate
+                    // test against the previous best candidate
                     else {
                         if ((tb->y() < mainToolbar.y()) || (tb->y() == mainToolbar.y() && tb->x() < mainToolbar.x())) {
                             mainToolbar = QRect(tb->pos(), tb->rect().size());
@@ -272,20 +273,7 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
                 }
 
                 // settings page
-                if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog) {
-                    QList<QWidget *> dialogWidgets = widget->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-                    for (auto w : dialogWidgets) {
-                        if (w->inherits("KPageWidget")) {
-                            QList<QWidget *> KPageWidgets = w->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-                            for (auto wid : KPageWidgets) {
-                                if (wid->property(PropertyNames::sidePanelView).toBool()) {
-                                    region += roundedRegion(QRect(wid->pos(), wid->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                // moved to blur tabs wiget region
             }
 
             /*if( (widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog )
@@ -318,21 +306,55 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
 QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
 {
     QRegion region;
-    QRect tabWidgetRect = QRect();
+    // QRect tabWidgetRect = QRect();
 
-    // tabs lock down to only only blur dolphin / konsole
-    if (QTabWidget *tabWidget = widget->findChild<QTabWidget *>()) {
-        if (_isDolphin) {
-            tabWidgetRect = QRect(widget->pos(), widget->rect().size());
-        } else {
-            if (tabWidget->parentWidget()->inherits("Konsole::MainWindow")) {
-                tabWidgetRect = QRect(widget->pos(), widget->rect().size());
+    // tabs lock down to only only blur dolphin / konsole main windows
+
+    QList<QWidget *> widgets = widget->findChildren<QWidget *>();
+
+    for (auto w : widgets) {
+        auto rect = w->rect();
+        auto pos = w->pos();
+        // location bar area
+        if (w->inherits("DolphinUrlNavigator")) {
+            // dolphin location bar
+            if (auto locationBar = w->findChild<QComboBox *>()) {
+                if (locationBar->isVisible()) {
+                    // double the rect size else it leaves an unblurred line underneath the toolbar
+                    region += roundedRegion(QRect(pos, rect.size() * 2), StyleConfigData::cornerRadius(), false, false, true, false);
+
+                } else {
+                    // region += QRect(pos, rect.size());
+                    region += roundedRegion(QRect(pos, rect.size()), StyleConfigData::cornerRadius(), false, false, true, false);
+                    qDebug() << "closed = " << rect.size();
+                }
             }
+        } else if (w->inherits("DolphinTabWidget") || w->inherits("Konsole::TabbedViewContainer")) {
+            // tabs
+            region += roundedRegion(QRect(pos, rect.size()), StyleConfigData::cornerRadius(), false, false, true, false);
         }
     }
 
-    if (tabWidgetRect.isValid()) {
-        region += tabWidgetRect;
+    // settings
+    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog) {
+        for (auto w : widgets) {
+            if (qobject_cast<QTabWidget *>(w)) {
+                // settings main dialog
+                region += roundedRegion(QRect(w->mapToGlobal(w->pos()), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
+            } else if (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog")) {
+                // about dialog
+                region += roundedRegion(QRect(w->pos(), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
+            } else if (w->inherits("KPageWidget")) {
+                // sidebar
+                QList<QWidget *> KPageWidgets = w->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+                for (auto wid : KPageWidgets) {
+                    if (wid->property(PropertyNames::sidePanelView).toBool()) {
+                        region += roundedRegion(QRect(wid->pos(), wid->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     return region;

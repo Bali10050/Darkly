@@ -4001,7 +4001,7 @@ bool Style::drawFrameTabBarBasePrimitive(const QStyleOption *option, QPainter *p
     painter->setRenderHint(QPainter::Antialiasing, false);
 
     // precaution don't change the alpha channel if the tabbar opacity is at 100
-    if ((_isDolphin || _isKonsole) && StyleConfigData::tabBarOpacity() < 100) {
+    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100)) {
         QColor backgroundColor = _helper->transparentBarBgColor(widget->palette().color(QPalette::Window), painter, widget->rect(), BarType::TabBar);
         painter->setBrush(backgroundColor);
         painter->fillRect(rect, backgroundColor);
@@ -4328,7 +4328,7 @@ bool Style::drawTabBarPanelButtonToolPrimitive(const QStyleOption *option, QPain
 
     if (_isDolphin || _isKonsole) {
         // change background color alpha channel
-        if (StyleConfigData::tabBarOpacity() < 100) {
+        if ((StyleConfigData::tabBarOpacity() < 100)) {
             // override the tab background color
             QColor tabBgColor = widget->palette().color(QPalette::Window);
             tabBgColor = _helper->transparentBarBgColor(tabBgColor, painter, rect, BarType::TabBar);
@@ -6760,7 +6760,9 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
         : _helper->alphaColor(configTabBgColor, 0.1);
 
     // opacity only target dolphin and konsole
-    if ((_isDolphin || _isKonsole) && StyleConfigData::tabBarOpacity() < 100) {
+    // if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && (widget->parentWidget()->inherits("DolphinTabWidget") ||
+    // widget->parentWidget()->inherits("Konsole::TabbedViewContainer"))) {
+    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100)) {
         // override the tab background color if adjustToDarkThemes is false
         if (StyleConfigData::adjustToDarkThemes()) {
             backgroundColor = _helper->transparentBarBgColor(backgroundColor, painter, rect, BarType::TabBar);
@@ -8578,10 +8580,14 @@ void Style::setSurfaceFormat(QWidget *widget) const
     }
 
     else {
+        // this stops flickering on transparent toolbar, menubar, tabbar
+        if (_isBarsOpaque) {
+            widget->setAttribute(Qt::WA_TranslucentBackground);
+            widget->setAttribute(Qt::WA_NoSystemBackground, false);
+        }
+
         if (_isPlasma || _isOpaque || !widget->isWindow() || !_helper->shouldWindowHaveAlpha(widget->palette(), _isDolphin)) {
-            // continue if toolbar/menubar/tabbar are opaque
-            if (!_isBarsOpaque)
-                return;
+            return;
         }
 
         switch (widget->windowFlags() & Qt::WindowType_Mask) {
@@ -8633,9 +8639,6 @@ void Style::setSurfaceFormat(QWidget *widget) const
         return;
 
     widget->setAttribute(Qt::WA_TranslucentBackground);
-
-    // stop flickering on translucent background
-    widget->setAttribute(Qt::WA_NoSystemBackground, false);
 
     /* distinguish forced translucency from hard-coded translucency */
     // forcedTranslucency_.insert(widget);
