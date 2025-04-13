@@ -3869,6 +3869,8 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
                 // breadcrumb view not editable location
                 if (StyleConfigData::toolBarOpacity() < 100) {
                     background.setAlphaF(StyleConfigData::toolBarOpacity() / 100);
+                } else if (StyleConfigData::disableDolphinUrlNavigatorBackground()) {
+                    background.setAlphaF(0);
                 }
                 // URL location path
                 QLineEdit *dolphinLineEdit = widget->findChild<QLineEdit *>();

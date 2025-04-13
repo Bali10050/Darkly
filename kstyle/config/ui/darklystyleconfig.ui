@@ -794,6 +794,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QCheckBox" name="_disableDolphinUrlNavigatorBackground">
+           <property name="text">
+            <string>Disable Dolphin UrlNavigator Background</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>

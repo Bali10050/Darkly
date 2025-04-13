@@ -185,6 +185,10 @@
       <default>false</default>
     </entry>
 
+    <entry name="DisableDolphinUrlNavigatorBackground" type="Bool">
+      <default>true</default>
+    </entry>
+
      <entry name="TabUseBrighterCloseIcon" type="Bool">
       <default>false</default>
     </entry>
