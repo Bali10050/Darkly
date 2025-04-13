@@ -50,7 +50,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="General">
       <attribute name="title">
@@ -791,6 +791,13 @@
           <widget class="QCheckBox" name="_sidePanelDrawFrame">
            <property name="text">
             <string>Draw frame around side panels</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="_disableDolphinUrlNavigatorBackground">
+           <property name="text">
+            <string>Disable Dolphin UrlNavigator Background</string>
            </property>
           </widget>
          </item>
