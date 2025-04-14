@@ -302,7 +302,8 @@ void Style::polish(QWidget *widget)
         }
     }
 
-    if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100) {
+    if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100
+        || StyleConfigData::dolphinSidebarOpacity() < 100) {
         _isBarsOpaque = true;
     }
 

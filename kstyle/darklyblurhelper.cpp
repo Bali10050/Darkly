@@ -165,7 +165,8 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
         QRegion region;
 
         // toolbar and menubar
-        if (_translucentTitlebar || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::toolBarOpacity() < 100) {
+        if (_translucentTitlebar || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::toolBarOpacity() < 100
+            || StyleConfigData::dolphinSidebarOpacity() < 100) {
             // menubar
             int menubarHeight = 0;
             if (QMainWindow *mw = qobject_cast<QMainWindow *>(widget)) {
