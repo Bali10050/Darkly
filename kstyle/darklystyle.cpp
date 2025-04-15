@@ -302,7 +302,8 @@ void Style::polish(QWidget *widget)
         }
     }
 
-    if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100) {
+    if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100
+        || StyleConfigData::dolphinSidebarOpacity() < 100) {
         _isBarsOpaque = true;
     }
 
@@ -4060,7 +4061,7 @@ bool Style::drawFrameTabBarBasePrimitive(const QStyleOption *option, QPainter *p
     painter->setRenderHint(QPainter::Antialiasing, false);
 
     // precaution don't change the alpha channel if the tabbar opacity is at 100
-    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100)) {
+    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && !_isOpaque) {
         QColor backgroundColor = _helper->transparentBarBgColor(widget->palette().color(QPalette::Window), painter, widget->rect(), BarType::TabBar);
         painter->setBrush(backgroundColor);
         painter->fillRect(rect, backgroundColor);
@@ -4387,7 +4388,7 @@ bool Style::drawTabBarPanelButtonToolPrimitive(const QStyleOption *option, QPain
 
     if (_isDolphin || _isKonsole) {
         // change background color alpha channel
-        if ((StyleConfigData::tabBarOpacity() < 100)) {
+        if ((StyleConfigData::tabBarOpacity() < 100) && !_isOpaque) {
             // override the tab background color
             QColor tabBgColor = widget->palette().color(QPalette::Window);
             tabBgColor = _helper->transparentBarBgColor(tabBgColor, painter, rect, BarType::TabBar);
@@ -5381,7 +5382,7 @@ bool Style::drawMenuBarEmptyAreaControl(const QStyleOption *option, QPainter *pa
     QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
 
     // changes menubar background opacity
-    if (StyleConfigData::menuBarOpacity() < 100) {
+    if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
         opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar);
         painter->fillRect(rect, opacityBackground);
     }
@@ -5454,7 +5455,7 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
     QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
 
     // changes menubar background opacity
-    if (StyleConfigData::menuBarOpacity() < 100) {
+    if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
         opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar);
         painter->fillRect(rect, opacityBackground);
     }
@@ -5876,7 +5877,7 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
 
     // changes toolbar background opacity
 
-    if (StyleConfigData::toolBarOpacity() < 100) {
+    if (StyleConfigData::toolBarOpacity() < 100 && !_isOpaque) {
         opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::ToolBar);
         painter->fillRect(rect, opacityBackground);
     }
@@ -6821,7 +6822,7 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
     // opacity only target dolphin and konsole
     // if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && (widget->parentWidget()->inherits("DolphinTabWidget") ||
     // widget->parentWidget()->inherits("Konsole::TabbedViewContainer"))) {
-    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100)) {
+    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && !_isOpaque) {
         // override the tab background color if adjustToDarkThemes is false
         if (StyleConfigData::adjustToDarkThemes()) {
             backgroundColor = _helper->transparentBarBgColor(backgroundColor, painter, rect, BarType::TabBar);
