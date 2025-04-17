@@ -18,9 +18,6 @@
 
 #pragma once
 
-// own
-#include "darklycommon_export.h"
-
 // Qt
 #include <QColor>
 #include <QImage>
