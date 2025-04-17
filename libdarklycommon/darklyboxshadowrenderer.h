@@ -26,8 +26,7 @@
 
 namespace Darkly
 {
-
-class DARKLYCOMMON_EXPORT BoxShadowRenderer
+class BoxShadowRenderer
 {
 public:
     // Compiler generated constructors & destructor are fine.
