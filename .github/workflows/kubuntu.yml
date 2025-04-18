@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    container: deltacopy/kubuntu:0.1
+    container: deltacopy/kubuntu:0.2
     steps:
       - uses: actions/cache/restore@v4
         with:
