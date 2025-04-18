@@ -77,7 +77,7 @@ jobs:
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
-      containers: "['fedora:latest', 'fedora:40']"
+      containers: "['fedora:latest', 'fedora:41', 'fedora:40']"
 
   Archlinux:
     needs: release-ci
