@@ -50,12 +50,12 @@ jobs:
           path: ${{ steps.step_get_asset.outputs.ASSET }}
           key: ${{ runner.os }}-v${{ steps.step_getlatest_tag.outputs.VERSION }}-${{ hashFiles(steps.step_get_asset.outputs.ASSET) }}
 
-  Kubuntu:
-    needs: release-ci
-    uses: ./.github/workflows/kubuntu.yml
-    with:
-      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-      version: ${{ needs.release-ci.outputs.VERSION }}
+  # Kubuntu:
+  #   needs: release-ci
+  #   uses: ./.github/workflows/kubuntu.yml
+  #   with:
+  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+  #     version: ${{ needs.release-ci.outputs.VERSION }}
 
   openSUSE-Tumbleweed:
     needs: release-ci

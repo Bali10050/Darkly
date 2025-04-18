@@ -90,8 +90,8 @@ Darkly is a fork of breeze theme style that aims to be visually modern and minim
 
 %if 0%{?fedora} || 0%{?centos_version} || 0%{?rhel_version}
 
-%{_libdir}/lib%{_style}common5.so.*
-%{_libdir}/lib%{_style}common6.so.*
+#%{_libdir}/lib%{_style}common5.so.*
+#%{_libdir}/lib%{_style}common6.so.*
 %{_datadir}/applications/%{_style}styleconfig.desktop
 %{_datadir}/applications/kcm_%{_style}decoration.desktop
 %{_datadir}/kservices6/%{_style}decorationconfig.desktop
@@ -121,8 +121,8 @@ Darkly is a fork of breeze theme style that aims to be visually modern and minim
 %else
 #OpenSUSE
 
-%{_libdir}/lib%{_style}common5.so.*
-%{_libdir}/lib%{_style}common6.so.*
+#%{_libdir}/lib%{_style}common5.so.*
+#%{_libdir}/lib%{_style}common6.so.*
 %{_kf6_applicationsdir}/%{_style}styleconfig.desktop
 %{_kf6_applicationsdir}/kcm_%{_style}decoration.desktop
 %{_datadir}/kservices6/%{_style}decorationconfig.desktop
