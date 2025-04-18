@@ -18,9 +18,6 @@
 
 #pragma once
 
-// own
-#include "darklycommon_export.h"
-
 // Qt
 #include <QColor>
 #include <QImage>
@@ -29,8 +26,7 @@
 
 namespace Darkly
 {
-
-class DARKLYCOMMON_EXPORT BoxShadowRenderer
+class BoxShadowRenderer
 {
 public:
     // Compiler generated constructors & destructor are fine.
