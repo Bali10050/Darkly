@@ -80,9 +80,14 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_toolBarOpacity, SIGNAL(valueChanged(int)), _toolBarOpacitySpinBox, SLOT(setValue(int)));
     connect(_toolBarOpacitySpinBox, SIGNAL(valueChanged(int)), _toolBarOpacity, SLOT(setValue(int)));
 
+    connect(_tabBarOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
+    connect(_tabBarOpacity, SIGNAL(valueChanged(int)), _tabBarOpacitySpinBox, SLOT(setValue(int)));
+    connect(_tabBarOpacitySpinBox, SIGNAL(valueChanged(int)), _tabBarOpacity, SLOT(setValue(int)));
+
     connect(_kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_widgetToolBarShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_shadowSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_shadowColor, &KColorCombo::activated, this, &StyleConfig::updateChanged);
     connect(_shadowStrength, SIGNAL(valueChanged(int)), _shadowStrength, SLOT(setValue(int)));
@@ -98,6 +103,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_cornerRadius, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(_tabUseHighlightColor, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabUseBrighterCloseIcon, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_disableDolphinUrlNavigatorBackground, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabsHeight, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
 }
 
@@ -125,9 +131,11 @@ void StyleConfig::save()
     StyleConfigData::setDolphinSidebarOpacity(_sidebarOpacity->value());
     StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
     StyleConfigData::setToolBarOpacity(_toolBarOpacity->value());
+    StyleConfigData::setTabBarOpacity(_tabBarOpacity->value());
     StyleConfigData::setButtonSize(_buttonSize->value());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
+    StyleConfigData::setWidgetToolBarShadow(_widgetToolBarShadow->isChecked());
     StyleConfigData::setShadowSize(_shadowSize->currentIndex());
     StyleConfigData::setShadowColor(_shadowColor->color());
     StyleConfigData::setShadowStrength(_shadowStrength->value());
@@ -141,6 +149,7 @@ void StyleConfig::save()
     StyleConfigData::setCornerRadius(_cornerRadius->value());
     StyleConfigData::setTabUseHighlightColor(_tabUseHighlightColor->isChecked());
     StyleConfigData::setTabUseBrighterCloseIcon(_tabUseBrighterCloseIcon->isChecked());
+    StyleConfigData::setDisableDolphinUrlNavigatorBackground(_disableDolphinUrlNavigatorBackground->isChecked());
     StyleConfigData::setTabsHeight(_tabsHeight->value());
 
     StyleConfigData::self()->save();
@@ -219,11 +228,16 @@ void StyleConfig::updateChanged()
     } else if (_toolBarOpacity->value() != StyleConfigData::toolBarOpacity()) {
         modified = true;
         _toolBarOpacitySpinBox->setValue(_toolBarOpacity->value());
+    } else if (_tabBarOpacity->value() != StyleConfigData::tabBarOpacity()) {
+        modified = true;
+        _tabBarOpacitySpinBox->setValue(_tabBarOpacity->value());
     } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
         modified = true;
     else if (_tabBarDrawCenteredTabs->isChecked() != StyleConfigData::tabBarDrawCenteredTabs())
         modified = true;
     else if (_widgetDrawShadow->isChecked() != StyleConfigData::widgetDrawShadow())
+        modified = true;
+    else if (_widgetToolBarShadow->isChecked() != StyleConfigData::widgetToolBarShadow())
         modified = true;
     else if (_shadowSize->currentIndex() != StyleConfigData::shadowSize()) {
         modified = true;
@@ -251,6 +265,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_tabUseBrighterCloseIcon->isChecked() != StyleConfigData::tabUseBrighterCloseIcon())
         modified = true;
+    else if (_disableDolphinUrlNavigatorBackground->isChecked() != StyleConfigData::disableDolphinUrlNavigatorBackground())
+        modified = true;
     else if (_tabsHeight->value() != StyleConfigData::tabsHeight())
         modified = true;
 
@@ -262,6 +278,18 @@ void StyleConfig::updateChanged()
         _shadowColor->setEnabled(true);
         _shadowIntensity->setEnabled(true);
         _shadowStrength->setEnabled(true);
+    }
+
+    if (!_widgetDrawShadow->isChecked()) {
+        _widgetToolBarShadow->setEnabled(false);
+    } else {
+        _widgetToolBarShadow->setEnabled(true);
+    }
+
+    if (_adjustToDarkThemes->isChecked()) {
+        _tabBGColor->setEnabled(true);
+    } else {
+        _tabBGColor->setEnabled(false);
     }
 
     emit changed(modified);
@@ -295,10 +323,18 @@ void StyleConfig::load()
     _menuBarOpacitySpinBox->setValue(StyleConfigData::menuBarOpacity());
     _toolBarOpacity->setValue(StyleConfigData::toolBarOpacity());
     _toolBarOpacitySpinBox->setValue(StyleConfigData::toolBarOpacity());
+    _tabBarOpacity->setValue(StyleConfigData::tabBarOpacity());
+    _tabBarOpacitySpinBox->setValue(StyleConfigData::tabBarOpacity());
 
     _buttonSize->setValue(StyleConfigData::buttonSize());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
     _widgetDrawShadow->setChecked(StyleConfigData::widgetDrawShadow());
+    _widgetToolBarShadow->setChecked(StyleConfigData::widgetToolBarShadow());
+
+    if (!_widgetDrawShadow->isChecked()) {
+        _widgetToolBarShadow->setEnabled(false);
+    }
+
     for (QString &item : _shadowSizes) {
         if (item == "None") {
             _shadowSize->addItem(item, "ShadowNone");
@@ -318,18 +354,28 @@ void StyleConfig::load()
         _shadowIntensity->setEnabled(false);
         _shadowStrength->setEnabled(false);
     }
+
+    _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
+
+    if (_adjustToDarkThemes->isChecked()) {
+        _tabBGColor->setEnabled(true);
+    } else {
+        _tabBGColor->setEnabled(false);
+    }
+
     _shadowColor->setColor(StyleConfigData::shadowColor());
     _shadowStrength->setValue(StyleConfigData::shadowStrength());
     _shadowIntensity->setCurrentIndex(StyleConfigData::shadowIntensity());
     _scrollableMenu->setChecked(StyleConfigData::scrollableMenu());
     _oldTabbar->setChecked(StyleConfigData::oldTabbar());
-    _adjustToDarkThemes->setChecked(StyleConfigData::adjustToDarkThemes());
+
     _tabBarAltStyle->setChecked(StyleConfigData::tabBarAltStyle());
     _tabBGColor->setColor(StyleConfigData::tabBGColor());
     _transparentDolphinView->setChecked(StyleConfigData::transparentDolphinView());
     _cornerRadius->setValue(StyleConfigData::cornerRadius());
     _tabUseHighlightColor->setChecked(StyleConfigData::tabUseHighlightColor());
     _tabUseBrighterCloseIcon->setChecked(StyleConfigData::tabUseBrighterCloseIcon());
+    _disableDolphinUrlNavigatorBackground->setChecked(StyleConfigData::disableDolphinUrlNavigatorBackground());
     _versionNumber->setText(DARKLY_VERSION_STRING);
     _tabsHeight->setValue(StyleConfigData::tabsHeight());
 }

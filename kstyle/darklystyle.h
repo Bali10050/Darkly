@@ -139,6 +139,7 @@ public:
 
     bool eventFilter(QObject *, QEvent *) override;
     bool eventFilterScrollArea(QWidget *, QEvent *);
+    bool eventFilterDolphinUrlNavigator(QWidget *, QEvent *);
     bool eventFilterComboBoxContainer(QWidget *, QEvent *);
     bool eventFilterDockWidget(QDockWidget *, QEvent *);
     bool eventFilterMdiSubWindow(QMdiSubWindow *, QEvent *);
@@ -480,6 +481,10 @@ private:
         return QRectF(rect.left() + (rect.width() - width) / 2, rect.top() + (rect.height() - height) / 2, width, height);
     }
 
+    static int sliderTickMarksLength();
+
+    static QRect sliderRectWithoutTickMarks(const QStyleOptionSlider *option);
+
     /*
     Checks whether the point is before the bound rect for bound of given orientation.
     This is needed to implement custom number of buttons in scrollbars,
@@ -606,6 +611,9 @@ private:
     bool _subApp = false;
     //* Some apps shouldn't have translucent windows.
     bool _isOpaque = false;
+
+    // blur is required for toolbar, menubar, tabbar if opaque
+    bool _isBarsOpaque = false;
 };
 
 //_________________________________________________________________________

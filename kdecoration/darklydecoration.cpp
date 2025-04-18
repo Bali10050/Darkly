@@ -253,12 +253,14 @@ bool Decoration::init()
     connect(c, &KDecoration3::DecoratedWindow::maximizedChanged, this, &Decoration::updateTitleBar);
 
     connect(c, &KDecoration3::DecoratedWindow::sizeChanged, this, &Decoration::updateBlur); // recalculate blur region on resize
-    
-    connect(c, &KDecoration3::DecoratedWindow::maximizedChanged, this, &Decoration::updateTitleBar);
+
     connect(c, &KDecoration3::DecoratedWindow::widthChanged, this, &Decoration::updateButtonsGeometry);
     connect(c, &KDecoration3::DecoratedWindow::maximizedChanged, this, &Decoration::updateButtonsGeometry);
     connect(c, &KDecoration3::DecoratedWindow::adjacentScreenEdgesChanged, this, &Decoration::updateButtonsGeometry);
     connect(c, &KDecoration3::DecoratedWindow::shadedChanged, this, &Decoration::updateButtonsGeometry);
+
+    // shade button doesn't resize properly so this is now required
+    connect(this, &KDecoration3::Decoration::bordersChanged, this, &Decoration::updateButtonsGeometryDelayed);
 
     createButtons();
     createShadow();
@@ -445,9 +447,8 @@ void Decoration::recalculateBorders()
         top += KDecoration3::snapToPixelGrid(std::max(fm.height(), buttonSize()), scale);
 
         // padding below
-        // extra pixel is used for the active window outline
         const int baseSize = s->smallSpacing();
-        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin + 1, scale);
+        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin, scale);
 
         // padding above
         top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_TopMargin, scale);

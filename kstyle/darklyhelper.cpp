@@ -1814,8 +1814,7 @@ bool Helper::hasAlphaChannel(const QWidget *widget) const
 //____________________________________________________________________
 bool Helper::shouldWindowHaveAlpha(const QPalette &palette, bool isDolphin) const
 {
-    if (_activeTitleBarColor.alphaF() < 1.0 || (StyleConfigData::dolphinSidebarOpacity() < 100 && isDolphin) || palette.color(QPalette::Window).alpha() < 255
-        || (StyleConfigData::toolBarOpacity() < 100) || (StyleConfigData::menuBarOpacity() < 100)) {
+    if (_activeTitleBarColor.alphaF() < 1.0 || (StyleConfigData::dolphinSidebarOpacity() < 100 && isDolphin) || palette.color(QPalette::Window).alpha() < 255) {
         return true;
     }
     return false;
@@ -1888,4 +1887,58 @@ bool Helper::shouldDrawToolsArea(const QWidget *widget) const
     }
     return true;
 }
+
+//______________________________________________________________________________________
+QColor Helper::transparentBarBgColor(QColor bgColor, QPainter *painter, const QRect &rect, BarType barType) const
+{
+    switch (barType) {
+    case BarType::MenuBar: {
+        if (StyleConfigData::menuBarOpacity() == 100) {
+            // opacity is at 100%
+            bgColor.setAlphaF(1.0);
+        } else if (StyleConfigData::menuBarOpacity() == 0) {
+            // fully transparent
+            bgColor.setAlphaF(0.0);
+            renderTransparentArea(painter, rect);
+        } else if (StyleConfigData::menuBarOpacity() < 100 && StyleConfigData::menuBarOpacity() > 0) {
+            // lower the opacity
+            bgColor.setAlphaF(StyleConfigData::menuBarOpacity() / 100.0);
+            renderTransparentArea(painter, rect);
+        }
+        return bgColor;
+    }
+    case BarType::ToolBar: {
+        if (StyleConfigData::toolBarOpacity() == 100) {
+            // opacity is at 100%
+            bgColor.setAlphaF(1.0);
+        } else if (StyleConfigData::toolBarOpacity() == 0) {
+            // fully transparent
+            bgColor.setAlphaF(0.0);
+            renderTransparentArea(painter, rect);
+        } else if (StyleConfigData::toolBarOpacity() < 100 && StyleConfigData::toolBarOpacity() > 0) {
+            // lower the opacity
+            bgColor.setAlphaF(StyleConfigData::toolBarOpacity() / 100.0);
+            renderTransparentArea(painter, rect);
+        }
+        return bgColor;
+    }
+    case BarType::TabBar: {
+        if (StyleConfigData::tabBarOpacity() == 100) {
+            // opacity is at 100%
+            bgColor.setAlphaF(1.0);
+        } else if (StyleConfigData::tabBarOpacity() == 0) {
+            // fully transparent
+            bgColor.setAlphaF(0.0);
+            renderTransparentArea(painter, rect);
+        } else if (StyleConfigData::tabBarOpacity() < 100 && StyleConfigData::tabBarOpacity() > 0) {
+            // lower the opacity
+            bgColor.setAlphaF(StyleConfigData::tabBarOpacity() / 100.0);
+            renderTransparentArea(painter, rect);
+        }
+        return bgColor;
+    }
+    default:
+        return bgColor;
+    }
 }
+} // namespace

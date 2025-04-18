@@ -134,6 +134,11 @@
       <default>true</default>
     </entry>
 
+    <!-- shadow underneath toolbar -->
+    <entry name="WidgetToolBarShadow" type="Bool">
+      <default>false</default>
+    </entry>
+
     <entry name="ScrollableMenu" type="Bool">
       <default>true</default>
     </entry>
@@ -178,6 +183,10 @@
 
     <entry name="TabUseHighlightColor" type="Bool">
       <default>false</default>
+    </entry>
+
+    <entry name="DisableDolphinUrlNavigatorBackground" type="Bool">
+      <default>true</default>
     </entry>
 
      <entry name="TabUseBrighterCloseIcon" type="Bool">
@@ -290,6 +299,10 @@
     </entry>
 
     <entry name="ToolBarOpacity" type="Int">
+        <default>100</default>
+    </entry>
+
+     <entry name="TabBarOpacity" type="Int">
         <default>100</default>
     </entry>
 
