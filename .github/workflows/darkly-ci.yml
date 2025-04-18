@@ -57,30 +57,30 @@ jobs:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # openSUSE-Tumbleweed:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/opensuse-tw.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  openSUSE-Tumbleweed:
+    needs: release-ci
+    uses: ./.github/workflows/opensuse-tw.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # KDE-Neon:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/neon.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  KDE-Neon:
+    needs: release-ci
+    uses: ./.github/workflows/neon.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Fedora:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/fedora.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
-  #     containers: "['fedora:latest', 'fedora:40']"
+  Fedora:
+    needs: release-ci
+    uses: ./.github/workflows/fedora.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
+      containers: "['fedora:latest', 'fedora:40']"
 
-  # Archlinux:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/archlinux.yml
-  #   with:
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  Archlinux:
+    needs: release-ci
+    uses: ./.github/workflows/archlinux.yml
+    with:
+      version: ${{ needs.release-ci.outputs.VERSION }}
