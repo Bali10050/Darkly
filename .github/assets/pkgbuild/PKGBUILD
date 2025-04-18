@@ -3,7 +3,7 @@
 # Used inside Github Action workflow archlinux-ci
 
 # basic info
-dev="Bali10050"
+dev="DeltaCopy"
 pkgname="darkly"
 pkgver= # change this to match the name of the release tag you want to build from
 pkgrel=1
