@@ -41,6 +41,15 @@ This means that this fork allows real changes, and not just maintainence.
 
 <https://github.com/Bali10050/Darkly/releases>
 
+***
+#### Solus
+Thanks to @Hurican-Solas
+
+```
+sudo eopkg install darkly
+```
+
+
 ## Manual
 
 ### To ensure this application style works on applications still using QT5 both QT5 and QT6 dependencies are required to be installed before building from source.
