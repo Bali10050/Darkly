@@ -82,6 +82,8 @@ protected:
 
     QRegion blurTabWidgetRegion(QWidget *widget) const;
 
+    QRegion blurSettingsDialogRegion(QWidget *widget) const;
+
     //! update blur regions for given widget
     void update(QWidget *) const;
 

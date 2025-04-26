@@ -350,7 +350,6 @@ void Style::polish(QWidget *widget)
             if (_isKonsole) {
                 _translucentWidgets.insert(widget);
                 if (widget->palette().color(widget->backgroundRole()).alpha() < 255 || _helper->titleBarColor(true).alphaF() * 100.0 < 100 || _isBarsOpaque) {
-                    _blurHelper->registerWidget(widget, _isDolphin);
                     // stop flickering on translucent background
                     widget->setAttribute(Qt::WA_NoSystemBackground, false);
                 }
@@ -474,7 +473,6 @@ void Style::polish(QWidget *widget)
                 itemView->setItemDelegate(new DarklyPrivate::ComboBoxItemDelegate(itemView));
             }
         }
-
     } else if (widget->inherits("QComboBoxPrivateContainer")) {
         addEventFilter(widget);
         setTranslucentBackground(widget);
@@ -486,9 +484,7 @@ void Style::polish(QWidget *widget)
         widget->setAttribute(Qt::WA_StyledBackground);
     } else if (qobject_cast<QDialogButtonBox *>(widget)) {
         addEventFilter(widget);
-
-        // opaque menubar / toolbar / tabbar
-
+        // opaque menubar / toolbar / tabbar register blur
     } else if (_isBarsOpaque) {
         _blurHelper->registerWidget(widget->window(), _isDolphin);
     }
@@ -1580,10 +1576,11 @@ bool Style::eventFilter(QObject *object, QEvent *event)
         if (widget && widget->inherits("QWidget")) {
             // also catch if the alpha channel is set to 255
             if (widget->palette().color(QPalette::Window).alpha() <= 255) {
-                if ((qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget)) && _helper->titleBarColor(true).alphaF() < 1.0) {
+                if ((qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget)) || _isBarsOpaque || _helper->titleBarColor(true).alphaF() < 1.0) {
                     if (event->type() == QEvent::Move || event->type() == QEvent::Show || event->type() == QEvent::Hide) {
-                        if (_translucentWidgets.contains(widget->window()) && !_isKonsole)
+                        if (_translucentWidgets.contains(widget->window()) && !_isKonsole) {
                             _blurHelper->forceUpdate(widget->window());
+                        }
                     }
                 }
             }
