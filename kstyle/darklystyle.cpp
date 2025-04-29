@@ -8638,7 +8638,7 @@ void Style::setSurfaceFormat(QWidget *widget) const
 
     else {
         // this stops flickering on transparent toolbar, menubar, tabbar
-        if (_isBarsOpaque) {
+        if (_isBarsOpaque && !_isOpaque) {
             widget->setAttribute(Qt::WA_TranslucentBackground);
             widget->setAttribute(Qt::WA_NoSystemBackground, false);
         }
