@@ -44,7 +44,7 @@ using ScopedPointer = QScopedPointer<T, QScopedPointerPodDeleter>;
 //* metrics
 enum Metrics {
     // frames
-    Frame_FrameWidth = 5,
+    Frame_FrameWidth = 2,
     // Frame_FrameRadius = 6,
 
     // layout
