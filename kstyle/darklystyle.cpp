@@ -3286,7 +3286,7 @@ QSize Style::comboBoxSizeFromContents(const QStyleOption *option, const QSize &c
         size = expandSize(size, frameWidth);
 
     // make sure there is enough height for the button
-    size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), int(Metrics::MenuButton_IndicatorWidth)));
+    size.setHeight(qMax(size.height() + Metrics::Frame_FrameWidth, int(Metrics::MenuButton_IndicatorWidth)));
 
     // add button width and spacing
     size.rwidth() += Metrics::MenuButton_IndicatorWidth + 2;
@@ -3314,7 +3314,7 @@ QSize Style::spinBoxSizeFromContents(const QStyleOption *option, const QSize &co
         size = expandSize(size, frameWidth);
 
     // make sure there is enough height for the button
-    size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), int(Metrics::SpinBox_ArrowButtonWidth)));
+    size.setHeight(qMax(size.height() + Metrics::Frame_FrameWidth, int(Metrics::SpinBox_ArrowButtonWidth)));
 
     // add button width and spacing
     size.rwidth() += Metrics::SpinBox_ArrowButtonWidth;
@@ -3407,7 +3407,7 @@ QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize 
             if (!iconSize.isValid())
                 iconSize = QSize(pixelMetric(PM_SmallIconSize, option, widget), pixelMetric(PM_SmallIconSize, option, widget));
 
-            size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), iconSize.height()));
+            size.setHeight(qMax(size.height(), iconSize.height()));
             size.rwidth() += iconSize.width();
 
             if (hasText)
@@ -3430,6 +3430,11 @@ QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize 
     if (hasText) {
         size.setWidth(qMax(size.width(), int(Metrics::Button_MinWidth)));
     }
+
+    // adjust the size add on the button size from StyleConfigData
+
+    size.rwidth() += StyleConfigData::buttonWidth();
+    size.rheight() += StyleConfigData::buttonHeight();
 
     // finally add frame margins
     return expandSize(size, Metrics::Frame_FrameWidth);
