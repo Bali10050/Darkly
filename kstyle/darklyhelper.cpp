@@ -527,6 +527,8 @@ void Helper::renderSidePanelFrame(QPainter *painter, const QRect &rect, const QC
 //______________________________________________________________________________
 void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor &color, const QColor &outline, bool roundCorners, Qt::Edges seamlessEdges) const
 {
+    painter->save();
+
     // set brush
     if (color.isValid())
         painter->setBrush(color);
@@ -544,21 +546,18 @@ void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor 
             seamlessEdges.testFlag(Qt::RightEdge) ? radius : 0,
             seamlessEdges.testFlag(Qt::BottomEdge) ? radius : 0);
 
-        painter->setPen(Qt::NoPen);
+        // set pen
+        if (outline.isValid()) {
+            painter->setPen(outline);
+            frameRect = strokedRect(frameRect);
+            radius = frameRadiusForNewPenWidth(radius, PenWidth::Frame);
+
+        } else {
+            painter->setPen(Qt::NoPen);
+        }
 
         // render
         painter->drawRoundedRect(frameRect, radius, radius);
-
-        // outline
-        if (outline.isValid()) {
-            painter->setPen(outline);
-            painter->setBrush(Qt::NoBrush);
-            frameRect = strokedRect(frameRect);
-            radius += 0.5; // enhance pixel aligment
-            painter->setCompositionMode(QPainter::CompositionMode_SourceOver);
-
-            painter->drawRoundedRect(frameRect, radius, radius);
-        }
 
     } else {
         painter->setRenderHint(QPainter::Antialiasing, false);
@@ -579,6 +578,8 @@ void Helper::renderMenuFrame(QPainter *painter, const QRect &rect, const QColor 
 
         painter->drawRect(frameRect);
     }
+
+    painter->restore();
 }
 
 //______________________________________________________________________________
