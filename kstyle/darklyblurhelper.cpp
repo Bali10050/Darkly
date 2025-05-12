@@ -91,8 +91,9 @@ QRegion roundedRegion(const QRect &rect, int radius, bool topLeft, bool topRight
 namespace Darkly
 {
 //___________________________________________________________
-BlurHelper::BlurHelper(QObject *parent)
+BlurHelper::BlurHelper(QObject *parent, Helper &helper)
     : QObject(parent)
+    , _helper(helper)
 {
 }
 
@@ -383,6 +384,10 @@ void BlurHelper::update(QWidget *widget) const
     QRegion region = blurRegion(widget);
     if (region.isNull())
         return;
+
+    if (const auto menu = qobject_cast<QMenu *>(widget)) {
+        region = _helper.menuFrameRegion(menu);
+    }
 
     widget->winId(); // force creation of the window handle
     KWindowEffects::enableBlurBehind(widget->windowHandle(), true, region);

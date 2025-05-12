@@ -33,4 +33,6 @@ const char PropertyNames::alteredBackground[] = "_darkly_altered_background";
 const char PropertyNames::forceFrame[] = "_breeze_force_frame";
 const char PropertyNames::bordersSides[] = "_breeze_borders_sides";
 const char PropertyNames::noSeparator[] = "_darkly_no_separator";
+const char PropertyNames::isTopMenu[] = "_breeze_menu_is_top";
+const char PropertyNames::menuSeamlessEdges[] = "_breeze_menu_seamless_edges";
 }

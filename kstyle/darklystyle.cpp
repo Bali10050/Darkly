@@ -178,7 +178,7 @@ Style::Style()
     , _shadowHelper(new ShadowHelper(this, *_helper))
     , _animations(new Animations(this))
     , _mnemonics(new Mnemonics(this))
-    , _blurHelper(new BlurHelper(this))
+    , _blurHelper(new BlurHelper(this, *_helper))
     , _windowManager(new WindowManager(this))
     , _frameShadowFactory(new FrameShadowFactory(this))
     , _mdiWindowShadowFactory(new MdiWindowShadowFactory(this))
@@ -1813,11 +1813,8 @@ bool Style::eventFilterComboBoxContainer(QWidget *widget, QEvent *event)
         const bool hasAlpha(_helper->hasAlphaChannel(widget));
         if (hasAlpha) {
             painter.setCompositionMode(QPainter::CompositionMode_Source);
-            _helper->renderMenuFrame(&painter, rect, background, outline, true);
-
-        } else {
-            _helper->renderMenuFrame(&painter, rect, background, outline, false);
         }
+        _helper->renderMenuFrame(&painter, rect, background, outline, hasAlpha);
     }
 
     return false;
@@ -4442,6 +4439,7 @@ bool Style::drawPanelMenuPrimitive(const QStyleOption *option, QPainter *painter
     const bool hasAlpha(_helper->hasAlphaChannel(widget));
     // auto background( _helper->frameBackgroundColor( palette ) );
     auto background(palette.color(QPalette::Base));
+    const auto seamlessEdges = _helper->menuSeamlessEdges(widget);
 
     painter->save();
 
@@ -4450,7 +4448,7 @@ bool Style::drawPanelMenuPrimitive(const QStyleOption *option, QPainter *painter
         background.setAlphaF(StyleConfigData::menuOpacity() / 100.0);
     }
 
-    _helper->renderMenuFrame(painter, option->rect, background, outline, hasAlpha);
+    _helper->renderMenuFrame(painter, option->rect, background, outline, hasAlpha, seamlessEdges);
 
     painter->restore();
 
@@ -5832,6 +5830,24 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
                 outlineColor = _helper->focusColor(palette);
             else if (selected)
                 outlineColor = _helper->hoverColor(palette);
+
+            Sides sides;
+            if (!menuItemOption->menuRect.isNull()) {
+                const auto seamlessEdges = _helper->menuSeamlessEdges(widget);
+
+                if (rect.top() <= menuItemOption->menuRect.top() && !seamlessEdges.testFlag(Qt::TopEdge)) {
+                    sides |= SideTop;
+                }
+                if (rect.bottom() >= menuItemOption->menuRect.bottom() && !seamlessEdges.testFlag(Qt::BottomEdge)) {
+                    sides |= SideBottom;
+                }
+                if (rect.left() <= menuItemOption->menuRect.left() && !seamlessEdges.testFlag(Qt::LeftEdge)) {
+                    sides |= SideLeft;
+                }
+                if (rect.right() >= menuItemOption->menuRect.right() && !seamlessEdges.testFlag(Qt::RightEdge)) {
+                    sides |= SideRight;
+                }
+            }
 
             _helper->renderFocusLine(painter, textRect, outlineColor);
         }
