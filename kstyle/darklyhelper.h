@@ -433,6 +433,9 @@ public:
                         QIcon::Mode mode = QIcon::Normal,
                         QIcon::State state = QIcon::Off);
 
+    //* MenuBar, ToolBar, TabBar background color opacity
+    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType) const;
+
     QRegion menuFrameRegion(const QWidget *widget);
 
     static Qt::Edges menuSeamlessEdges(const QWidget *);
