@@ -3914,7 +3914,14 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
         // Fix needed: if Dolphin location is Editable
 
         // render
-        _helper->renderLineEdit(painter, rect, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+        if (isVisible) {
+            QLineEdit* dolphinLineEdit = widget->findChild<QLineEdit *>();
+            if (dolphinLineEdit->isVisible()) {
+                _helper->renderLineEdit(painter, rect.adjusted(0, -2, 0, 2), background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+            }
+        } else {
+            _helper->renderLineEdit(painter, rect, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+        }
     }
 
     return true;
