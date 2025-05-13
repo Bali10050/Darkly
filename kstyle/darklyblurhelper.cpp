@@ -340,8 +340,9 @@ QRegion BlurHelper::blurSettingsDialogRegion(QWidget *widget) const
     QRegion region;
     QList<QWidget *> widgets = widget->findChildren<QWidget *>();
 
-    // settings
-    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog) {
+    // settings only change it for konsole or dolphin about window
+    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog
+        && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
         for (auto w : widgets) {
             if (qobject_cast<QTabWidget *>(w) && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
                 // about dialog
