@@ -110,7 +110,13 @@ endif()
 
 
 ########### install files ###############
-install(TARGETS darkly${QT_MAJOR_VERSION} DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/styles/)
+if (FOR_FLATPAK)
+    set(LIB_TARGET ${QT_PLUGINS_DIR}/styles/)
+else()
+    set(LIB_TARGET ${KDE_INSTALL_QTPLUGINDIR}/styles/)
+endif()
+install(TARGETS darkly${QT_MAJOR_VERSION} DESTINATION ${LIB_TARGET})
+
 if (!FOR_FLATPAK)
     install(FILES darkly.themerc  DESTINATION  ${KDE_INSTALL_DATADIR}/kstyle/themes)
 endif()
