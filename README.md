@@ -1,6 +1,6 @@
 > [!IMPORTANT]
 > If you use a distro that doesn't have plasma 6.3 yet, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly\(6.2\)](https://github.com/Bali10050/Darkly/tree/Darkly(6.2)) branch.
-> 
+>
 > You can use this one if you want to, but it most likely won't work
 
 # About this fork
@@ -66,6 +66,13 @@ sudo eopkg install darkly
 `./install.sh QT6` will build & install using only QT6/KF6 dependencies.
 
 `./install.sh remove` will remove Darkly.
+
+### Flatpak
+
+Manifests should have the latest versions of KDE Runtime and SDK
+
+Build with `org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json` (use `org.kde.KStyle.Darkly6.json` for KF5)
+Bundle with `flatpak build-bundle darkly-master/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>`
 
 #### Void Linux
 

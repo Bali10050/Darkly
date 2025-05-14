@@ -37,13 +37,14 @@ include(KDEGitCommitHooks)
 
 include(GtkUpdateIconCache)
 
+option(FOR_FLATPAK "Build Lightly for Flatpak" OFF)
 option(BUILD_QT5 "Build with QT5" ON)
 option(BUILD_QT6 "Build with QT6" ON)
 
 set(QT_NO_CREATE_VERSIONLESS_TARGETS ON)
 set(QT_NO_CREATE_VERSIONLESS_FUNCTIONS ON)
 
-if(WIN32 OR APPLE)
+if(WIN32 OR APPLE OR FOR_FLATPAK)
     set(WITH_DECORATIONS OFF)
 endif()
 
@@ -61,22 +62,22 @@ function(build_qt5)
             I18n
             IconThemes
             WindowSystem)
-        if(NOT WIN32 AND NOT APPLE)
-            find_package(KF5KCMUtils ${KF5_MIN_VERSION})
-            set_package_properties(KF5KCMUtils PROPERTIES
+    if(NOT WIN32 AND NOT APPLE)
+        find_package(KF5KCMUtils ${KF5_MIN_VERSION})
+        set_package_properties(KF5KCMUtils PROPERTIES
                 TYPE REQUIRED
                 DESCRIPTION "Helps create configuration modules"
                 PURPOSE "KCMUtils used for the configuration modules or the decoration and Qt Style"
             )
-        endif()
+    endif()
 
     find_package(Qt5 ${QT5_MIN_VERSION} OPTIONAL_COMPONENTS Quick)
-        if(${Qt5Quick_FOUND})
+    if(${Qt5Quick_FOUND})
         find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS Kirigami2)
-        endif()
+    endif()
 
     find_package(KF5FrameworkIntegration ${KF5_MIN_VERSION} CONFIG )
-        set_package_properties(KF${QT_MAJOR_VERSION}FrameworkIntegration PROPERTIES
+    set_package_properties(KF${QT_MAJOR_VERSION}FrameworkIntegration PROPERTIES
             DESCRIPTION "KF${QT_MAJOR_VERSION} Framework Integration"
             URL "https://projects.kde.org/projects/frameworks/frameworkintegration"
             TYPE OPTIONAL
@@ -113,22 +114,22 @@ function(build_qt6)
             I18n
             IconThemes
             WindowSystem)
-        if(NOT WIN32 AND NOT APPLE)
-            find_package(KF6KCMUtils ${KF6_MIN_VERSION})
-            set_package_properties(KF6KCMUtils PROPERTIES
+    if(NOT WIN32 AND NOT APPLE)
+        find_package(KF6KCMUtils ${KF6_MIN_VERSION})
+        set_package_properties(KF6KCMUtils PROPERTIES
                 TYPE REQUIRED
                 DESCRIPTION "Helps create configuration modules"
                 PURPOSE "KCMUtils used for the configuration modules or the decoration and Qt Style"
             )
-        endif()
+    endif()
 
     find_package(Qt6 ${QT_MIN_VERSION} OPTIONAL_COMPONENTS Quick)
-        if(${Qt6Quick_FOUND})
-            find_package(KF6KirigamiPlatform ${KF6_MIN_VERSION} REQUIRED)
-        endif()
+    if(${Qt6Quick_FOUND})
+        find_package(KF6KirigamiPlatform ${KF6_MIN_VERSION} REQUIRED)
+    endif()
 
     find_package(KF6FrameworkIntegration ${KF6_MIN_VERSION} CONFIG )
-        set_package_properties(KF${QT_MAJOR_VERSION}FrameworkIntegration PROPERTIES
+    set_package_properties(KF${QT_MAJOR_VERSION}FrameworkIntegration PROPERTIES
             DESCRIPTION "KF${QT_MAJOR_VERSION} Framework Integration"
             URL "https://projects.kde.org/projects/frameworks/frameworkintegration"
             TYPE OPTIONAL
