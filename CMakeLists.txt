@@ -170,17 +170,19 @@ function(build_qt6)
 
     set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Darkly")
 
-    configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
-                                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
-                                    PATH_VARS KDE_INSTALL_FULL_DATADIR
-                                    INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-                                )
+    if (!FOR_FLATPAK)
+        configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
+                                        "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
+                                        PATH_VARS KDE_INSTALL_FULL_DATADIR
+                                        INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+                                    )
 
-    install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
-                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
-                DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-                COMPONENT Devel
-            )
+        install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
+                        "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
+                    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+                    COMPONENT Devel
+                )
+    endif()
     unset(QUERY_EXECUTABLE CACHE)
 endfunction()
 
@@ -194,7 +196,9 @@ function(build_colors)
     add_subdirectory(colors)
 endfunction()
 
-build_colors()
+if (!FOR_FLATPAK)
+    build_colors()
+endif()
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
