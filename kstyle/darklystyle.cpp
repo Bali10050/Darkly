@@ -350,7 +350,6 @@ void Style::polish(QWidget *widget)
             if (_isKonsole) {
                 _translucentWidgets.insert(widget);
                 if (widget->palette().color(widget->backgroundRole()).alpha() < 255 || _helper->titleBarColor(true).alphaF() * 100.0 < 100 || _isBarsOpaque) {
-                    _blurHelper->registerWidget(widget, _isDolphin);
                     // stop flickering on translucent background
                     widget->setAttribute(Qt::WA_NoSystemBackground, false);
                 }
@@ -474,7 +473,6 @@ void Style::polish(QWidget *widget)
                 itemView->setItemDelegate(new DarklyPrivate::ComboBoxItemDelegate(itemView));
             }
         }
-
     } else if (widget->inherits("QComboBoxPrivateContainer")) {
         addEventFilter(widget);
         setTranslucentBackground(widget);
@@ -486,9 +484,7 @@ void Style::polish(QWidget *widget)
         widget->setAttribute(Qt::WA_StyledBackground);
     } else if (qobject_cast<QDialogButtonBox *>(widget)) {
         addEventFilter(widget);
-
-        // opaque menubar / toolbar / tabbar
-
+        // opaque menubar / toolbar / tabbar register blur
     } else if (_isBarsOpaque) {
         _blurHelper->registerWidget(widget->window(), _isDolphin);
     }
@@ -1580,10 +1576,11 @@ bool Style::eventFilter(QObject *object, QEvent *event)
         if (widget && widget->inherits("QWidget")) {
             // also catch if the alpha channel is set to 255
             if (widget->palette().color(QPalette::Window).alpha() <= 255) {
-                if ((qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget)) && _helper->titleBarColor(true).alphaF() < 1.0) {
+                if ((qobject_cast<QToolBar *>(widget) || qobject_cast<QMenuBar *>(widget)) || _isBarsOpaque || _helper->titleBarColor(true).alphaF() < 1.0) {
                     if (event->type() == QEvent::Move || event->type() == QEvent::Show || event->type() == QEvent::Hide) {
-                        if (_translucentWidgets.contains(widget->window()) && !_isKonsole)
+                        if (_translucentWidgets.contains(widget->window()) && !_isKonsole) {
                             _blurHelper->forceUpdate(widget->window());
+                        }
                     }
                 }
             }
@@ -3289,7 +3286,7 @@ QSize Style::comboBoxSizeFromContents(const QStyleOption *option, const QSize &c
         size = expandSize(size, frameWidth);
 
     // make sure there is enough height for the button
-    size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), int(Metrics::MenuButton_IndicatorWidth)));
+    size.setHeight(qMax(size.height() + Metrics::Frame_FrameWidth, int(Metrics::MenuButton_IndicatorWidth)));
 
     // add button width and spacing
     size.rwidth() += Metrics::MenuButton_IndicatorWidth + 2;
@@ -3317,7 +3314,7 @@ QSize Style::spinBoxSizeFromContents(const QStyleOption *option, const QSize &co
         size = expandSize(size, frameWidth);
 
     // make sure there is enough height for the button
-    size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), int(Metrics::SpinBox_ArrowButtonWidth)));
+    size.setHeight(qMax(size.height() + Metrics::Frame_FrameWidth, int(Metrics::SpinBox_ArrowButtonWidth)));
 
     // add button width and spacing
     size.rwidth() += Metrics::SpinBox_ArrowButtonWidth;
@@ -3410,7 +3407,7 @@ QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize 
             if (!iconSize.isValid())
                 iconSize = QSize(pixelMetric(PM_SmallIconSize, option, widget), pixelMetric(PM_SmallIconSize, option, widget));
 
-            size.setHeight(qMax(size.height() + StyleConfigData::buttonSize(), iconSize.height()));
+            size.setHeight(qMax(size.height(), iconSize.height()));
             size.rwidth() += iconSize.width();
 
             if (hasText)
@@ -3433,6 +3430,11 @@ QSize Style::pushButtonSizeFromContents(const QStyleOption *option, const QSize 
     if (hasText) {
         size.setWidth(qMax(size.width(), int(Metrics::Button_MinWidth)));
     }
+
+    // adjust the size add on the button size from StyleConfigData
+
+    size.rwidth() += StyleConfigData::buttonWidth();
+    size.rheight() += StyleConfigData::buttonHeight();
 
     // finally add frame margins
     return expandSize(size, Metrics::Frame_FrameWidth);
@@ -3912,7 +3914,14 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
         // Fix needed: if Dolphin location is Editable
 
         // render
-        _helper->renderLineEdit(painter, rect, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+        if (isVisible) {
+            QLineEdit* dolphinLineEdit = widget->findChild<QLineEdit *>();
+            if (dolphinLineEdit->isVisible()) {
+                _helper->renderLineEdit(painter, rect.adjusted(0, -2, 0, 2), background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+            }
+        } else {
+            _helper->renderLineEdit(painter, rect, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+        }
     }
 
     return true;
@@ -8641,7 +8650,7 @@ void Style::setSurfaceFormat(QWidget *widget) const
 
     else {
         // this stops flickering on transparent toolbar, menubar, tabbar
-        if (_isBarsOpaque) {
+        if (_isBarsOpaque && !_isOpaque) {
             widget->setAttribute(Qt::WA_TranslucentBackground);
             widget->setAttribute(Qt::WA_NoSystemBackground, false);
         }

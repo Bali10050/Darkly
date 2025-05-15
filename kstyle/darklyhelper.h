@@ -420,10 +420,13 @@ public:
     }
 
     //* return a QRectF with the appropriate size for a rectangle with a pen stroke
-    QRectF strokedRect(const QRectF &rect, const int penWidth = PenWidth::Frame) const;
+    QRectF strokedRect(const QRectF &rect, const qreal penWidth = PenWidth::Frame) const;
 
-    //* return a QRectF with the appropriate size for a rectangle with a pen stroke
-    QRectF strokedRect(const QRect &rect, const int penWidth = PenWidth::Frame) const;
+    //* return a QRectF with the appropriate size for a rectangle with a shadow around it
+    QRectF shadowedRect(const QRectF &rect, const qreal shadowSize = PenWidth::Shadow) const
+    {
+        return rect.adjusted(shadowSize, shadowSize, -shadowSize, -shadowSize);
+    }
 
     QPixmap coloredIcon(const QIcon &icon,
                         const QPalette &palette,

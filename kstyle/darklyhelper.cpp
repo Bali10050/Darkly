@@ -686,13 +686,9 @@ void Helper::renderButtonFrame(QPainter *painter,
 
     painter->setPen(Qt::NoPen);
 
-    // copy rect
-    QRectF frameRect(rect);
-
     // reduce the size of the actual button, the rest will be the shadow
-    frameRect.adjust(5, 5, -5, -5);
-
-    qreal radius(frameRadius() - 1);
+    QRectF frameRect(rect.adjusted(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth));
+    qreal radius(frameRadius() - qreal(Metrics::Frame_FrameWidth));
 
     if (sunken) {
         frameRect.translate(0, 1);
@@ -1717,7 +1713,7 @@ bool Helper::isWayland()
 }
 
 //______________________________________________________________________________
-QRectF Helper::strokedRect(const QRectF &rect, const int penWidth) const
+QRectF Helper::strokedRect(const QRectF &rect, const qreal penWidth) const
 {
     /* With a pen stroke width of 1, the rectangle should have each of its
      * sides moved inwards by half a pixel. This allows the stroke to be
@@ -1727,11 +1723,6 @@ QRectF Helper::strokedRect(const QRectF &rect, const int penWidth) const
      */
     qreal adjustment = 0.5 * penWidth;
     return QRectF(rect).adjusted(adjustment, adjustment, -adjustment, -adjustment);
-}
-
-QRectF Helper::strokedRect(const QRect &rect, const int penWidth) const
-{
-    return strokedRect(QRectF(rect), penWidth);
 }
 
 //______________________________________________________________________________

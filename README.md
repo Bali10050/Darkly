@@ -226,10 +226,10 @@ echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME
 
 ---
 
-#### <u>Kubuntu (24.10)</u>
+#### <u>Kubuntu (25.04)</u>
 
 ```
-sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations2-dev \
+sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
       libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
       libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
       libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \

@@ -66,7 +66,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_menuOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
     connect(_menuOpacity, SIGNAL(valueChanged(int)), _menuOpacitySpinBox, SLOT(setValue(int)));
     connect(_menuOpacitySpinBox, SIGNAL(valueChanged(int)), _menuOpacity, SLOT(setValue(int)));
-    connect(_buttonSize, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
+
     connect(_sidebarOpacity, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
     connect(_sidebarOpacity, SIGNAL(valueChanged(int)), _sidebarOpacitySpinBox, SLOT(setValue(int)));
     connect(_sidebarOpacitySpinBox, SIGNAL(valueChanged(int)), _sidebarOpacity, SLOT(setValue(int)));
@@ -105,6 +105,9 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabUseBrighterCloseIcon, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_disableDolphinUrlNavigatorBackground, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabsHeight, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
+
+    connect(_buttonHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_buttonWidth, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
 }
 
 //__________________________________________________________________
@@ -132,7 +135,6 @@ void StyleConfig::save()
     StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
     StyleConfigData::setToolBarOpacity(_toolBarOpacity->value());
     StyleConfigData::setTabBarOpacity(_tabBarOpacity->value());
-    StyleConfigData::setButtonSize(_buttonSize->value());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
     StyleConfigData::setWidgetToolBarShadow(_widgetToolBarShadow->isChecked());
@@ -151,6 +153,8 @@ void StyleConfig::save()
     StyleConfigData::setTabUseBrighterCloseIcon(_tabUseBrighterCloseIcon->isChecked());
     StyleConfigData::setDisableDolphinUrlNavigatorBackground(_disableDolphinUrlNavigatorBackground->isChecked());
     StyleConfigData::setTabsHeight(_tabsHeight->value());
+    StyleConfigData::setButtonHeight(_buttonHeight->value());
+    StyleConfigData::setButtonWidth(_buttonWidth->value());
 
     StyleConfigData::self()->save();
 
@@ -217,9 +221,11 @@ void StyleConfig::updateChanged()
     else if (_menuOpacity->value() != StyleConfigData::menuOpacity()) {
         modified = true;
         _menuOpacitySpinBox->setValue(_menuOpacity->value());
-    } else if (_buttonSize->value() != StyleConfigData::buttonSize())
+    } else if (_buttonHeight->value() != StyleConfigData::buttonHeight()) {
         modified = true;
-    else if (_sidebarOpacity->value() != StyleConfigData::dolphinSidebarOpacity()) {
+    } else if (_buttonWidth->value() != StyleConfigData::buttonWidth()) {
+        modified = true;
+    } else if (_sidebarOpacity->value() != StyleConfigData::dolphinSidebarOpacity()) {
         modified = true;
         _sidebarOpacitySpinBox->setValue(_sidebarOpacity->value());
     } else if (_menuBarOpacity->value() != StyleConfigData::menuBarOpacity()) {
@@ -325,8 +331,8 @@ void StyleConfig::load()
     _toolBarOpacitySpinBox->setValue(StyleConfigData::toolBarOpacity());
     _tabBarOpacity->setValue(StyleConfigData::tabBarOpacity());
     _tabBarOpacitySpinBox->setValue(StyleConfigData::tabBarOpacity());
-
-    _buttonSize->setValue(StyleConfigData::buttonSize());
+    _buttonHeight->setValue(StyleConfigData::buttonHeight());
+    _buttonWidth->setValue(StyleConfigData::buttonWidth());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
     _widgetDrawShadow->setChecked(StyleConfigData::widgetDrawShadow());
     _widgetToolBarShadow->setChecked(StyleConfigData::widgetToolBarShadow());

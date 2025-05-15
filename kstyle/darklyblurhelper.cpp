@@ -43,6 +43,7 @@
 #include <QToolBar>
 #include <QVector>
 // #include <QDebug>
+
 namespace
 {
 
@@ -274,7 +275,7 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
                 }
 
                 // settings page
-                // moved to blur tabs wiget region
+                // moved to blurSettingsDialogRegion
             }
 
             /*if( (widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog )
@@ -297,7 +298,13 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
         }
 
         // tabs
-        region += blurTabWidgetRegion(widget);
+        if (StyleConfigData::tabBarOpacity() < 100) {
+            region += blurTabWidgetRegion(widget);
+        }
+
+        // settings
+
+        region += blurSettingsDialogRegion(widget);
 
         return region;
     }
@@ -307,44 +314,48 @@ QRegion BlurHelper::blurRegion(QWidget *widget) const
 QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
 {
     QRegion region;
-    // QRect tabWidgetRect = QRect();
 
-    // tabs lock down to only only blur dolphin / konsole main windows
+    // tabs blur only works on dolphin / konsole main windows
 
-    QList<QWidget *> widgets = widget->findChildren<QWidget *>();
+    if (widget->inherits("Konsole::MainWindow") || widget->inherits("DolphinMainWindow")) {
+        const QTabWidget *tw = widget->window()->findChild<QTabWidget *>(QString(), Qt::FindDirectChildrenOnly);
 
-    for (auto w : widgets) {
-        auto rect = w->rect();
-        auto pos = w->pos();
-        // location bar area
-        if (w->inherits("DolphinUrlNavigator")) {
-            // dolphin location bar
-            if (auto locationBar = w->findChild<QComboBox *>()) {
-                if (locationBar->isVisible()) {
-                    // double the rect size else it leaves an unblurred line underneath the toolbar
-                    region += roundedRegion(QRect(pos, rect.size() * 2), StyleConfigData::cornerRadius(), false, false, true, false);
-
-                } else {
-                    // region += QRect(pos, rect.size());
-                    region += roundedRegion(QRect(pos, rect.size()), StyleConfigData::cornerRadius(), false, false, true, false);
-                }
+        if (tw && tw->isVisible()) {
+            if (tw->inherits("DolphinTabWidget") || tw->inherits("Konsole::TabbedViewContainer")) {
+                // use the tabbar size as the blur region should only focus on the tabbar not the entire tabwidget
+                // the width of the tabbar is always -1 smaller than the tabwidget width so increment it
+                QSize tbSize(tw->tabBar()->rect().size());
+                tbSize.rwidth() += 1;
+                region += roundedRegion(QRect(tw->pos(), tbSize), StyleConfigData::cornerRadius(), false, false, true, false);
             }
-        } else if (w->inherits("DolphinTabWidget") || w->inherits("Konsole::TabbedViewContainer")) {
-            // tabs
-            region += roundedRegion(QRect(pos, rect.size()), StyleConfigData::cornerRadius(), false, false, true, false);
         }
     }
 
-    // settings
-    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog) {
+    return region;
+}
+
+//___________________________________________________________
+QRegion BlurHelper::blurSettingsDialogRegion(QWidget *widget) const
+{
+    QRegion region;
+    QList<QWidget *> widgets = widget->findChildren<QWidget *>();
+
+    // settings only change it for konsole or dolphin about window
+    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog
+        && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
         for (auto w : widgets) {
-            if (qobject_cast<QTabWidget *>(w)) {
+            if (qobject_cast<QTabWidget *>(w) && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
+                // about dialog
+                const QTabWidget *tw = qobject_cast<QTabWidget *>(w);
+                QSize tbSize(tw->rect().size());
+                // the blur region is too small without adjusting the height of the tabbar height
+                tbSize.setHeight(tw->tabBar()->rect().height() + 4);
+                region += roundedRegion(QRect(tw->pos(), tbSize), StyleConfigData::cornerRadius(), false, false, true, false);
+            } else {
                 // settings main dialog
                 region += roundedRegion(QRect(w->mapToGlobal(w->pos()), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
-            } else if (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog")) {
-                // about dialog
-                region += roundedRegion(QRect(w->pos(), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
-            } else if (w->inherits("KPageWidget")) {
+            }
+            if (w->inherits("KPageWidget")) {
                 // sidebar
                 QList<QWidget *> KPageWidgets = w->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
                 for (auto wid : KPageWidgets) {
