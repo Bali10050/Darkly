@@ -237,34 +237,29 @@ cd Darkly
 ./install.sh
 ```
 
-#### <u>Nixos</u>
+#### <u>NixOS</u>
 
-1. add `inputs.lightly.url = "github:Bali10050/Darkly";` to `flake.nix`
-2. nixos or home-manager
-
-- for home-manager
-
+To install Darkly on NixOS, add the following line to your nixos flake
 ```nix
-qt = {
-  style.package = [
-    inputs.lightly.packages.${pkgs.system}.darkly-qt5
-    inputs.lightly.packages.${pkgs.system}.darkly-qt6
-  ];
-  platformTheme.name = "qtct";
-};
-```
-
-- for nixos
-
-```nix
+environment.systemPackages = with pkgs; [ darkly-qt5 darkly ];
 qt.platformTheme = "qt5ct";
-environment.systemPackages = with pkgs; [
-  inputs.lightly.packages.${pkgs.system}.darkly-qt5
-  inputs.lightly.packages.${pkgs.system}.darkly-qt6
-];
+```
+For home-manager, add the following line
+```nix
+qt.style.package = with pkgs; [ darkly-qt5 darkly ];
+qt.platformTheme.name = "qtct";
+```
+To apply the theme, use qt5ct or qt6ct and select Darkly
+
+If you want to compile Darkly from its source, do the following
+1. add `inputs.darkly.url = "github:Bali10050/Darkly";` to `flake.nix`
+
+2. use the following package names for home-manager or NixOS
+```nix
+inputs.darkly.packages.${pkgs.system}.darkly-qt5
+inputs.darkly.packages.${pkgs.system}.darkly-qt6
 ```
 
-3. select lightly in qt5ct / qt6ct
 
 ---
 
