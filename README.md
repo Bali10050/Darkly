@@ -67,12 +67,25 @@ sudo eopkg install darkly
 
 `./install.sh remove` will remove Darkly.
 
+***
+
 ### Flatpak
 
 Manifests should have the latest versions of KDE Runtime and SDK
 
-Build with `org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json` (use `org.kde.KStyle.Darkly5.json` for KF5)
-Bundle with `flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>`
+#### Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json
+```
+
+use `org.kde.KStyle.Darkly5.json` for KF5
+
+#### Bundle with:
+```
+flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>
+```
+
+***
 
 #### Void Linux
 
@@ -275,14 +288,6 @@ environment.systemPackages = with pkgs; [
 
 ---
 
-#### <u>Flatpak</u>
-
-Manifests should have the latest versions of KDE Runtime and SDK
-
-Build with `org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json` (use `org.kde.KStyle.Darkly5.json` for KF5)
-Bundle with `flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>`
-
----
 
 ## Known issues & solutions
 
