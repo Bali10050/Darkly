@@ -170,7 +170,7 @@ function(build_qt6)
 
     set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Darkly")
 
-    if (!FOR_FLATPAK)
+    if (NOT FOR_FLATPAK)
         configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
                                         "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
                                         PATH_VARS KDE_INSTALL_FULL_DATADIR
@@ -196,7 +196,7 @@ function(build_colors)
     add_subdirectory(colors)
 endfunction()
 
-if (!FOR_FLATPAK)
+if (NOT FOR_FLATPAK)
     build_colors()
 endif()
 

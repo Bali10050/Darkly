@@ -117,12 +117,12 @@ else()
 endif()
 install(TARGETS darkly${QT_MAJOR_VERSION} DESTINATION ${LIB_TARGET})
 
-if (!FOR_FLATPAK)
+if (NOT FOR_FLATPAK)
     install(FILES darkly.themerc  DESTINATION  ${KDE_INSTALL_DATADIR}/kstyle/themes)
 endif()
 
 ########### subdirectories ###############
 
-if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils" AND !FOR_FLATPAK)
+if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils" AND NOT FOR_FLATPAK)
     add_subdirectory(config)
 endif()
