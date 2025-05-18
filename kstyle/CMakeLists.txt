@@ -110,11 +110,19 @@ endif()
 
 
 ########### install files ###############
-install(TARGETS darkly${QT_MAJOR_VERSION} DESTINATION ${KDE_INSTALL_QTPLUGINDIR}/styles/)
-install(FILES darkly.themerc  DESTINATION  ${KDE_INSTALL_DATADIR}/kstyle/themes)
+if (FOR_FLATPAK)
+    set(LIB_TARGET ${QT_PLUGINS_DIR}/styles/)
+else()
+    set(LIB_TARGET ${KDE_INSTALL_QTPLUGINDIR}/styles/)
+endif()
+install(TARGETS darkly${QT_MAJOR_VERSION} DESTINATION ${LIB_TARGET})
+
+if (NOT FOR_FLATPAK)
+    install(FILES darkly.themerc  DESTINATION  ${KDE_INSTALL_DATADIR}/kstyle/themes)
+endif()
 
 ########### subdirectories ###############
 
-if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils")
+if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils" AND NOT FOR_FLATPAK)
     add_subdirectory(config)
 endif()

@@ -37,13 +37,14 @@ include(KDEGitCommitHooks)
 
 include(GtkUpdateIconCache)
 
+option(FOR_FLATPAK "Build Lightly for Flatpak" OFF)
 option(BUILD_QT5 "Build with QT5" ON)
 option(BUILD_QT6 "Build with QT6" ON)
 
 set(QT_NO_CREATE_VERSIONLESS_TARGETS ON)
 set(QT_NO_CREATE_VERSIONLESS_FUNCTIONS ON)
 
-if(WIN32 OR APPLE)
+if(WIN32 OR APPLE OR FOR_FLATPAK)
     set(WITH_DECORATIONS OFF)
 endif()
 
@@ -169,17 +170,19 @@ function(build_qt6)
 
     set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Darkly")
 
-    configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
-                                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
-                                    PATH_VARS KDE_INSTALL_FULL_DATADIR
-                                    INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-                                )
+    if (NOT FOR_FLATPAK)
+        configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/DarklyConfig.cmake.in"
+                                        "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
+                                        PATH_VARS KDE_INSTALL_FULL_DATADIR
+                                        INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
+                                    )
 
-    install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
-                    "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
-                DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-                COMPONENT Devel
-            )
+        install(FILES  "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfig.cmake"
+                        "${CMAKE_CURRENT_BINARY_DIR}/DarklyConfigVersion.cmake"
+                    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+                    COMPONENT Devel
+                )
+    endif()
     unset(QUERY_EXECUTABLE CACHE)
 endfunction()
 
@@ -193,7 +196,9 @@ function(build_colors)
     add_subdirectory(colors)
 endfunction()
 
-build_colors()
+if (NOT FOR_FLATPAK)
+    build_colors()
+endif()
 
 # add clang-format target for all our real source files
 file(GLOB_RECURSE ALL_CLANG_FORMAT_SOURCE_FILES *.cpp *.h)
