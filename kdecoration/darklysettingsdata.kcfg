@@ -32,7 +32,7 @@
 
     <!-- close button -->
     <entry name="OutlineCloseButton" type = "Bool">
-        <default>true</default>
+        <default>false</default>
     </entry>
     
     <!-- corner radius -->
@@ -74,7 +74,7 @@
           <choice name="AlignCenterFullWidth" />
           <choice name="AlignRight" />
       </choices>
-      <default>AlignCenterFullWidth</default>
+      <default>AlignLeft</default>
     </entry>
 
     <!-- button size -->
@@ -100,7 +100,7 @@
 
     <!-- size grip -->
     <entry name="DrawBackgroundGradient" type = "Bool">
-        <default>true</default>
+        <default>false</default>
     </entry>
     
     <!-- highlight -->
