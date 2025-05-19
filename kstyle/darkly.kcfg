@@ -61,7 +61,7 @@
     </entry>
 
     <entry name="ButtonWidth" type="Int">
-      <default>3</default>
+      <default>1</default>
     </entry>
   </group>
 
