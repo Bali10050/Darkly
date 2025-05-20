@@ -139,7 +139,6 @@ public:
 
     bool eventFilter(QObject *, QEvent *) override;
     bool eventFilterScrollArea(QWidget *, QEvent *);
-    bool eventFilterDolphinUrlNavigator(QWidget *, QEvent *);
     bool eventFilterComboBoxContainer(QWidget *, QEvent *);
     bool eventFilterDockWidget(QDockWidget *, QEvent *);
     bool eventFilterMdiSubWindow(QMdiSubWindow *, QEvent *);

@@ -1,6 +1,6 @@
 > [!IMPORTANT]
 > If you use a distro that doesn't have plasma 6.3 yet, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly\(6.2\)](https://github.com/Bali10050/Darkly/tree/Darkly(6.2)) branch.
-> 
+>
 > You can use this one if you want to, but it most likely won't work
 
 # About this fork
@@ -66,6 +66,26 @@ sudo eopkg install darkly
 `./install.sh QT6` will build & install using only QT6/KF6 dependencies.
 
 `./install.sh remove` will remove Darkly.
+
+***
+
+### Flatpak
+
+Manifests should have the latest versions of KDE Runtime and SDK
+
+#### Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json
+```
+
+use `org.kde.KStyle.Darkly5.json` for KF5
+
+#### Bundle with:
+```
+flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>
+```
+
+***
 
 #### Void Linux
 
@@ -219,10 +239,10 @@ echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME
 
 ---
 
-#### <u>Kubuntu (24.10)</u>
+#### <u>Kubuntu (25.04)</u>
 
 ```
-sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations2-dev \
+sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
       libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
       libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
       libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \
@@ -262,6 +282,7 @@ inputs.darkly.packages.${pkgs.system}.darkly-qt6
 
 
 ---
+
 
 ## Known issues & solutions
 
