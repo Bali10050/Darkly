@@ -1,7 +1,3 @@
-> [!IMPORTANT]
-> If you use a distro that doesn't have plasma 6.3 yet, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly\(6.2\)](https://github.com/Bali10050/Darkly/tree/Darkly(6.2)) branch.
->
-> You can use this one if you want to, but it most likely won't work
 
 # About this fork
 
@@ -257,6 +253,8 @@ cd Darkly
 ./install.sh
 ```
 
+***
+
 #### <u>NixOS</u>
 
 To install Darkly on NixOS, add the following line to your nixos flake
@@ -297,3 +295,6 @@ The fix for now until QT is updated is to add `QT_SCALE_FACTOR_ROUNDING_POLICY=R
 Restart to apply the changes.
 
 For further details see: https://bugs.kde.org/show_bug.cgi?id=479891
+
+### Issues with window decorations on older plasma versions
+For plasma versions below 6.3, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly\(6.2\)](https://github.com/Bali10050/Darkly/tree/Darkly(6.2)) branch.
