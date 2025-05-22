@@ -7650,6 +7650,7 @@ bool Style::drawComboBoxComplexControl(const QStyleOptionComplex *option, QPaint
             arrowRect.translate(1, 1);
 
         // render
+        arrowRect.translate(-3, 0);
         _helper->renderArrow(painter, arrowRect, arrowColor, ArrowDown);
     }
 
