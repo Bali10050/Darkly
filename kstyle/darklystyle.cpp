@@ -3273,20 +3273,19 @@ QSize Style::comboBoxSizeFromContents(const QStyleOption *option, const QSize &c
 {
     // cast option and check
     const auto comboBoxOption(qstyleoption_cast<const QStyleOptionComboBox *>(option));
-    if (!comboBoxOption)
+    if (!comboBoxOption) {
         return contentsSize;
+    }
 
     // copy size
     QSize size(contentsSize);
 
-    // add relevant margin
-    const bool flat(!comboBoxOption->frame);
-    const int frameWidth(pixelMetric(PM_ComboBoxFrameWidth, option, widget));
-    if (!flat)
-        size = expandSize(size, frameWidth);
-
     // make sure there is enough height for the button
-    size.setHeight(qMax(size.height() + Metrics::Frame_FrameWidth, int(Metrics::MenuButton_IndicatorWidth)));
+    size.setHeight(qMax(size.height(), int(Metrics::MenuButton_IndicatorWidth)));
+
+    // add relevant margin
+    const int frameWidth(pixelMetric(PM_ComboBoxFrameWidth, option, widget));
+    size = expandSize(size, frameWidth);
 
     // add button width and spacing
     size.rwidth() += Metrics::MenuButton_IndicatorWidth + 2;
