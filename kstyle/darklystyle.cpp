@@ -302,10 +302,11 @@ void Style::polish(QWidget *widget)
         }
     }
 
+    if (!_isKonsole){
     if (StyleConfigData::toolBarOpacity() < 100 || StyleConfigData::menuBarOpacity() < 100 || StyleConfigData::tabBarOpacity() < 100
         || StyleConfigData::dolphinSidebarOpacity() < 100) {
         _isBarsOpaque = true;
-    }
+    }}
 
     // translucent (window) color scheme support
     switch (widget->windowFlags() & Qt::WindowType_Mask) {
