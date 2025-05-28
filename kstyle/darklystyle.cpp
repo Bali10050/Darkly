@@ -440,7 +440,7 @@ void Style::polish(QWidget *widget)
         // add event filter on dock widgets
         // and alter palette
         widget->setAutoFillBackground(false);
-        widget->setContentsMargins(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth);
+        widget->setContentsMargins(5, Metrics::Frame_FrameWidth, 5, Metrics::Frame_FrameWidth);
         addEventFilter(widget);
 
     } else if (qobject_cast<QMdiSubWindow *>(widget)) {
