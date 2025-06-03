@@ -2,39 +2,22 @@
 // darklyconfigurationui.cpp
 // -------------------
 //
-// Copyright (c) 2009 Hugo Pereira Da Costa <hugo.pereira@free.fr>
+// SPDX-FileCopyrightText: 2009 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-// IN THE SOFTWARE.
+// SPDX-License-Identifier: MIT
 //////////////////////////////////////////////////////////////////////////////
 
 #include "darklyconfigwidget.h"
 #include "darklyexceptionlist.h"
-#include "darklysettings.h"
 
 #include <KLocalizedString>
 
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <QFontDatabase>
 
 namespace Darkly
 {
-
 //_________________________________________________________
 ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const QVariantList & /*args*/)
     : KCModule(parent, data)
@@ -44,25 +27,26 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     // configuration
     m_ui.setupUi(widget());
 
+    m_ui.tabWidget->tabBar()->setExpanding(true);
+
     // track ui changes
     connect(m_ui.titleAlignment, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(m_ui.buttonSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(m_ui.outlineCloseButton, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBorderOnMaximizedWindows, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
-    connect(m_ui.drawTitleBarSeparator, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
-
-    // track animations changes
-    connect(m_ui.animationsEnabled, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
-    connect(m_ui.animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
 
     // track shadows changes
     connect(m_ui.shadowSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(m_ui.shadowStrength, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(m_ui.shadowColor, &KColorButton::changed, this, &ConfigWidget::updateChanged);
+    connect(m_ui.outlineIntensity, SIGNAL(activated(int)), SLOT(updateChanged()));
 
     // track exception changes
     connect(m_ui.exceptions, &ExceptionListWidget::changed, this, &ConfigWidget::updateChanged);
+
+    // set formatting
+    m_ui.drawBorderOnMaximizedWindowsHelpLabel->setFont(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont));
 }
 
 //_________________________________________________________
@@ -78,18 +62,23 @@ void ConfigWidget::load()
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
-    m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
-    m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
-    m_ui.drawTitleBarSeparator->setChecked(m_internalSettings->drawTitleBarSeparator());
 
     // load shadows
-    if (m_internalSettings->shadowSize() <= InternalSettings::ShadowVeryLarge)
+    if (m_internalSettings->shadowSize() <= InternalSettings::ShadowVeryLarge) {
         m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
-    else
+    } else {
         m_ui.shadowSize->setCurrentIndex(InternalSettings::ShadowLarge);
+    }
 
     m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength() * 100) / 255));
     m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
+
+    // load outline intensity
+    if (m_internalSettings->outlineIntensity() <= InternalSettings::OutlineMaximum) {
+        m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
+    } else {
+        m_ui.outlineIntensity->setCurrentIndex(InternalSettings::OutlineMedium);
+    }
 
     // load exceptions
     ExceptionList exceptions;
@@ -111,13 +100,11 @@ void ConfigWidget::save()
     m_internalSettings->setOutlineCloseButton(m_ui.outlineCloseButton->isChecked());
     m_internalSettings->setDrawBorderOnMaximizedWindows(m_ui.drawBorderOnMaximizedWindows->isChecked());
     m_internalSettings->setDrawBackgroundGradient(m_ui.drawBackgroundGradient->isChecked());
-    m_internalSettings->setAnimationsEnabled(m_ui.animationsEnabled->isChecked());
-    m_internalSettings->setAnimationsDuration(m_ui.animationsDuration->value());
-    m_internalSettings->setDrawTitleBarSeparator(m_ui.drawTitleBarSeparator->isChecked());
 
     m_internalSettings->setShadowSize(m_ui.shadowSize->currentIndex());
     m_internalSettings->setShadowStrength(qRound(qreal(m_ui.shadowStrength->value() * 255) / 100));
     m_internalSettings->setShadowColor(m_ui.shadowColor->color());
+    m_internalSettings->setOutlineIntensity(m_ui.outlineIntensity->currentIndex());
 
     // save configuration
     m_internalSettings->save();
@@ -156,55 +143,49 @@ void ConfigWidget::defaults()
     m_ui.outlineCloseButton->setChecked(m_internalSettings->outlineCloseButton());
     m_ui.drawBorderOnMaximizedWindows->setChecked(m_internalSettings->drawBorderOnMaximizedWindows());
     m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
-    m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
-    m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
-    m_ui.drawTitleBarSeparator->setChecked(m_internalSettings->drawTitleBarSeparator());
 
     m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
     m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength() * 100) / 255));
     m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
+    m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
 }
 
 //_______________________________________________
 void ConfigWidget::updateChanged()
 {
     // check configuration
-    if (!m_internalSettings)
+    if (!m_internalSettings) {
         return;
+    }
 
     // track modifications
     bool modified(false);
 
-    if (m_ui.drawTitleBarSeparator->isChecked() != m_internalSettings->drawTitleBarSeparator())
+    if (m_ui.titleAlignment->currentIndex() != m_internalSettings->titleAlignment()) {
         modified = true;
-    if (m_ui.titleAlignment->currentIndex() != m_internalSettings->titleAlignment())
+    } else if (m_ui.buttonSize->currentIndex() != m_internalSettings->buttonSize()) {
         modified = true;
-    else if (m_ui.buttonSize->currentIndex() != m_internalSettings->buttonSize())
+    } else if (m_ui.outlineCloseButton->isChecked() != m_internalSettings->outlineCloseButton()) {
         modified = true;
-    else if (m_ui.outlineCloseButton->isChecked() != m_internalSettings->outlineCloseButton())
+    } else if (m_ui.drawBorderOnMaximizedWindows->isChecked() != m_internalSettings->drawBorderOnMaximizedWindows()) {
         modified = true;
-    else if (m_ui.drawBorderOnMaximizedWindows->isChecked() != m_internalSettings->drawBorderOnMaximizedWindows())
-        modified = true;
-    else if (m_ui.drawBackgroundGradient->isChecked() != m_internalSettings->drawBackgroundGradient())
+    } else if (m_ui.drawBackgroundGradient->isChecked() != m_internalSettings->drawBackgroundGradient()) {
         modified = true;
 
-    // animations
-    else if (m_ui.animationsEnabled->isChecked() != m_internalSettings->animationsEnabled())
+        // shadows
+    } else if (m_ui.shadowSize->currentIndex() != m_internalSettings->shadowSize()) {
         modified = true;
-    else if (m_ui.animationsDuration->value() != m_internalSettings->animationsDuration())
+    } else if (qRound(qreal(m_ui.shadowStrength->value() * 255) / 100) != m_internalSettings->shadowStrength()) {
         modified = true;
-
-    // shadows
-    else if (m_ui.shadowSize->currentIndex() != m_internalSettings->shadowSize())
+    } else if (m_ui.shadowColor->color() != m_internalSettings->shadowColor()) {
         modified = true;
-    else if (qRound(qreal(m_ui.shadowStrength->value() * 255) / 100) != m_internalSettings->shadowStrength())
-        modified = true;
-    else if (m_ui.shadowColor->color() != m_internalSettings->shadowColor())
+    } else if (m_ui.outlineIntensity->currentIndex() != m_internalSettings->outlineIntensity()) {
         modified = true;
 
-    // exceptions
-    else if (m_ui.exceptions->isChanged())
+        // exceptions
+    } else if (m_ui.exceptions->isChanged()) {
         modified = true;
+    }
 
     setNeedsSave(modified);
 }

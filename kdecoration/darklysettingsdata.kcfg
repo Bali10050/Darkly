@@ -9,7 +9,7 @@
   <group name="Common">
 
     <entry name="ShadowStrength" type = "Int">
-       <default>102</default>
+       <default>255</default>
        <min>25</min>
        <max>255</max>
     </entry>
@@ -34,14 +34,17 @@
     <entry name="OutlineCloseButton" type = "Bool">
         <default>false</default>
     </entry>
-    
-    <!-- corner radius -->
-    <entry name="CornerRadius" type = "Int">
-       <default>6</default>
-       <min>1</min>
-       <max>8</max>
-    </entry>
 
+    <entry name="OutlineIntensity" type = "Enum">
+      <choices>
+          <choice name="OutlineOff"/>
+          <choice name="OutlineLow"/>
+          <choice name="OutlineMedium"/>
+          <choice name="OutlineHigh"/>
+          <choice name="OutlineMaximum"/>
+      </choices>
+      <default>OutlineOff</default>
+    </entry>
   </group>
 
   <group name="Windeco">
@@ -94,27 +97,9 @@
         <default>false</default>
     </entry>
 
-    <entry name="DrawTitleBarSeparator" type = "Bool">
-        <default>false</default>
-    </entry>
-
     <!-- size grip -->
     <entry name="DrawBackgroundGradient" type = "Bool">
         <default>false</default>
-    </entry>
-    
-    <!-- highlight -->
-    <entry name="DrawHighlight" type = "Bool">
-      <default>true</default>
-    </entry>
-
-    <!-- animations -->
-    <entry name="AnimationsEnabled" type = "Bool">
-       <default>true</default>
-    </entry>
-
-    <entry name="AnimationsDuration" type = "Int">
-       <default>150</default>
     </entry>
 
     <!-- hide title bar -->
