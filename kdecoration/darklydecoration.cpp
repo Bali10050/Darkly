@@ -678,7 +678,7 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         rect.adjust(halfAPixel, halfAPixel, -halfAPixel, bottomOutline ? -halfAPixel : 0);
     }
 
-    rect.adjust(0, KDecoration3::pixelSize(window()->scale()), 0, 0);
+    //rect.adjust(0, KDecoration3::pixelSize(window()->scale()), 0, 0);
 
     QBrush frontBrush;
     QBrush backBrush(this->titleBarColor());
@@ -704,34 +704,6 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         painter->setBrush(titleBarColor());
     }
 
-    // top highlight
-    if (qGray(this->titleBarColor().rgb()) < 130) {
-        if (isMaximized()) {
-            painter->setPen(QColor(255, 255, 255, 30));
-            painter->drawLine(QRect(QPoint(0, 0), QSize(size().width(), borderTop())).topLeft(), QRect(QPoint(0, 0), QSize(size().width(), borderTop())).topRight());
-
-        } else if (!window()->isShaded()) {
-            QRect copy(QRect(QPoint(0, 0), QSize(size().width(), borderTop())).adjusted(isLeftEdge() ? -m_scaledCornerRadius : 0,
-                                                                                        isTopEdge() ? -m_scaledCornerRadius : 0,
-                                                                                        isRightEdge() ? m_scaledCornerRadius : 0,
-                                                                                        m_scaledCornerRadius));
-
-            QPixmap pix = QPixmap(copy.width(), copy.height());
-            pix.fill(Qt::transparent);
-
-            QPainter p(&pix);
-            p.setRenderHint(QPainter::Antialiasing);
-            p.setPen(Qt::NoPen);
-            p.setBrush(QColor(255, 255, 255, 30));
-            p.drawRoundedRect(copy, m_scaledCornerRadius, m_scaledCornerRadius);
-
-            p.setBrush(Qt::black);
-            p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-            p.drawRoundedRect(copy.adjusted(0, 1, 0, 0), m_scaledCornerRadius, m_scaledCornerRadius);
-
-            painter->drawPixmap(copy, pix);
-        }
-    }
 
     if (noOutlines) {
         painter->setBrush(backBrush);
@@ -763,6 +735,34 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
     }
 
 
+    // top highlight
+    if (qGray(this->titleBarColor().rgb()) < 130) {
+        if (isMaximized()) {
+            painter->setPen(QColor(255, 255, 255, 30));
+            painter->drawLine(QRect(QPoint(0, 0), QSize(size().width(), borderTop())).topLeft(), QRect(QPoint(0, 0), QSize(size().width(), borderTop())).topRight());
+
+        } else if (!window()->isShaded()) {
+            QRect copy(QRect(QPoint(0, 0), QSize(size().width(), borderTop())).adjusted(isLeftEdge() ? -m_scaledCornerRadius : 0,
+                                                                                        isTopEdge() ? -m_scaledCornerRadius : 0,
+                                                                                        isRightEdge() ? m_scaledCornerRadius : 0,
+                                                                                        m_scaledCornerRadius));
+
+            QPixmap pix = QPixmap(copy.width(), copy.height());
+            pix.fill(Qt::transparent);
+
+            QPainter p(&pix);
+            p.setRenderHint(QPainter::Antialiasing);
+            p.setPen(Qt::NoPen);
+            p.setBrush(QColor(255, 255, 255, 30));
+            p.drawRoundedRect(copy, m_scaledCornerRadius, m_scaledCornerRadius);
+
+            p.setBrush(Qt::black);
+            p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+            p.drawRoundedRect(copy.adjusted(0, 1, 0, 0), m_scaledCornerRadius, m_scaledCornerRadius);
+
+            painter->drawPixmap(copy, pix);
+        }
+    }
 
     painter->restore();
 
