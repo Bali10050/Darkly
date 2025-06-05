@@ -440,7 +440,7 @@ void Style::polish(QWidget *widget)
         // add event filter on dock widgets
         // and alter palette
         widget->setAutoFillBackground(false);
-        widget->setContentsMargins(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth);
+        widget->setContentsMargins(StyleConfigData::fancyMargins() ? 5 : Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, StyleConfigData::fancyMargins() ? 5 : Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth);
         addEventFilter(widget);
 
     } else if (qobject_cast<QMdiSubWindow *>(widget)) {
@@ -3532,7 +3532,7 @@ QSize Style::menuItemSizeFromContents(const QStyleOption *option, const QSize &c
         size.setHeight(qMax(size.height(), int(Metrics::MenuButton_IndicatorWidth)));
         size.setHeight(qMax(size.height(), int(Metrics::CheckBox_Size)));
         size.setHeight(qMax(size.height(), iconWidth));
-        return expandSize(size, Metrics::MenuItem_MarginWidth, Metrics::MenuItem_MarginHeight);
+        return expandSize(size, Metrics::MenuItem_MarginWidth, (Metrics::MenuItem_MarginHeight + StyleConfigData::menuItemHeight()));
     }
 
     case QStyleOptionMenuItem::Separator: {
@@ -3565,10 +3565,10 @@ QSize Style::menuItemSizeFromContents(const QStyleOption *option, const QSize &c
             }
 
             h = qMax(h, int(Metrics::MenuButton_IndicatorWidth));
-            h += Metrics::MenuItem_MarginHeight; // extra top padding
+            h += (Metrics::MenuItem_MarginHeight + StyleConfigData::menuItemHeight()); // extra top padding
         }
 
-        return {w + Metrics::MenuItem_MarginWidth * 2, h + Metrics::MenuItem_MarginHeight * 2};
+        return {w + Metrics::MenuItem_MarginWidth * 2, h + (Metrics::MenuItem_MarginHeight  + StyleConfigData::menuItemHeight())* 2};
     }
 
     // for all other cases, return input
@@ -5695,7 +5695,7 @@ bool Style::drawMenuItemControl(const QStyleOption *option, QPainter *painter, c
     }
 
     // get rect available for contents
-    auto contentsRect(insideMargin(rect, Metrics::MenuItem_MarginWidth, Metrics::MenuItem_MarginHeight));
+    auto contentsRect(insideMargin(rect, Metrics::MenuItem_MarginWidth, (Metrics::MenuItem_MarginHeight + StyleConfigData::menuItemHeight())));
 
     // define relevant rectangles
     // checkbox
@@ -8149,12 +8149,12 @@ void Style::renderMenuTitle(const QStyleOptionToolButton *option, QPainter *pain
     // render a separator at the bottom
     const auto &palette(option->palette);
     const auto color(_helper->separatorColor(palette));
-    _helper->renderSeparator(painter, QRect(option->rect.bottomLeft() - QPoint(0, Metrics::MenuItem_MarginHeight), QSize(option->rect.width(), 1)), color);
+    _helper->renderSeparator(painter, QRect(option->rect.bottomLeft() - QPoint(0, (Metrics::MenuItem_MarginHeight + StyleConfigData::menuItemHeight())), QSize(option->rect.width(), 1)), color);
 
     // render text in the center of the rect
     // icon is discarded on purpose
     painter->setFont(option->font);
-    const auto contentsRect = insideMargin(option->rect, Metrics::MenuItem_MarginWidth, Metrics::MenuItem_MarginHeight);
+    const auto contentsRect = insideMargin(option->rect, Metrics::MenuItem_MarginWidth, (Metrics::MenuItem_MarginHeight + StyleConfigData::menuItemHeight()));
     drawItemText(painter, contentsRect, Qt::AlignCenter, palette, true, option->text, QPalette::WindowText);
 }
 
