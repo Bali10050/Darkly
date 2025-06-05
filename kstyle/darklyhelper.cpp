@@ -457,7 +457,7 @@ void Helper::renderFrame(QPainter *painter, const QRect &rect, const QColor &col
     painter->setRenderHint(QPainter::Antialiasing);
 
     // QRectF frameRect( rect.adjusted( 1, 1, -1, -1 ) );
-    QRectF frameRect(rect.adjusted(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth));
+    QRectF frameRect(rect.adjusted(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, StyleConfigData::fancyMargins() ? -6 : -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth));
     // QRectF frameRect(rect);
     qreal radius(frameRadius(PenWidth::NoPen, -1));
     painter->setPen(Qt::NoPen);
