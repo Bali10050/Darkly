@@ -65,7 +65,7 @@
     </entry>
 
     <entry name="MenuItemHeight" type="Int">
-    <default>5</default>
+    <default>4</default>
     </entry>
 
     <entry name="FancyMargins" type="Bool">
