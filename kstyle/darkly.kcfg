@@ -63,7 +63,16 @@
     <entry name="ButtonWidth" type="Int">
       <default>1</default>
     </entry>
+
+    <entry name="MenuItemHeight" type="Int">
+    <default>5</default>
+    </entry>
+
+    <entry name="FancyMargins" type="Bool">
+      <default>true</default>
+    </entry>
   </group>
+
 
   <!-- widget style -->
   <group name="Style">

@@ -58,7 +58,7 @@ enum Metrics {
     // menu items
     Menu_FrameWidth = 4,
     MenuItem_MarginWidth = 5,
-    MenuItem_MarginHeight = 5,
+    MenuItem_MarginHeight = 0,
     MenuItem_ItemSpacing = 4,
     MenuItem_AcceleratorSpace = 16,
     MenuButton_IndicatorWidth = 20,

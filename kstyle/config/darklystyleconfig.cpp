@@ -108,6 +108,8 @@ StyleConfig::StyleConfig(QWidget *parent)
 
     connect(_buttonHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(_buttonWidth, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_menuItemHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_fancyMargins, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 }
 
 //__________________________________________________________________
@@ -155,6 +157,8 @@ void StyleConfig::save()
     StyleConfigData::setTabsHeight(_tabsHeight->value());
     StyleConfigData::setButtonHeight(_buttonHeight->value());
     StyleConfigData::setButtonWidth(_buttonWidth->value());
+    StyleConfigData::setMenuItemHeight(_menuItemHeight->value());
+    StyleConfigData::setFancyMargins(_fancyMargins->isChecked());
 
     StyleConfigData::self()->save();
 
@@ -275,6 +279,10 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_tabsHeight->value() != StyleConfigData::tabsHeight())
         modified = true;
+    else if (_menuItemHeight->value() != StyleConfigData::menuItemHeight())
+        modified = true;
+    else if (_fancyMargins->isChecked() != StyleConfigData::fancyMargins())
+        modified = true;
 
     if (_shadowSize->currentIndex() == 0) {
         _shadowColor->setEnabled(false);
@@ -336,6 +344,8 @@ void StyleConfig::load()
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
     _widgetDrawShadow->setChecked(StyleConfigData::widgetDrawShadow());
     _widgetToolBarShadow->setChecked(StyleConfigData::widgetToolBarShadow());
+    _menuItemHeight->setValue(StyleConfigData::menuItemHeight());
+    _fancyMargins->setChecked(StyleConfigData::fancyMargins());
 
     if (!_widgetDrawShadow->isChecked()) {
         _widgetToolBarShadow->setEnabled(false);
