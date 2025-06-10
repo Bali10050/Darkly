@@ -94,7 +94,7 @@ void ApplicationMenuButton::paint(QPainter *painter, const QRectF &repaintRegion
     for (const ApplicationMenuEntry &entry : std::as_const(m_entries)) {
         if (entry.active || entry.hovered) {
             painter->setBrush(decoration->fontColor());
-            painter->drawRoundedRect(entry.rect, 5, 5);
+            painter->drawRoundedRect(entry.rect.adjusted(0, 0, 0, 40), 5, 5);
             painter->setBrush(Qt::NoBrush);
             painter->setPen(decoration->titleBarColor());
         } else {

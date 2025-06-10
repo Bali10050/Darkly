@@ -526,7 +526,7 @@ void Decoration::updateButtonsGeometry()
         const int bHeight = preferredSize.height() + verticalOffset;
         const int bWidth = preferredSize.width();
 
-        btn->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth, bHeight)));
+        btn->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth, bHeight + 10)));
         btn->setPadding(QMargins(0, verticalOffset, 0, 0));
     }
 
@@ -536,21 +536,22 @@ void Decoration::updateButtonsGeometry()
         m_leftButtons->setSpacing(s->smallSpacing() * Metrics::TitleBar_ButtonSpacing);
 
         // padding
-        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
+        const int vPadding = 0;
         const int hPadding = s->smallSpacing() * Metrics::TitleBar_SideMargin;
         if (isLeftEdge()) {
             // add offsets on the side buttons, to preserve padding, but satisfy Fitts law
             auto button = static_cast<Button *>(m_leftButtons->buttons().front());
 
             QRectF geometry = button->geometry();
-            geometry.adjust(-hPadding, 0, 0, 0);
+            geometry.adjust(-hPadding, -10, 0, -10);
             button->setGeometry(geometry);
             button->setLeftPadding(hPadding);
 
             m_leftButtons->setPos(QPointF(0, vPadding));
 
         } else {
-            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
+
+            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), 0));
         }
     }
 
