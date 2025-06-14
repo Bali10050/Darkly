@@ -526,7 +526,7 @@ void Decoration::updateButtonsGeometry()
         const int bHeight = preferredSize.height() + verticalOffset;
         const int bWidth = preferredSize.width();
 
-        btn->setGeometry(QRectF(QPoint(0, 0), QSizeF(bWidth, bHeight + 10)));
+        btn->setGeometry(QRectF(QPoint(0, 5), QSizeF(bWidth, bHeight + 10)));
         btn->setPadding(QMargins(0, verticalOffset, 0, 0));
     }
 
@@ -543,15 +543,14 @@ void Decoration::updateButtonsGeometry()
             auto button = static_cast<Button *>(m_leftButtons->buttons().front());
 
             QRectF geometry = button->geometry();
-            geometry.adjust(-hPadding, -10, 0, -10);
+            geometry.adjust(-hPadding, 0, 0, 0);
             button->setGeometry(geometry);
             button->setLeftPadding(hPadding);
 
             m_leftButtons->setPos(QPointF(0, vPadding));
 
         } else {
-
-            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), 0));
+            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
         }
     }
 

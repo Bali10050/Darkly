@@ -86,15 +86,16 @@ void ApplicationMenuButton::paint(QPainter *painter, const QRectF &repaintRegion
         return;
     }
 
-    const QRectF rect = geometry().marginsRemoved(m_padding);
+    const QRectF rect = geometry().marginsRemoved(QMargins(0, -10, 0, 0));
 
     painter->save();
     painter->translate(rect.topLeft());
+    painter->translate(0, 14);
 
     for (const ApplicationMenuEntry &entry : std::as_const(m_entries)) {
         if (entry.active || entry.hovered) {
             painter->setBrush(decoration->fontColor());
-            painter->drawRoundedRect(entry.rect.adjusted(0, 0, 0, 40), 5, 5);
+            painter->drawRoundedRect(entry.rect.adjusted(2, -2, -2, 2), 5, 5);
             painter->setBrush(Qt::NoBrush);
             painter->setPen(decoration->titleBarColor());
         } else {
