@@ -384,7 +384,7 @@ void ApplicationMenuButton::rebuild()
 
     QRectF bounds;
     for (const auto &entry : newEntries) {
-        bounds |= entry.rect;
+        bounds |= entry.rect.adjusted(0, 0, 7, 0);
     }
 
     m_entries = newEntries;
