@@ -536,7 +536,7 @@ void Decoration::updateButtonsGeometry()
         m_leftButtons->setSpacing(s->smallSpacing() * Metrics::TitleBar_ButtonSpacing);
 
         // padding
-        const int vPadding = 0;
+        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
         const int hPadding = s->smallSpacing() * Metrics::TitleBar_SideMargin;
         if (isLeftEdge()) {
             // add offsets on the side buttons, to preserve padding, but satisfy Fitts law
@@ -550,7 +550,7 @@ void Decoration::updateButtonsGeometry()
             m_leftButtons->setPos(QPointF(0, vPadding));
 
         } else {
-            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
+            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), 0));
         }
     }
 
