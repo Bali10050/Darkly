@@ -261,7 +261,7 @@ void ApplicationMenuButton::showMenu(QAction *action)
                 m_activeAction = action;
 
                 KDecoration3::Positioner positioner;
-                positioner.setAnchorRect(mapToDecoration(entry.rect));
+                positioner.setAnchorRect(mapToDecoration(entry.rect.adjusted(1, 0, 0, 7)));
                 decoration()->popup(positioner, menu);
             }
         }
