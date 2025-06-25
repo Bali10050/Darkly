@@ -67,7 +67,19 @@ sudo eopkg install darkly
 
 ### Flatpak
 
-Manifests should have the latest versions of KDE Runtime and SDK
+Due to flatpak's [restriction on file system access](https://docs.flatpak.org/en/latest/sandbox-permissions.html) (in short no access to system libraries, /dev, etc), Darkly flatpak bundle is only an extension of KDE runtime.\
+If you want to apply Darkly as the application style, you either need:
+- Darkly installed on the system via package manager (pacman, rpm, apt-get, etc) or
+- Set manually with QT_STYLE_OVERRIDE=Darkly env variable \[`sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)]
+
+**Important (primarily) for users of immutable distros!**\
+Darkly won't show as an option in `System settings > Theme > Application styles` without system installation.
+
+This brings some untentended behaviour (for any application style, not Darkly in particular), for example:
+- Changing color scheme partly applies for QWidget apps (not at all for QML-based)
+- Changing application style doesn't apply until the app is restarted
+
+Manifests should have the latest versions of KDE Runtime and SDK. Change the version accordingly. (you can find the version of runtime for each app by running `flatpak list --app --columns=app,runtime`)
 
 #### Build with:
 ```
