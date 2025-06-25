@@ -73,7 +73,7 @@ If you want to apply Darkly as the application style, you either need:
 - Set manually with QT_STYLE_OVERRIDE=Darkly env variable \[`sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)]
 
 **Important (primarily) for users of immutable distros!**\
-Darkly won't show as an option in `System settings > Theme > Application styles` without system installation.
+Darkly won't show as an option in `System settings > Theme > Application styles` without system installation. Also, both Darkly runtime version and the KDE runtime version must match (if they don't match, the app won't use Darkly)
 
 This brings some untentended behaviour (for any application style, not Darkly in particular), for example:
 - Changing color scheme partly applies for QWidget apps (not at all for QML-based)
