@@ -104,13 +104,18 @@ sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel
       kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
       kf6-kwindowsystem-devel kf6-frameworkintegration-devel kf6-karchive-devel \
       kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel \
-      qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel
+      qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel \
+      kcmutils-devel kconfigwidgets-devel qt5-devel qt5-tools-devel \
+      kirigami2-devel kcoreaddons-devel kcolorscheme-devel \
+      kconfig-devel kguiaddons-devel ki18n-devel kiconthemes-devel \
+      kwindowsystem-devel frameworkintegration-devel karchive-devel \
+      kcodecs-devel kwidgetsaddons-devel 
 ```
 
 ```
 git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
 cd Darkly
-./install.sh QT6
+./install.sh
 ```
 
 ---
