@@ -2492,7 +2492,7 @@ QRect Style::tabWidgetTabBarRect(const QStyleOption *option, const QWidget *widg
         if (tabBarAlignment == Qt::AlignCenter) {
             tabBarRect.moveLeft(rect.left() + (rect.width() - tabBarRect.width()) / 2);
         } else if (tabOption->lineWidth == 0) {
-            tabBarRect.moveLeft(rect.left() + 4);
+            tabBarRect.moveLeft(rect.left());
         } else {
             tabBarRect.moveLeft(rect.left() - 1);
         }
