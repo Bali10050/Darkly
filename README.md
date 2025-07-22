@@ -98,18 +98,12 @@ flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/
 #### Void Linux
 
 ```
-sudo xbps-install -Sy git extra-cmake-modules base-devel qt6-base qt6-base-devel qt6-tools-devel \
-      kf6-kcmutils-devel kf6-kconfigwidgets-devel kf6-kdecoration-devel \
-      kf6-kirigami-devel kf6-kcoreaddons-devel kf6-kcolorscheme-devel \
-      kf6-kconfig-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
-      kf6-kwindowsystem-devel kf6-frameworkintegration-devel kf6-karchive-devel \
-      kf6-kcodecs-devel kf6-kwidgetsaddons-devel qt6-declarative-devel \
-      qt6-svg-devel qt6-wayland-devel kf6-kwidgetsaddons-devel kf6-knotifications-devel \
-      kcmutils-devel kconfigwidgets-devel qt5-devel qt5-tools-devel \
-      kirigami2-devel kcoreaddons-devel kcolorscheme-devel \
-      kconfig-devel kguiaddons-devel ki18n-devel kiconthemes-devel \
-      kwindowsystem-devel frameworkintegration-devel karchive-devel \
-      kcodecs-devel kwidgetsaddons-devel 
+sudo xbps-install -Sy git extra-cmake-modules base-devel qt5-devel qt6-base-devel \
+ kcoreaddons-devel kf6-kcoreaddons-devel kcmutils-deve kf6-kcmutils-devel \
+ kconfig-devel kf6-kconfig-devel kguiaddons-devel kf6-kguiaddons-devel \
+ ki18n-devel kf6-ki18n-devel kiconthemes-devel kf6-kiconthemes-devel \
+ kwindowsystem-devel kf6-kwindowsystem-devel kirigami2-devel kf6-kirigami-devel \
+ kf6-kdecoration-devel frameworkintegration-devel kf6-frameworkintegration-devel
 ```
 
 ```
