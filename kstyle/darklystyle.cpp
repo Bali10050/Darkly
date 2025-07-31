@@ -2492,7 +2492,7 @@ QRect Style::tabWidgetTabBarRect(const QStyleOption *option, const QWidget *widg
         if (tabBarAlignment == Qt::AlignCenter) {
             tabBarRect.moveLeft(rect.left() + (rect.width() - tabBarRect.width()) / 2);
         } else if (tabOption->lineWidth == 0) {
-            tabBarRect.moveLeft(rect.left() + 4);
+            tabBarRect.moveLeft(rect.left());
         } else {
             tabBarRect.moveLeft(rect.left() - 1);
         }
@@ -3857,31 +3857,34 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
     auto outline(palette.color(QPalette::Highlight));
 
     bool isVisible = false;
+    const auto isControl = isQtQuickControl(option, widget);
 
-    // take precautions only change this on the Dolphin location bar
-    if (_isDolphin && widget->inherits("DolphinUrlNavigator")) {
-        // check if the Dolphin URL location bar is visible
+    if (_isDolphin && !isControl) {
+        // take precautions only change this on the Dolphin location bar
+        if (widget->inherits("DolphinUrlNavigator")) {
+            // check if the Dolphin URL location bar is visible
 
-        // only change the alpha channel if the  Dolphin URL location bar is hidden
-        // otherwise the rectangle doesn't render rounded eges
+            // only change the alpha channel if the  Dolphin URL location bar is hidden
+            // otherwise the rectangle doesn't render rounded eges
 
-        if (widget->findChild<QComboBox *>()) {
-            isVisible = widget->findChild<QComboBox *>()->isVisible();
+            if (widget->findChild<QComboBox *>()) {
+                isVisible = widget->findChild<QComboBox *>()->isVisible();
 
-            if (!isVisible) {
-                // breadcrumb view not editable location
-                if (StyleConfigData::toolBarOpacity() < 100) {
-                    background.setAlphaF(StyleConfigData::toolBarOpacity() / 100);
-                } else if (StyleConfigData::disableDolphinUrlNavigatorBackground()) {
-                    background.setAlphaF(0);
-                }
-                // URL location path
-                QLineEdit *dolphinLineEdit = widget->findChild<QLineEdit *>();
-                // change the background to make it opaque aswell
-                if (dolphinLineEdit) {
-                    QPalette pal(dolphinLineEdit->palette());
-                    pal.setColor(QPalette::Window, background);
-                    dolphinLineEdit->setPalette(pal);
+                if (!isVisible) {
+                    // breadcrumb view not editable location
+                    if (StyleConfigData::toolBarOpacity() < 100) {
+                        background.setAlphaF(StyleConfigData::toolBarOpacity() / 100);
+                    } else if (StyleConfigData::disableDolphinUrlNavigatorBackground()) {
+                        background.setAlphaF(0);
+                    }
+                    // URL location path
+                    QLineEdit *dolphinLineEdit = widget->findChild<QLineEdit *>();
+                    // change the background to make it opaque aswell
+                    if (dolphinLineEdit) {
+                        QPalette pal(dolphinLineEdit->palette());
+                        pal.setColor(QPalette::Window, background);
+                        dolphinLineEdit->setPalette(pal);
+                    }
                 }
             }
         }
