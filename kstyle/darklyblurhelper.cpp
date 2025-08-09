@@ -338,30 +338,32 @@ QRegion BlurHelper::blurTabWidgetRegion(QWidget *widget) const
 QRegion BlurHelper::blurSettingsDialogRegion(QWidget *widget) const
 {
     QRegion region;
-    QList<QWidget *> widgets = widget->findChildren<QWidget *>();
 
     // settings only change it for konsole or dolphin about window
     if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog
         && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
-        for (auto w : widgets) {
-            if (qobject_cast<QTabWidget *>(w) && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
-                // about dialog
-                const QTabWidget *tw = qobject_cast<QTabWidget *>(w);
-                QSize tbSize(tw->rect().size());
-                // the blur region is too small without adjusting the height of the tabbar height
-                tbSize.setHeight(tw->tabBar()->rect().height() + 4);
-                region += roundedRegion(QRect(tw->pos(), tbSize), StyleConfigData::cornerRadius(), false, false, true, false);
-            } else {
-                // settings main dialog
-                region += roundedRegion(QRect(w->mapToGlobal(w->pos()), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
-            }
-            if (w->inherits("KPageWidget")) {
-                // sidebar
-                QList<QWidget *> KPageWidgets = w->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-                for (auto wid : KPageWidgets) {
-                    if (wid->property(PropertyNames::sidePanelView).toBool()) {
-                        region += roundedRegion(QRect(wid->pos(), wid->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
-                        break;
+        QList<QWidget *> widgets = widget->findChildren<QWidget *>();
+        if (widgets.length() > 0) {
+            for (auto w : widgets) {
+                if (qobject_cast<QTabWidget *>(w) && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
+                    // about dialog
+                    const QTabWidget *tw = qobject_cast<QTabWidget *>(w);
+                    QSize tbSize(tw->rect().size());
+                    // the blur region is too small without adjusting the height of the tabbar height
+                    tbSize.setHeight(tw->tabBar()->rect().height() + 4);
+                    region += roundedRegion(QRect(tw->pos(), tbSize), StyleConfigData::cornerRadius(), false, false, true, false);
+                } else {
+                    // settings main dialog
+                    region += roundedRegion(QRect(w->mapToGlobal(w->pos()), w->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
+                }
+                if (w->inherits("KPageWidget")) {
+                    // sidebar
+                    QList<QWidget *> KPageWidgets = w->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+                    for (auto wid : KPageWidgets) {
+                        if (wid->property(PropertyNames::sidePanelView).toBool()) {
+                            region += roundedRegion(QRect(wid->pos(), wid->rect().size()), StyleConfigData::cornerRadius(), false, false, true, false);
+                            break;
+                        }
                     }
                 }
             }
