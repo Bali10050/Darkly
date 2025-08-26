@@ -3,3 +3,7 @@ build/
 .clang-format
 
 result*
+
+.flatpak-builder/
+local/
+*.flatpak

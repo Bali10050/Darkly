@@ -123,6 +123,6 @@ endif()
 
 ########### subdirectories ###############
 
-if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils" AND NOT FOR_FLATPAK)
+if (QT_MAJOR_VERSION EQUAL "6" AND TARGET "KF6::KCMUtils")
     add_subdirectory(config)
 endif()
