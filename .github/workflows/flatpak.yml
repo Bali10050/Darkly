@@ -9,7 +9,7 @@ on:
         required: true
         type: string
 env:
-  QT6_RUNTIME_VERSION: 6.8
+  QT6_RUNTIME_VERSION: 6.9
   QT5_RUNTIME_VERSION: 5.15-24.08
 jobs:
   build:
