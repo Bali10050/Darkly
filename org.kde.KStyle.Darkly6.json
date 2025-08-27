@@ -1,10 +1,10 @@
 {
   "id": "org.kde.KStyle.Darkly",
-  "branch": "6.8",
+  "branch": "6.9",
   "runtime": "org.kde.Platform",
   "build-extension": true,
   "sdk": "org.kde.Sdk",
-  "runtime-version": "6.8",
+  "runtime-version": "6.9",
   "appstream-compose": false,
   "separate-locales": false,
   "modules": [
