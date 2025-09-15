@@ -1,0 +1,54 @@
+# Flatpak build support
+on:
+  workflow_call:
+    inputs:
+      cache-file-path:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+env:
+  QT6_RUNTIME_VERSION: 6.9
+  QT5_RUNTIME_VERSION: 5.15-24.08
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
+          path: ${{ inputs.cache-file-path }}
+          fail-on-cache-miss: true
+      - name: Install build dependencies
+        run: |
+          sudo apt update -y
+          sudo apt dist-upgrade -y
+          sudo apt install flatpak flatpak-builder git -y
+      - name: Extract release tarball
+        run: tar xvf ${{ inputs.cache-file-path }}
+      - name: Flatpak remote-add flathub
+        run: sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+      - name: Flatpak build setup - QT6
+        run: |
+          sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT6_RUNTIME_VERSION }} -y
+          sudo flatpak install org.kde.Platform/x86_64/${{ env.QT6_RUNTIME_VERSION }} -y
+      - name: Flatpak build setup - QT5
+        run: |
+          sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT5_RUNTIME_VERSION }} -y
+          sudo flatpak install org.kde.Platform/x86_64/${{ env.QT5_RUNTIME_VERSION }} -y
+      - name: Flatpak build & bundle - QT6
+        run: |
+          sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly6.json
+          sudo flatpak build-bundle local/ darkly-qt${{ env.QT6_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT6_RUNTIME_VERSION }}
+      - name: Flatpak build & bundle - QT5
+        run: |
+          sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly5.json
+          sudo flatpak build-bundle local/ darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT5_RUNTIME_VERSION }}
+      - name: Release
+        uses: softprops/action-gh-release@v2.0.8
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            darkly-qt${{ env.QT6_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
+            darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
