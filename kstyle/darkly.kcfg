@@ -71,6 +71,9 @@
     <entry name="FancyMargins" type="Bool">
       <default>true</default>
     </entry>
+    <entry name="SunkenEffect" type="Bool">
+      <default>false</default>
+    </entry>
   </group>
 
 
