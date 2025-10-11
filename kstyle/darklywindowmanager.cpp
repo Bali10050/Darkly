@@ -838,7 +838,7 @@ void WindowManager::startDrag(QWindow *window, const QPoint &position)
         _cursorOverride = true;
     }
 
-    _dragInProgress = true;
+    _dragInProgress = window->startSystemMove();
 }
 
 //_______________________________________________________
