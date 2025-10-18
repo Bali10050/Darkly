@@ -52,7 +52,7 @@
     <entry name="CornerRadius" type="Int">
       <default>6</default>
       <min>1</min>
-      <max>8</max>
+      <max>16</max>
     </entry>
 
     <!-- button size -->
@@ -147,7 +147,7 @@
 
     <!-- shadows on widgets -->
     <entry name="WidgetDrawShadow" type="Bool">
-      <default>true</default>
+      <default>false</default>
     </entry>
 
     <!-- shadow underneath toolbar -->
