@@ -80,7 +80,7 @@
 
 #if DARKLY_HAVE_QTQUICK
 // needed to enable dragging from QQuickWindows
-#include <QQuickItem>
+#include <QQuickRenderControl>
 #include <QQuickWindow>
 #endif
 
@@ -256,7 +256,7 @@ void WindowManager::waylandHasPointerChanged(bool hasPointer)
 //_____________________________________________________________
 void WindowManager::registerWidget(QWidget *widget)
 {
-    if (isBlackListed(widget) || isDragable(widget)) {
+    if ((isBlackListed(widget) || isDragable(widget)) || widget->inherits("QQuickWidget")) {
         /*
         install filter for dragable widgets.
         also install filter for blacklisted widgets
@@ -361,13 +361,17 @@ void WindowManager::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == _dragTimer.timerId()) {
         _dragTimer.stop();
-        if (_target)
-            startDrag(_target.data()->window()->windowHandle(), _globalDragPoint);
+        setLocked(false);
+        if (_target) {
+            startDrag(_target.data()->window()->windowHandle());
+        }
 #if DARKLY_HAVE_QTQUICK
-        else if (_quickTarget)
-            startDrag(_quickTarget.data()->window(), _globalDragPoint);
+        else if (_quickTarget) {
+            _quickTarget.data()->ungrabMouse();
+            startDrag(_quickTarget.data()->window());
+        }
 #endif
-
+        resetDrag();
     } else {
         return QObject::timerEvent(event);
     }
@@ -385,11 +389,23 @@ bool WindowManager::mousePressEvent(QObject *object, QEvent *event)
         return false;
     }
 
-    // check lock
-    if (isLocked())
+    // If we are in a QQuickWidget we don't want to ever do dragging from a qwidget in the
+    // hyerarchy, but only from an internal item, if any. If any event handler will manage
+    // the event, we don't want the drag to start
+    if (object->inherits("QQuickWidget")) {
+        _eventInQQuickWidget = true;
+        event->setAccepted(false);
         return false;
-    else
+    } else {
+        _eventInQQuickWidget = false;
+    }
+
+    // check lock
+    if (isLocked()) {
+        return false;
+    } else {
         setLocked(true);
+    }
 
 #if DARKLY_HAVE_QTQUICK
     // check QQuickItem - we can immediately start drag, because QQuickWindow's contentItem
@@ -404,26 +420,35 @@ bool WindowManager::mousePressEvent(QObject *object, QEvent *event)
             mouseEvent->globalPos();
 #endif
 
-        if (_dragTimer.isActive())
+        if (_dragTimer.isActive()) {
             _dragTimer.stop();
+        }
         _dragTimer.start(_dragDelay, this);
 
         return true;
     }
 #endif
 
+    if (_eventInQQuickWidget) {
+        event->setAccepted(true);
+        return false;
+    }
+    _eventInQQuickWidget = false;
+
     // cast to widget
     auto widget = static_cast<QWidget *>(object);
 
     // check if widget can be dragged from current position
-    if (isBlackListed(widget) || !canDrag(widget))
+    if (isBlackListed(widget) || !canDrag(widget)) {
         return false;
+    }
 
     // retrieve widget's child at event position
     auto position(mouseEvent->pos());
     auto child = widget->childAt(position);
-    if (!canDrag(widget, child, position))
+    if (!canDrag(widget, child, position)) {
         return false;
+    }
 
     // save target and drag point
     _target = widget;
@@ -439,10 +464,11 @@ bool WindowManager::mousePressEvent(QObject *object, QEvent *event)
     // send a move event to the current child with same position
     // if received, it is caught to actually start the drag
     auto localPoint(_dragPoint);
-    if (child)
+    if (child) {
         localPoint = child->mapFrom(widget, localPoint);
-    else
+    } else {
         child = widget;
+    }
     QMouseEvent localMouseEvent(QEvent::MouseMove,
                                 localPoint,
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
@@ -819,26 +845,30 @@ void WindowManager::resetDrag()
 }
 
 //____________________________________________________________
-void WindowManager::startDrag(QWindow *window, const QPoint &position)
+void WindowManager::startDrag(QWindow *window)
 {
-    if (!(enabled() && window))
+    if (!(enabled() && window)) {
         return;
-    if (QWidget::mouseGrabber())
+    }
+    if (QWidget::mouseGrabber()) {
         return;
-
-    // ungrab pointer
-    if (useWMMoveResize()) {
-        if (Helper::isX11())
-            startDragX11(window, position);
-        else if (Helper::isWayland())
-            startDragWayland(window, position);
-
-    } else if (!_cursorOverride) {
-        qApp->setOverrideCursor(Qt::SizeAllCursor);
-        _cursorOverride = true;
     }
 
-    _dragInProgress = window->startSystemMove();
+#if DARKLY_HAVE_QTQUICK
+    if (_quickTarget) {
+        if (QQuickWindow *qw = qobject_cast<QQuickWindow *>(window)) {
+            QWindow *renderWindow = QQuickRenderControl::renderWindowFor(qw);
+            if (renderWindow) {
+                _dragInProgress = renderWindow->startSystemMove();
+            } else {
+                _dragInProgress = window->startSystemMove();
+            }
+        }
+    } else
+#endif
+    {
+        _dragInProgress = window->startSystemMove();
+    }
 }
 
 //_______________________________________________________
