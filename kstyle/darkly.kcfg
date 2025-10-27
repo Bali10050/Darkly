@@ -245,7 +245,7 @@
         <choice name="WD_MINIMAL" />
         <choice name="WD_FULL" />
       </choices>
-      <default>WD_FULL</default>
+      <default>WD_MINIMAL</default>
     </entry>
 
     <!--

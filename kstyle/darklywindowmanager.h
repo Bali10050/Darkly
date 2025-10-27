@@ -184,7 +184,7 @@ protected:
     void resetDrag();
 
     //* start drag
-    void startDrag(QWindow *, const QPoint &);
+    void startDrag(QWindow *);
 
     //* X11 specific implementation for startDrag
     void startDragX11(QWindow *, const QPoint &);
@@ -316,6 +316,13 @@ private:
 
     //* true if drag is locked
     bool _locked = false;
+
+    //* true if the event we are intercepting passed through a QQuickWidget.
+    /**In this case we shouldn't start a drag, because if it was to start, we would have done it in the event filter of a qquickwidget.
+     * Event handlers don't accept input events, but they do block QQuickItems to receive the event, so the event may have been
+     * managed by an handler and not blocked by the root qml item.
+     **/
+    bool _eventInQQuickWidget = false;
 
     //* cursor override
     /** used to keep track of application cursor being overridden when dragging in non-WM mode */
