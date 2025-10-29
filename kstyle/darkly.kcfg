@@ -52,7 +52,7 @@
     <entry name="CornerRadius" type="Int">
       <default>6</default>
       <min>1</min>
-      <max>8</max>
+      <max>16</max>
     </entry>
 
     <!-- button size -->
@@ -70,6 +70,9 @@
 
     <entry name="FancyMargins" type="Bool">
       <default>true</default>
+    </entry>
+    <entry name="SunkenEffect" type="Bool">
+      <default>false</default>
     </entry>
   </group>
 
@@ -144,7 +147,7 @@
 
     <!-- shadows on widgets -->
     <entry name="WidgetDrawShadow" type="Bool">
-      <default>true</default>
+      <default>false</default>
     </entry>
 
     <!-- shadow underneath toolbar -->
@@ -242,7 +245,7 @@
         <choice name="WD_MINIMAL" />
         <choice name="WD_FULL" />
       </choices>
-      <default>WD_FULL</default>
+      <default>WD_MINIMAL</default>
     </entry>
 
     <!--

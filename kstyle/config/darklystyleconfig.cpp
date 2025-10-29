@@ -110,6 +110,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_buttonWidth, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(_menuItemHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(_fancyMargins, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_sunkenEffect, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 }
 
 //__________________________________________________________________
@@ -159,6 +160,7 @@ void StyleConfig::save()
     StyleConfigData::setButtonWidth(_buttonWidth->value());
     StyleConfigData::setMenuItemHeight(_menuItemHeight->value());
     StyleConfigData::setFancyMargins(_fancyMargins->isChecked());
+    StyleConfigData::setSunkenEffect(_sunkenEffect->isChecked());
 
     StyleConfigData::self()->save();
 
@@ -283,6 +285,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_fancyMargins->isChecked() != StyleConfigData::fancyMargins())
         modified = true;
+    else if (_sunkenEffect->isChecked() != StyleConfigData::sunkenEffect())
+        modified = true;
 
     if (_shadowSize->currentIndex() == 0) {
         _shadowColor->setEnabled(false);
@@ -346,6 +350,7 @@ void StyleConfig::load()
     _widgetToolBarShadow->setChecked(StyleConfigData::widgetToolBarShadow());
     _menuItemHeight->setValue(StyleConfigData::menuItemHeight());
     _fancyMargins->setChecked(StyleConfigData::fancyMargins());
+    _sunkenEffect->setChecked(StyleConfigData::sunkenEffect());
 
     if (!_widgetDrawShadow->isChecked()) {
         _widgetToolBarShadow->setEnabled(false);

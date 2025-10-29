@@ -1087,11 +1087,14 @@ void Helper::renderCheckBox(QPainter *painter,
         background = background.lighter(115);
 
     // float and sunken effect
+    if (StyleConfigData::sunkenEffect())
+    {
     if (sunken) {
         frameRect.translate(1, 1);
         background = background.darker(115);
     } else if (state == CheckOn || (state == CheckOff && mouseOver))
         frameRect.translate(-1, -1);
+    }
 
     if (state == CheckOff) {
         // shadow
@@ -1164,20 +1167,22 @@ void Helper::renderCheckBox(QPainter *painter,
     } else if (state == CheckAnimated) {
         if (animation == 0) {
             // small shadow
+            if (StyleConfigData::sunkenEffect()){
             if (mouseOver && !sunken) {
                 renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 120), 1, windowActive);
                 renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 90), radius, windowActive);
             } else {
                 renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 160), radius, windowActive);
                 renderOutline(painter, frameRect, radius, 4);
-            }
+            }}
             painter->setBrush(mouseOver ? background.lighter(115) : background);
             painter->drawRoundedRect(frameRect, radius, radius);
 
         } else if ((animation > 0 && animation < 1) || animation == -1) {
             if (animation == -1)
                 animation = 1.0;
-            frameRect.translate(-1, -1);
+            if (StyleConfigData::sunkenEffect()){
+            frameRect.translate(-1, -1);}
             if (darkTheme)
                 renderBoxShadow(painter, frameRect, 0, 1, 4, mouseOver ? background.darker(140) : background.darker(200), radius, windowActive);
             else {
@@ -1250,10 +1255,13 @@ void Helper::renderRadioButton(QPainter *painter,
     frameRect.adjust(Metrics::Frame_FrameWidth - 1, Metrics::Frame_FrameWidth - 1, -Metrics::Frame_FrameWidth + 1, -Metrics::Frame_FrameWidth + 1);
 
     // float and sunken effect
+    if (StyleConfigData::sunkenEffect())
+    {
     if (sunken)
         frameRect.translate(1, 1);
     else if (state == RadioOn || (state == RadioOff && mouseOver))
         frameRect.translate(-1, -1);
+    }
 
     // mark
     if (state == RadioOn) {
@@ -1288,8 +1296,9 @@ void Helper::renderRadioButton(QPainter *painter,
             if (animation > 1)
                 animation *= 1.1;
 
+            if (StyleConfigData::sunkenEffect()){
             frameRect.translate(-1 * animation, -1 * animation);
-
+            }
             // radioOff shadow fade
             if (mouseOver)
                 renderEllipseShadow(painter,
