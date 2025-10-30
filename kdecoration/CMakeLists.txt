@@ -1,7 +1,6 @@
 add_definitions(-DTRANSLATION_DOMAIN="darkly_kwin_deco")
 
-################# configuration #################
-configure_file(config-darkly.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-darkly.h )
+add_subdirectory(libdbusmenuqt)
 
 ################# includes #################
 include_directories(${CMAKE_SOURCE_DIR}/libdarklycommon)
@@ -10,16 +9,17 @@ include_directories(${CMAKE_BINARY_DIR}/libdarklycommon)
 ################# newt target #################
 ### plugin classes
 set(darklydecoration_SRCS
+    darklyapplicationmenu.cpp
     darklybutton.cpp
     darklydecoration.cpp
-    darklyexceptionlist.cpp
     darklysettingsprovider.cpp
+    darklyexceptionlist.cpp
 )
+
 ### build library
 kconfig_add_kcfg_files(darklydecoration_SRCS darklysettings.kcfgc)
 add_library(darklydecoration MODULE
     ${darklydecoration_SRCS}
-    ${darklydecoration_config_SRCS}
     ${darklydecoration_config_PART_FORMS_HEADERS})
 
 set_target_properties(darklydecoration PROPERTIES
@@ -27,19 +27,19 @@ set_target_properties(darklydecoration PROPERTIES
 )
 
 target_link_libraries(darklydecoration
-     PUBLIC
-        Qt6::DBus
-        KDecoration3::KDecoration
-     PRIVATE
+    PRIVATE
         darklycommon6
+        dbusmenuqt
+        Qt6::DBus
         KF6::CoreAddons
-        KF6::ConfigWidgets
+        KF6::ConfigGui
         KF6::GuiAddons
         KF6::I18n
         KF6::IconThemes
-        KF6::WindowSystem
-        KF6::KCMUtils
+        KDecoration3::KDecoration
 )
+
 install(TARGETS darklydecoration DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
-install(FILES config/darklydecorationconfig.desktop DESTINATION  ${KDE_INSTALL_DATADIR}/kservices6)
+
 add_subdirectory(config)
+

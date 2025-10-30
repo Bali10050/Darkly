@@ -1,22 +1,8 @@
 /*
- * Copyright 2014  Martin Gräßlin <mgraesslin@kde.org>
- * Copyright 2014  Hugo Pereira Da Costa <hugo.pereira@free.fr>
+ * SPDX-FileCopyrightText: 2014 Martin Gräßlin <mgraesslin@kde.org>
+ * SPDX-FileCopyrightText: 2014 Hugo Pereira Da Costa <hugo.pereira@free.fr>
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License or (at your option) version 3 or any later version
- * accepted by the membership of KDE e.V. (or its successor approved
- * by the membership of KDE e.V.), which shall act as a proxy
- * defined in Section 14 of version 3 of the license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 #include "darklybutton.h"
 
@@ -30,14 +16,18 @@
 
 namespace Darkly
 {
-
 using KDecoration3::ColorGroup;
 using KDecoration3::ColorRole;
 using KDecoration3::DecorationButtonType;
 
+Button::Button(KDecoration3::DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent)
+    : KDecoration3::DecorationButton(type, decoration, parent)
+{
+}
+
 //__________________________________________________________________
-Button::Button(DecorationButtonType type, Decoration *decoration, QObject *parent)
-    : DecorationButton(type, decoration, parent)
+IconButton::IconButton(DecorationButtonType type, Decoration *decoration, QObject *parent)
+    : Button(type, decoration, parent)
     , m_animation(new QVariantAnimation(this))
 {
     // setup animation
@@ -50,50 +40,51 @@ Button::Button(DecorationButtonType type, Decoration *decoration, QObject *paren
     });
 
     // connections
+    connect(decoration, &Decoration::tabletModeChanged, this, &IconButton::reconfigure);
     connect(decoration->window(), SIGNAL(iconChanged(QIcon)), this, SLOT(update()));
-    connect(decoration->settings().get(), &KDecoration3::DecorationSettings::reconfigured, this, &Button::reconfigure);
-    connect(this, &KDecoration3::DecorationButton::hoveredChanged, this, &Button::updateAnimationState);
+    connect(decoration->settings().get(), &KDecoration3::DecorationSettings::reconfigured, this, &IconButton::reconfigure);
+    connect(this, &KDecoration3::DecorationButton::hoveredChanged, this, &IconButton::updateAnimationState);
 
     reconfigure();
 }
 
 //__________________________________________________________________
-Button::Button(QObject *parent, const QVariantList &args)
-    : Button(args.at(0).value<DecorationButtonType>(), args.at(1).value<Decoration *>(), parent)
+IconButton::IconButton(QObject *parent, const QVariantList &args)
+    : IconButton(args.at(0).value<DecorationButtonType>(), args.at(1).value<Decoration *>(), parent)
 {
     setGeometry(QRectF(QPointF(0, 0), preferredSize()));
 }
 
 //__________________________________________________________________
-Button *Button::create(DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent)
+IconButton *IconButton::create(DecorationButtonType type, KDecoration3::Decoration *decoration, QObject *parent)
 {
     if (auto d = qobject_cast<Decoration *>(decoration)) {
-        Button *b = new Button(type, d, parent);
+        IconButton *b = new IconButton(type, d, parent);
         const auto c = d->window();
         switch (type) {
         case DecorationButtonType::Close:
             b->setVisible(c->isCloseable());
-            QObject::connect(c, &KDecoration3::DecoratedWindow::closeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::closeableChanged, b, &Darkly::IconButton::setVisible);
             break;
 
         case DecorationButtonType::Maximize:
             b->setVisible(c->isMaximizeable());
-            QObject::connect(c, &KDecoration3::DecoratedWindow::maximizeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::maximizeableChanged, b, &Darkly::IconButton::setVisible);
             break;
 
         case DecorationButtonType::Minimize:
             b->setVisible(c->isMinimizeable());
-            QObject::connect(c, &KDecoration3::DecoratedWindow::minimizeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::minimizeableChanged, b, &Darkly::IconButton::setVisible);
             break;
 
         case DecorationButtonType::ContextHelp:
             b->setVisible(c->providesContextHelp());
-            QObject::connect(c, &KDecoration3::DecoratedWindow::providesContextHelpChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::providesContextHelpChanged, b, &Darkly::IconButton::setVisible);
             break;
 
         case DecorationButtonType::Shade:
             b->setVisible(c->isShadeable());
-            QObject::connect(c, &KDecoration3::DecoratedWindow::shadeableChanged, b, &Darkly::Button::setVisible);
+            QObject::connect(c, &KDecoration3::DecoratedWindow::shadeableChanged, b, &Darkly::IconButton::setVisible);
             break;
 
         case DecorationButtonType::Menu:
@@ -113,14 +104,14 @@ Button *Button::create(DecorationButtonType type, KDecoration3::Decoration *deco
 }
 
 //__________________________________________________________________
-void Button::paint(QPainter *painter, const QRectF &repaintRegion)
+void IconButton::paint(QPainter *painter, const QRectF &repaintRegion)
 {
     Q_UNUSED(repaintRegion)
 
-    if (!decoration())
+    if (!decoration()) {
         return;
+    }
 
-    // menu button
     switch (type()) {
     case KDecoration3::DecorationButtonType::Menu: {
         const QRectF iconRect = geometry().marginsRemoved(m_padding);
@@ -152,7 +143,7 @@ void Button::paint(QPainter *painter, const QRectF &repaintRegion)
 }
 
 //__________________________________________________________________
-void Button::drawIcon(QPainter *painter) const
+void IconButton::drawIcon(QPainter *painter) const
 {
     painter->setRenderHints(QPainter::Antialiasing);
 
@@ -296,7 +287,7 @@ void Button::drawIcon(QPainter *painter) const
 }
 
 //__________________________________________________________________
-QColor Button::foregroundColor() const
+QColor IconButton::foregroundColor() const
 {
     auto d = qobject_cast<Decoration *>(decoration());
     if (!d) {
@@ -324,7 +315,7 @@ QColor Button::foregroundColor() const
 }
 
 //__________________________________________________________________
-QColor Button::backgroundColor() const
+QColor IconButton::backgroundColor() const
 {
     auto d = qobject_cast<Decoration *>(decoration());
     if (!d) {
@@ -332,11 +323,14 @@ QColor Button::backgroundColor() const
     }
 
     auto c = d->window();
+    QColor redColor(c->color(ColorGroup::Warning, ColorRole::Foreground));
+
     if (isPressed()) {
-        if (type() == DecorationButtonType::Close)
-            return c->color(ColorGroup::Warning, ColorRole::Foreground);
-        else
+        if (type() == DecorationButtonType::Close) {
+            return redColor.darker();
+        } else {
             return KColorUtils::mix(d->titleBarColor(), d->fontColor(), 0.3);
+        }
 
     } else if ((type() == DecorationButtonType::KeepBelow || type() == DecorationButtonType::KeepAbove || type() == DecorationButtonType::Shade)
                && isChecked()) {
@@ -345,10 +339,10 @@ QColor Button::backgroundColor() const
     } else if (m_animation->state() == QAbstractAnimation::Running) {
         if (type() == DecorationButtonType::Close) {
             if (d->internalSettings()->outlineCloseButton()) {
-                return KColorUtils::mix(d->fontColor(), c->color(ColorGroup::Warning, ColorRole::Foreground).lighter(), m_opacity);
+                return c->isActive() ? KColorUtils::mix(redColor, redColor.lighter(), m_opacity) : KColorUtils::mix(redColor.lighter(), redColor, m_opacity);
 
             } else {
-                QColor color(c->color(ColorGroup::Warning, ColorRole::Foreground).lighter());
+                QColor color(redColor.lighter());
                 color.setAlpha(color.alpha() * m_opacity);
                 return color;
             }
@@ -360,13 +354,14 @@ QColor Button::backgroundColor() const
         }
 
     } else if (isHovered()) {
-        if (type() == DecorationButtonType::Close)
-            return c->color(ColorGroup::Warning, ColorRole::Foreground).lighter();
-        else
+        if (type() == DecorationButtonType::Close) {
+            return c->isActive() ? redColor.lighter() : redColor;
+        } else {
             return d->fontColor();
+        }
 
     } else if (type() == DecorationButtonType::Close && d->internalSettings()->outlineCloseButton()) {
-        return d->fontColor();
+        return c->isActive() ? redColor : d->fontColor();
 
     } else {
         return QColor();
@@ -374,7 +369,7 @@ QColor Button::backgroundColor() const
 }
 
 //________________________________________________________________
-void Button::reconfigure()
+void IconButton::reconfigure()
 {
     // animation
     auto d = qobject_cast<Decoration *>(decoration());
@@ -391,19 +386,21 @@ void Button::reconfigure()
         break;
     }
 
-    m_animation->setDuration(d->internalSettings()->animationsDuration());
+    m_animation->setDuration(d->animationsDuration());
 }
 
 //__________________________________________________________________
-void Button::updateAnimationState(bool hovered)
+void IconButton::updateAnimationState(bool hovered)
 {
     auto d = qobject_cast<Decoration *>(decoration());
-    if (!(d && d->internalSettings()->animationsEnabled()))
+    if (!(d && d->animationsDuration() > 0)) {
         return;
+    }
 
     m_animation->setDirection(hovered ? QAbstractAnimation::Forward : QAbstractAnimation::Backward);
-    if (m_animation->state() != QAbstractAnimation::Running)
+    if (m_animation->state() != QAbstractAnimation::Running) {
         m_animation->start();
+    }
 }
 
 } // namespace
