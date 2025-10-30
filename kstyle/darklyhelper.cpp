@@ -1132,6 +1132,24 @@ void Helper::renderCheckBox(QPainter *painter,
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
 
+        if (StyleConfigData::useNewCheckBox())
+        {
+        QPainterPath checkShadow;
+        checkShadow.moveTo(5 + x, 9.5 + y);
+        checkShadow.lineTo(7 + x, 12 + y);
+        checkShadow.lineTo(12 + x, 6 + y);
+        painter->drawPath(checkShadow);
+
+        QPainterPath check;
+        pen.setColor(color);
+        painter->setPen(pen);
+        check.moveTo(5 + x, 8.5 + y);
+        check.lineTo(7 + x, 11 + y);
+        check.lineTo(12 + x, 5 + y);
+        painter->drawPath(check);
+        }
+        else
+        {
         QPainterPath checkShadow;
         checkShadow.moveTo(5 + x, 8 + y);
         checkShadow.lineTo(6 + x, 12 + y);
@@ -1145,6 +1163,7 @@ void Helper::renderCheckBox(QPainter *painter,
         check.lineTo(6 + x, 11 + y);
         check.lineTo(12 + x, 5 + y);
         painter->drawPath(check);
+        }
 
     } else if (state == CheckPartial) {
         if (darkTheme) {
@@ -1209,6 +1228,24 @@ void Helper::renderCheckBox(QPainter *painter,
             painter->setPen(pen);
             painter->setBrush(Qt::NoBrush);
 
+            if (StyleConfigData::useNewCheckBox())
+            {
+            QPainterPath checkShadow;
+            checkShadow.moveTo(5 + x, 9.5 + y);
+            checkShadow.lineTo(5 + 2 * animation + x, 9.5 + 2.5 * animation + y);
+            checkShadow.lineTo(7 + 5 * animation + x, 12 - 4 * animation * 1.5 + y);
+            painter->drawPath(checkShadow);
+
+            QPainterPath check;
+            pen.setColor(alphaColor(color, 1.0 * animation));
+            painter->setPen(pen);
+            check.moveTo(5 + x, 8.5 + y);
+            check.lineTo(5 + 2 * animation + x, 8.5 + 2.5 * animation + y);
+            check.lineTo(7 + 5 * animation + x, 11 - 4 * animation * 1.5 + y);
+            painter->drawPath(check);
+            }
+            else
+            {
             QPainterPath checkShadow;
             checkShadow.moveTo(animation * 5 + x, 8 + y);
             checkShadow.lineTo(animation * 6 + x, 12 + y);
@@ -1222,6 +1259,8 @@ void Helper::renderCheckBox(QPainter *painter,
             check.lineTo(animation * 6 + x, 11 + y);
             check.lineTo(animation * 12 + x, 5 + y);
             painter->drawPath(check);
+            }
+
         }
     }
 
