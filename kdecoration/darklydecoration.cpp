@@ -536,7 +536,7 @@ void Decoration::updateButtonsGeometry()
         m_leftButtons->setSpacing(s->smallSpacing() * Metrics::TitleBar_ButtonSpacing);
 
         // padding
-        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * Metrics::TitleBar_TopMargin;
+        const int vPadding = isTopEdge() ? 0 : s->smallSpacing() * 0;
         const int hPadding = s->smallSpacing() * Metrics::TitleBar_SideMargin;
         if (isLeftEdge()) {
             // add offsets on the side buttons, to preserve padding, but satisfy Fitts law
@@ -550,7 +550,7 @@ void Decoration::updateButtonsGeometry()
             m_leftButtons->setPos(QPointF(0, vPadding));
 
         } else {
-            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), 0));
+            m_leftButtons->setPos(QPointF(hPadding + borderLeft(), vPadding));
         }
     }
 
@@ -809,7 +809,7 @@ void Decoration::onTabletModeChanged(bool mode)
 //________________________________________________________________
 qreal Decoration::captionHeight() const
 {
-    return hideTitleBar() ? borderTop() : borderTop() - settings()->smallSpacing() * (Metrics::TitleBar_BottomMargin + Metrics::TitleBar_TopMargin);
+    return borderTop();
 }
 
 //________________________________________________________________
@@ -830,7 +830,7 @@ QPair<QRectF, Qt::Alignment> Decoration::captionRect() const
                                                                 window()->scale());
 
         const qreal yOffset = KDecoration3::snapToPixelGrid(settings()->smallSpacing() * Metrics::TitleBar_TopMargin, window()->scale());
-        const QRectF maxRect(leftOffset, yOffset, size().width() - leftOffset - rightOffset, captionHeight());
+        const QRectF maxRect(leftOffset, yOffset, size().width() - leftOffset - rightOffset, captionHeight() - 6);
 
         switch (m_internalSettings->titleAlignment()) {
         case InternalSettings::AlignLeft:

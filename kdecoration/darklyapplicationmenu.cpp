@@ -95,14 +95,14 @@ void ApplicationMenuButton::paint(QPainter *painter, const QRectF &repaintRegion
     for (const ApplicationMenuEntry &entry : std::as_const(m_entries)) {
         if (entry.active || entry.hovered) {
             painter->setBrush(decoration->fontColor());
-            painter->drawRoundedRect(entry.rect.adjusted(2, -2, -2, 2), 5, 5);
+            painter->drawRoundedRect(entry.rect.adjusted(2, -2, -2, -5), 5, 5);
             painter->setBrush(Qt::NoBrush);
             painter->setPen(decoration->titleBarColor());
         } else {
             painter->setPen(decoration->fontColor());
         }
 
-        painter->drawText(entry.rect, Qt::AlignCenter | Qt::TextSingleLine, entry.text);
+        painter->drawText(entry.rect.adjusted(0, -6, 0, 0), Qt::AlignCenter | Qt::TextSingleLine, entry.text);
     }
 
     painter->restore();
