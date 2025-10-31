@@ -154,8 +154,9 @@ void ApplicationMenuButton::mousePressEvent(QMouseEvent *event)
 {
     Button::mousePressEvent(event);
 
-    if (m_activeAction) {
-        rebuild();
+    QAction *pressedAction = actionAt(event->position() - geometry().topLeft());
+    if (pressedAction) {
+        triggerAction(pressedAction);
     }
 }
 
