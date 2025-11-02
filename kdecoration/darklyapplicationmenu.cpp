@@ -157,6 +157,7 @@ void ApplicationMenuButton::mousePressEvent(QMouseEvent *event)
     QAction *pressedAction = actionAt(event->position() - geometry().topLeft());
     if (pressedAction) {
         triggerAction(pressedAction);
+        m_activeAction = nullptr;
     }
 }
 
