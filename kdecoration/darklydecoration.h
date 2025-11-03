@@ -215,6 +215,6 @@ bool Decoration::hideTitleBar() const
 
 bool Decoration::outlinesEnabled() const
 {
-    return (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
+    return !m_internalSettings->roundedCorners() && (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
 }
 }
