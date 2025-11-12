@@ -4,3 +4,4 @@ NameSpace=Darkly
 Singleton=false
 Mutators=true
 GlobalEnums=true
+Notifiers=OutlineCloseButton

@@ -1,0 +1,2 @@
+App with a menu, designed for use testing appmenu QPTs/applets/kded modules
+small enough that we can attach debuggers and breakpoints without drowning in data

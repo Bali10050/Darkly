@@ -2,25 +2,9 @@
 // darklyexceptionlistwidget.cpp
 // -------------------
 //
-// Copyright (c) 2009 Hugo Pereira Da Costa <hugo.pereira@free.fr>
+// SPDX-FileCopyrightText: 2009 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-// IN THE SOFTWARE.
+// SPDX-License-Identifier: MIT
 //////////////////////////////////////////////////////////////////////////////
 
 #include "darklyexceptionlistwidget.h"
@@ -31,11 +15,11 @@
 #include <QIcon>
 #include <QMessageBox>
 #include <QPointer>
+#include <QRegularExpression>
 
 //__________________________________________________________
 namespace Darkly
 {
-
 //__________________________________________________________
 ExceptionListWidget::ExceptionListWidget(QWidget *parent)
     : QWidget(parent)
@@ -118,8 +102,9 @@ void ExceptionListWidget::add()
     delete dialog;
 
     // check exceptions
-    if (!checkException(exception))
+    if (!checkException(exception)) {
         return;
+    }
 
     // create new item
     model().add(exception);
@@ -140,8 +125,9 @@ void ExceptionListWidget::edit()
 {
     // retrieve selection
     QModelIndex current(m_ui.exceptionListView->selectionModel()->currentIndex());
-    if (!model().contains(current))
+    if (!model().contains(current)) {
         return;
+    }
 
     InternalSettingsPtr exception(model().get(current));
 
@@ -157,8 +143,9 @@ void ExceptionListWidget::edit()
     }
 
     // check modifications
-    if (!dialog->isChanged())
+    if (!dialog->isChanged()) {
         return;
+    }
 
     // retrieve exception
     dialog->save();
@@ -182,8 +169,9 @@ void ExceptionListWidget::remove()
                                QMessageBox::Yes | QMessageBox::Cancel);
         messageBox.button(QMessageBox::Yes)->setText(i18n("Remove"));
         messageBox.setDefaultButton(QMessageBox::Cancel);
-        if (messageBox.exec() == QMessageBox::Cancel)
+        if (messageBox.exec() == QMessageBox::Cancel) {
             return;
+        }
     }
 
     // remove
@@ -197,10 +185,12 @@ void ExceptionListWidget::remove()
 //_______________________________________________________
 void ExceptionListWidget::toggle(const QModelIndex &index)
 {
-    if (!model().contains(index))
+    if (!model().contains(index)) {
         return;
-    if (index.column() != ExceptionModel::ColumnEnabled)
+    }
+    if (index.column() != ExceptionModel::ColumnEnabled) {
         return;
+    }
 
     // get matching exception
     InternalSettingsPtr exception(model().get(index));
@@ -232,8 +222,9 @@ void ExceptionListWidget::up()
             newExceptions.removeLast();
             newExceptions.append(*iter);
             newExceptions.append(last);
-        } else
+        } else {
             newExceptions.append(*iter);
+        }
     }
 
     model().set(newExceptions);
@@ -277,8 +268,9 @@ void ExceptionListWidget::down()
             newExceptions.prepend(current);
             newExceptions.prepend(first);
 
-        } else
+        } else {
             newExceptions.prepend(current);
+        }
     }
 
     model().set(newExceptions);

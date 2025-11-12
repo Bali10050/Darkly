@@ -11,13 +11,25 @@
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
+     </property>
+     <property name="documentMode">
+      <bool>true</bool>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -36,6 +48,43 @@
           <cstring>titleAlignment</cstring>
          </property>
         </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="titleAlignment">
+         <item>
+          <property name="text">
+           <string>Left</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Center</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Center (Full Width)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Right</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_4">
@@ -79,70 +128,6 @@
          </item>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="titleAlignment">
-         <item>
-          <property name="text">
-           <string>Left</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Center</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Center (Full Width)</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Right</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="7" column="0" colspan="3">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="6" column="0" colspan="3">
-        <widget class="QCheckBox" name="drawTitleBarSeparator">
-         <property name="text">
-          <string>Draw separator under active window's titlebar</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="3">
-        <widget class="QCheckBox" name="drawBorderOnMaximizedWindows">
-         <property name="text">
-          <string>Allow resizing maximized windows from window edges</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0" colspan="3">
         <widget class="QCheckBox" name="outlineCloseButton">
          <property name="text">
@@ -150,71 +135,52 @@
          </property>
         </widget>
        </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QCheckBox" name="drawBorderOnMaximizedWindows">
+         <property name="text">
+          <string>Draw border on maximized and tiled windows</string>
+         </property>
+        </widget>
+       </item>
        <item row="4" column="0" colspan="3">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>25</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="drawBorderOnMaximizedWindowsHelpLabel">
+           <property name="text">
+            <string>This setting will allow you to resize from window edges touching screen edges. Scrollbars and window close buttons will shift positions and will not touch screen edges.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="5" column="0" colspan="3">
         <widget class="QCheckBox" name="drawBackgroundGradient">
          <property name="text">
           <string>Draw titlebar background gradient</string>
          </property>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_2">
-      <attribute name="title">
-       <string>Animations</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="1" column="0">
-        <widget class="QLabel" name="animationsDurationLabel">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Anima&amp;tions duration:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>animationsDuration</cstring>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="animationsDuration">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="suffix">
-          <string> ms</string>
-         </property>
-         <property name="maximum">
-          <number>500</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0" colspan="3">
-        <widget class="QCheckBox" name="animationsEnabled">
-         <property name="text">
-          <string>Enable animations</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="3">
-        <spacer name="verticalSpacer_2">
+       <item row="6" column="0" colspan="3">
+        <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -230,13 +196,13 @@
      </widget>
      <widget class="QWidget" name="tab_4">
       <attribute name="title">
-       <string>Shadows</string>
+       <string>Shadows and Outline</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Si&amp;ze:</string>
+          <string>Shadow size:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -278,7 +244,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string comment="strength of the shadow (from transparent to opaque)">S&amp;trength:</string>
+          <string comment="strength of the shadow (from transparent to opaque)">Shadow strength:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -317,7 +283,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Color:</string>
+          <string>Shadow color:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -327,7 +293,49 @@
        <item row="2" column="1">
         <widget class="KColorButton" name="shadowColor"/>
        </item>
-       <item row="3" column="0" colspan="3">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string comment="outline intensity">Outline intensity:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="buddy">
+          <cstring>outlineIntensity</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QComboBox" name="outlineIntensity">
+         <item>
+          <property name="text">
+           <string comment="@item:inlistbox Outline intensity:">Off</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string comment="@item:inlistbox Outline intensity:">Low</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string comment="@item:inlistbox Outline intensity:">Medium</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string comment="@item:inlistbox Outline intensity:">High</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string comment="@item:inlistbox Outline intensity:">Maximum</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="3">
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -383,46 +391,10 @@
   <tabstop>outlineCloseButton</tabstop>
   <tabstop>drawBorderOnMaximizedWindows</tabstop>
   <tabstop>drawBackgroundGradient</tabstop>
-  <tabstop>drawTitleBarSeparator</tabstop>
-  <tabstop>animationsEnabled</tabstop>
-  <tabstop>animationsDuration</tabstop>
   <tabstop>shadowSize</tabstop>
   <tabstop>shadowStrength</tabstop>
   <tabstop>shadowColor</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>animationsEnabled</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>animationsDurationLabel</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>34</x>
-     <y>194</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>84</x>
-     <y>221</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>animationsEnabled</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>animationsDuration</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>108</x>
-     <y>194</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>141</x>
-     <y>229</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

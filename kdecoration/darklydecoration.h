@@ -1,28 +1,12 @@
-#ifndef DARKLY_DECORATION_H
-#define DARKLY_DECORATION_H
-
 /*
- * Copyright 2014  Martin Gräßlin <mgraesslin@kde.org>
- * Copyright 2014  Hugo Pereira Da Costa <hugo.pereira@free.fr>
+ * SPDX-FileCopyrightText: 2014 Martin Gräßlin <mgraesslin@kde.org>
+ * SPDX-FileCopyrightText: 2014 Hugo Pereira Da Costa <hugo.pereira@free.fr>
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2 of
- * the License or (at your option) version 3 or any later version
- * accepted by the membership of KDE e.V. (or its successor approved
- * by the membership of KDE e.V.), which shall act as a proxy
- * defined in Section 14 of version 3 of the license.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
  */
 
 #pragma once
+
 #include "darkly.h"
 #include "darklysettings.h"
 
@@ -30,11 +14,9 @@
 #include <KDecoration3/Decoration>
 #include <KDecoration3/DecorationSettings>
 
-#include <QPainterPath>
 #include <QPalette>
 #include <QVariant>
-
-class QVariantAnimation;
+#include <QVariantAnimation>
 
 namespace KDecoration3
 {
@@ -49,13 +31,9 @@ class Decoration : public KDecoration3::Decoration
     Q_OBJECT
 
 public:
-    //* constructor
     explicit Decoration(QObject *parent = nullptr, const QVariantList &args = QVariantList());
+    ~Decoration() override;
 
-    //* destructor
-    virtual ~Decoration();
-
-    //* paint
     void paint(QPainter *painter, const QRectF &repaintRegion) override;
 
     //* internal settings
@@ -64,8 +42,13 @@ public:
         return m_internalSettings;
     }
 
+    qreal animationsDuration() const
+    {
+        return m_animation->duration();
+    }
+
     //* caption height
-    int captionHeight() const;
+    qreal captionHeight() const;
 
     //* button size
     int buttonSize() const;
@@ -84,7 +67,6 @@ public:
     //*@name colors
     //@{
     QColor titleBarColor() const;
-    QColor outlineColor() const;
     QColor fontColor() const;
     //@}
 
@@ -102,35 +84,34 @@ public:
     inline bool hideTitleBar() const;
     //@}
 
-    std::shared_ptr<QPainterPath> titleBarPath()
-    {
-        return m_titleBarPath;
-    }
-    std::shared_ptr<QPainterPath> windowPath()
-    {
-        return m_windowPath;
-    }
+Q_SIGNALS:
+    void tabletModeChanged();
 
 public Q_SLOTS:
-    virtual bool init() override;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    bool init() override;
+#else
+    void init() override;
+#endif
 
 private Q_SLOTS:
     void reconfigure();
     void recalculateBorders();
-    void updateBlur();
     void updateButtonsGeometry();
     void updateButtonsGeometryDelayed();
     void updateTitleBar();
     void updateAnimationState();
+    void onTabletModeChanged(bool mode);
+    void updateScale();
 
 private:
     //* return the rect in which caption will be drawn
     QPair<QRectF, Qt::Alignment> captionRect() const;
 
     void createButtons();
-    void calculateWindowAndTitleBarShapes(const bool windowShapeOnly = false);
     void paintTitleBar(QPainter *painter, const QRectF &repaintRegion);
-    void createShadow();
+    void updateShadow();
+    std::shared_ptr<KDecoration3::DecorationShadow> createShadowObject(const float strengthScale);
     void setScaledCornerRadius();
 
     //*@name border size
@@ -139,7 +120,10 @@ private:
     inline bool hasBorders() const;
     inline bool hasNoBorders() const;
     inline bool hasNoSideBorders() const;
+    QMarginsF bordersFor(qreal scale) const;
     //@}
+
+    inline bool outlinesEnabled() const;
 
     InternalSettingsPtr m_internalSettings;
     KDecoration3::DecorationButtonGroup *m_leftButtons = nullptr;
@@ -147,41 +131,43 @@ private:
 
     //* active state change animation
     QVariantAnimation *m_animation;
+    QVariantAnimation *m_shadowAnimation;
 
     //* active state change opacity
     qreal m_opacity = 0;
+    qreal m_shadowOpacity = 0;
 
-    //* Rectangular area of titlebar without clipped corners
-    QRect m_titleRect;
+    //*frame corner radius, scaled according to DPI
+    qreal m_scaledCornerRadius = 3;
 
-    //* Exact titlebar path, with clipped rounded corners
-    std::shared_ptr<QPainterPath> m_titleBarPath = std::make_shared<QPainterPath>();
-    //* Exact window path, with clipped rounded corners
-    std::shared_ptr<QPainterPath> m_windowPath = std::make_shared<QPainterPath>();
+    bool m_tabletMode = false;
 };
 
 bool Decoration::hasBorders() const
 {
-    if (m_internalSettings && m_internalSettings->mask() & BorderSize)
+    if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
         return m_internalSettings->borderSize() > InternalSettings::BorderNoSides;
-    else
+    } else {
         return settings()->borderSize() > KDecoration3::BorderSize::NoSides;
+    }
 }
 
 bool Decoration::hasNoBorders() const
 {
-    if (m_internalSettings && m_internalSettings->mask() & BorderSize)
+    if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
         return m_internalSettings->borderSize() == InternalSettings::BorderNone;
-    else
+    } else {
         return settings()->borderSize() == KDecoration3::BorderSize::None;
+    }
 }
 
 bool Decoration::hasNoSideBorders() const
 {
-    if (m_internalSettings && m_internalSettings->mask() & BorderSize)
+    if (m_internalSettings && m_internalSettings->mask() & BorderSize) {
         return m_internalSettings->borderSize() == InternalSettings::BorderNoSides;
-    else
+    } else {
         return settings()->borderSize() == KDecoration3::BorderSize::NoSides;
+    }
 }
 
 bool Decoration::isMaximized() const
@@ -202,13 +188,13 @@ bool Decoration::isMaximizedVertically() const
 bool Decoration::isLeftEdge() const
 {
     return (window()->isMaximizedHorizontally() || window()->adjacentScreenEdges().testFlag(Qt::LeftEdge))
-    && !m_internalSettings->drawBorderOnMaximizedWindows();
+        && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isRightEdge() const
 {
     return (window()->isMaximizedHorizontally() || window()->adjacentScreenEdges().testFlag(Qt::RightEdge))
-    && !m_internalSettings->drawBorderOnMaximizedWindows();
+        && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::isTopEdge() const
@@ -219,7 +205,7 @@ bool Decoration::isTopEdge() const
 bool Decoration::isBottomEdge() const
 {
     return (window()->isMaximizedVertically() || window()->adjacentScreenEdges().testFlag(Qt::BottomEdge))
-    && !m_internalSettings->drawBorderOnMaximizedWindows();
+        && !m_internalSettings->drawBorderOnMaximizedWindows();
 }
 
 bool Decoration::hideTitleBar() const
@@ -227,6 +213,8 @@ bool Decoration::hideTitleBar() const
     return m_internalSettings->hideTitleBar() && !window()->isShaded();
 }
 
+bool Decoration::outlinesEnabled() const
+{
+    return (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
 }
-
-#endif
+}
