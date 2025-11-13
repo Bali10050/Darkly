@@ -294,7 +294,7 @@ inputs.darkly.packages.${pkgs.system}.darkly-qt6
 ### Alpine Linux / postmarketOS
  
 ```
-doas apk add bash build-base clang21-extra-tools git cmake extra-cmake-modules kdecoration-dev \
+doas apk add --virtual build-deps bash build-base clang21-extra-tools git cmake extra-cmake-modules kdecoration-dev \
       kcmutils-dev kcolorscheme-dev kwindowsystem-dev kirigami-dev frameworkintegration-dev \
       kcmutils5-dev kirigami2-dev frameworkintegration5-dev qt5-qtx11extras-dev
 ```
@@ -303,6 +303,10 @@ doas apk add bash build-base clang21-extra-tools git cmake extra-cmake-modules k
 git clone --single-branch --depth=1 https://github.com/Bali10050/Darkly.git
 cd Darkly
 ./install.sh
+```
+
+```
+doas apk del build-deps
 ```
 
 ---
