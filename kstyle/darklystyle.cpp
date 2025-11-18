@@ -769,6 +769,8 @@ int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWi
     case PM_TabCloseIndicatorWidth:
     case PM_TabCloseIndicatorHeight:
         return pixelMetric(PM_SmallIconSize, option, widget);
+    case PM_TabBarScrollButtonWidth:
+        return 28;
 
     // scrollbars
     case PM_ScrollBarExtent:
