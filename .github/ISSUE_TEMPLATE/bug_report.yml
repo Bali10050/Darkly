@@ -1,0 +1,95 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened-bug-info
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: "A clear and concise description helps us understand what the bug is."
+    validations:
+      required: true
+  - type: textarea
+    id: version-darkly-release
+    attributes:
+      label: Darkly theme version
+      description: State the Darkly theme version where you are encountering an issue.
+      placeholder: ".e.g. darkly 0.5.25"
+    validations:
+      required: true
+  - type: textarea
+    id: version-plasma
+    attributes:
+      label: Plasma version
+      description: Which version of Plasma are you using?
+      placeholder: "e.g. Plasma 6.5.0"
+    validations:
+      required: true
+  - type: textarea
+    id: version-qt
+    attributes:
+      label: Qt version
+      description: Which version of Qt are you using?
+      placeholder: "e.g. Qt 6.9"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened-bug-screenshot
+    attributes:
+      label: Add screenshot
+      description: If applicable add screenshots to help explain the problem.
+      placeholder: Adding screenshots help explain the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: distribution
+    attributes:
+      label: Which distribution are you using?
+      description: Linux distribution in use?
+      placeholder: ".e.g Arch Linux"
+    validations:
+      required: true
+  - type: textarea
+    id: color-scheme
+    attributes:
+      label: Which color-scheme are you using?
+      description: The color-scheme in use
+      placeholder: "Provide the name of the color-scheme, and if applicable a link to download the color-scheme"
+    validations:
+      required: true
+  - type: dropdown
+    id: session
+    attributes:
+      label: Wayland / X11 session in use?
+      description: Are you using Wayland / X11?
+      options:
+        - Wayland
+        - X11
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: fractional-scaling
+    attributes:
+      label: Is fractional scaling being used?
+      description: Fractional scaling in use?
+      options:
+        - y
+        - n
+      default: 1
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Add any other context about the bug here
+      description: Add any other context about the bug here
+      placeholder: "Additional information which is relevant about the bug"
+    validations:
+      required: false
