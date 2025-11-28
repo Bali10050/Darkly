@@ -20,7 +20,7 @@ IntensityEffect=0
 
 [Colors:Button]
 BackgroundAlternate=77,77,77
-BackgroundNormal=34,34,34
+BackgroundNormal=50,50,50
 DecorationFocus=52,120,218
 DecorationHover=0,161,236
 ForegroundActive=61,174,233
@@ -103,8 +103,8 @@ ForegroundPositive=36,173,89
 ForegroundVisited=115,115,158
 
 [General]
-ColorScheme=Grey
-Name=Grey
+ColorScheme=Darkly
+Name=Darkly
 shadeSortColumn=true
 
 [KDE]
