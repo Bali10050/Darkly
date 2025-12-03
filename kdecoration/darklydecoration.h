@@ -1,6 +1,3 @@
-#ifndef DARKLY_DECORATION_H
-#define DARKLY_DECORATION_H
-
 /*
  * Copyright 2014  Martin Gräßlin <mgraesslin@kde.org>
  * Copyright 2014  Hugo Pereira Da Costa <hugo.pereira@free.fr>
@@ -102,6 +99,8 @@ public:
     inline bool hideTitleBar() const;
     //@}
 
+    inline bool outlinesEnabled() const;
+
     std::shared_ptr<QPainterPath> titleBarPath()
     {
         return m_titleBarPath;
@@ -122,6 +121,7 @@ private Q_SLOTS:
     void updateButtonsGeometryDelayed();
     void updateTitleBar();
     void updateAnimationState();
+    void updateScale();
 
 private:
     //* return the rect in which caption will be drawn
@@ -139,6 +139,7 @@ private:
     inline bool hasBorders() const;
     inline bool hasNoBorders() const;
     inline bool hasNoSideBorders() const;
+    QMarginsF bordersFor(qreal scale) const;
     //@}
 
     InternalSettingsPtr m_internalSettings;
@@ -158,6 +159,9 @@ private:
     std::shared_ptr<QPainterPath> m_titleBarPath = std::make_shared<QPainterPath>();
     //* Exact window path, with clipped rounded corners
     std::shared_ptr<QPainterPath> m_windowPath = std::make_shared<QPainterPath>();
+
+    //*frame corner radius, scaled according to DPI
+    qreal m_scaledCornerRadius = 3;
 };
 
 bool Decoration::hasBorders() const
@@ -227,6 +231,8 @@ bool Decoration::hideTitleBar() const
     return m_internalSettings->hideTitleBar() && !window()->isShaded();
 }
 
+bool Decoration::outlinesEnabled() const
+{
+    return m_internalSettings->outlineEnabled();
 }
-
-#endif
+}
