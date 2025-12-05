@@ -1,6 +1,9 @@
 # Build Darkly and publish release
 name: Darkly build & release
-on: workflow_dispatch
+on:
+  push:
+    tags:
+      -  "v*"
 env:
   BUILD_TYPE: Release
   BUILD_WS: build_kf6
