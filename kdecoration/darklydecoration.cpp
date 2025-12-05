@@ -34,6 +34,7 @@
 #include <KDecoration3/DecorationShadow>
 #include <KDecoration3/ScaleHelpers>
 
+#include <KColorScheme>
 #include <KColorUtils>
 #include <KConfigGroup>
 #include <KPluginFactory>
@@ -235,6 +236,7 @@ bool Decoration::init()
     connect(s.get(), &KDecoration3::DecorationSettings::reconfigured, SettingsProvider::self(), &SettingsProvider::reconfigure, Qt::UniqueConnection);
     connect(s.get(), &KDecoration3::DecorationSettings::reconfigured, this, &Decoration::updateButtonsGeometryDelayed);
 
+    connect(window(), &KDecoration3::DecoratedWindow::activeChanged, this, &Decoration::recalculateBorders);
     connect(c, &KDecoration3::DecoratedWindow::adjacentScreenEdgesChanged, this, &Decoration::recalculateBorders);
     connect(c, &KDecoration3::DecoratedWindow::maximizedHorizontallyChanged, this, &Decoration::recalculateBorders);
     connect(c, &KDecoration3::DecoratedWindow::maximizedVerticallyChanged, this, &Decoration::recalculateBorders);
@@ -367,10 +369,18 @@ qreal Decoration::borderSize(bool bottom, qreal scale) const
         case InternalSettings::BorderNone:
             return 0;
         case InternalSettings::BorderNoSides:
-            return bottom ? KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale) : 0;
+            if (bottom) {
+                return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
+            } else {
+                return 0;
+            }
         default:
         case InternalSettings::BorderTiny:
-            return bottom ? KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale) : baseSize;
+            if (bottom) {
+                return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale);
+            } else {
+                return baseSize;
+            }
         case InternalSettings::BorderNormal:
             return baseSize * 2;
         case InternalSettings::BorderLarge:
@@ -390,10 +400,18 @@ qreal Decoration::borderSize(bool bottom, qreal scale) const
         case KDecoration3::BorderSize::None:
             return 0;
         case KDecoration3::BorderSize::NoSides:
-            return bottom ? KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale) : 0;
+            if (bottom) {
+                return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
+            } else {
+                return 0;
+            }
         default:
         case KDecoration3::BorderSize::Tiny:
-            return bottom ? KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale) : baseSize;
+            if (bottom) {
+                return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale);
+            } else {
+                return baseSize;
+            }
         case KDecoration3::BorderSize::Normal:
             return baseSize * 2;
         case KDecoration3::BorderSize::Large:
@@ -415,6 +433,8 @@ void Decoration::reconfigure()
 {
     m_internalSettings = SettingsProvider::self()->internalSettings(this);
 
+    setScaledCornerRadius();
+
     // animation
     m_animation->setDuration(m_internalSettings->animationsDuration());
 
@@ -430,47 +450,64 @@ void Decoration::reconfigure()
 //________________________________________________________________
 void Decoration::recalculateBorders()
 {
-    auto c = window();
-    auto s = settings();
-    auto scale = c->nextScale();
-
-    // left, right and bottom borders
-    const qreal left = isLeftEdge() ? 0 : borderSize(false, scale);
-    const qreal right = isRightEdge() ? 0 : borderSize(false, scale);
-    const qreal bottom = (c->isShaded() || isBottomEdge()) ? 0 : borderSize(true, scale);
-
-    qreal top = 0;
-    if (hideTitleBar())
-        top = bottom;
-    else {
-        QFontMetrics fm(s->font());
-        top += KDecoration3::snapToPixelGrid(std::max(fm.height(), buttonSize()), scale);
-
-        // padding below
-        const int baseSize = s->smallSpacing();
-        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin, scale);
-
-        // padding above
-        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_TopMargin, scale);
-    }
-
-    setBorders(QMarginsF(left, top, right, bottom));
+    setBorders(bordersFor(window()->nextScale()));
 
     // extended sizes
     const qreal extSize = KDecoration3::snapToPixelGrid(settings()->largeSpacing(), window()->nextScale());
     qreal extSides = 0;
     qreal extBottom = 0;
     if (hasNoBorders()) {
-        if (!isMaximizedHorizontally())
+        if (!isMaximizedHorizontally()) {
             extSides = extSize;
-        if (!isMaximizedVertically())
+        }
+        if (!isMaximizedVertically()) {
             extBottom = extSize;
+        }
 
     } else if (hasNoSideBorders() && !isMaximizedHorizontally()) {
         extSides = extSize;
     }
 
     setResizeOnlyBorders(QMarginsF(extSides, 0, extSides, extBottom));
+
+    qreal bottomLeftRadius = 0;
+    qreal bottomRightRadius = 0;
+    if (hasNoBorders() && m_internalSettings->roundedCorners()) {
+        if (!isBottomEdge()) {
+            if (!isLeftEdge()) {
+                bottomLeftRadius = m_scaledCornerRadius;
+            }
+            if (!isRightEdge()) {
+                bottomRightRadius = m_scaledCornerRadius;
+            }
+        }
+    }
+    setBorderRadius(KDecoration3::BorderRadius(0, 0, bottomRightRadius, bottomLeftRadius));
+
+    if (isMaximized() || !outlinesEnabled()) {
+        setBorderOutline(KDecoration3::BorderOutline());
+    } else {
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        const auto color = KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
+                                            window()->palette().text().color(),
+                                            KColorScheme::frameContrast());
+#else
+        const auto color = KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
+                                            window()->palette().text().color(),
+                                            0.2);
+#endif
+        const qreal thickness = std::max(KDecoration3::pixelSize(window()->scale()), KDecoration3::snapToPixelGrid(1, window()->scale()));
+
+        qreal bottomLeftRadius = 0;
+        qreal bottomRightRadius = 0;
+        if (!hasNoBorders() || m_internalSettings->roundedCorners()) {
+            bottomLeftRadius = m_scaledCornerRadius;
+            bottomRightRadius = m_scaledCornerRadius;
+        }
+
+        const auto radius = KDecoration3::BorderRadius(m_scaledCornerRadius, m_scaledCornerRadius, bottomRightRadius, bottomLeftRadius);
+        setBorderOutline(KDecoration3::BorderOutline(thickness, color, radius));
+    }
 }
 
 //________________________________________________________________
@@ -610,6 +647,13 @@ void Decoration::paint(QPainter *painter, const QRectF &repaintRegion)
 void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
 {
     const auto c = window();
+    QRectF rect(QPointF(0, 0), QSizeF(size().width(), borderTop()));
+    QBrush frontBrush;
+    QBrush backBrush(this->titleBarColor());
+
+    if (!rect.intersects(repaintRegion)) {
+        return;
+    }
 
     painter->save();
     painter->setPen(Qt::NoPen);
@@ -828,6 +872,44 @@ void Decoration::createShadow()
 
     setShadow(g_sShadow);
 }
+
+QMarginsF Decoration::bordersFor(qreal scale) const
+{
+    const qreal left = isLeftEdge() ? 0 : borderSize(false, scale);
+    const qreal right = isRightEdge() ? 0 : borderSize(false, scale);
+    const qreal bottom = (window()->isShaded() || isBottomEdge()) ? 0 : borderSize(true, scale);
+
+    qreal top = 0;
+    if (hideTitleBar()) {
+        top = bottom;
+    } else {
+        QFontMetrics fm(settings()->font());
+        top += KDecoration3::snapToPixelGrid(std::max(fm.height(), buttonSize()), scale);
+
+        // padding below
+        const int baseSize = settings()->smallSpacing();
+        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_BottomMargin, scale);
+
+        // padding above
+        top += KDecoration3::snapToPixelGrid(baseSize * Metrics::TitleBar_TopMargin, scale);
+    }
+    return QMarginsF(left, top, right, bottom);
+}
+
+void Decoration::setScaledCornerRadius()
+{
+    // On X11, the smallSpacing value is used for scaling.
+    // On Wayland, this value has constant factor of 2.
+    // Removing it will break radius scaling on X11.
+    m_scaledCornerRadius = KDecoration3::snapToPixelGrid(Metrics::Frame_FrameRadius * settings()->smallSpacing(), window()->nextScale());
+}
+
+void Decoration::updateScale()
+{
+    setScaledCornerRadius();
+    recalculateBorders();
+}
+
 } // namespace
 
 #include "darklydecoration.moc"
