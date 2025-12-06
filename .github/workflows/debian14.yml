@@ -15,6 +15,9 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container: debian:forky
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Install build dependencies
         run: |
