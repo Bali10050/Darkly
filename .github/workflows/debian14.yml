@@ -16,11 +16,6 @@ jobs:
     runs-on: ubuntu-24.04
     container: debian:forky
     steps:
-      - uses: actions/cache/restore@v4
-        with:
-          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
-          path: ${{ inputs.cache-file-path }}
-          fail-on-cache-miss: true
       - name: Install build dependencies
         run: |
           apt update -y
@@ -32,6 +27,11 @@ jobs:
                     qt6-base-dev libkf6coreaddons-dev libkf6colorscheme-dev \
                     libkf6config-dev libkf6guiaddons-dev libkf6i18n-dev libkf6iconthemes-dev \
                     libkf6windowsystem-dev libkf6kcmutils-dev libkirigami-dev libkf6style-dev
+      - uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
+          path: ${{ inputs.cache-file-path }}
+          fail-on-cache-miss: true
       - name: Extract release tarball
         run: tar xvf ${{ inputs.cache-file-path }}
       - name: Build Darkly
