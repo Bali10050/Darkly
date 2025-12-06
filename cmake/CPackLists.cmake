@@ -24,7 +24,7 @@ set(SourceIgnoreFiles
     "cmake-build*"
     "cmake_install.cmake"
     "dist/"
-    ${SourceIgnoreDirs}
+    "packages/"
 )
 
 # Escape any '.' and '/' characters
