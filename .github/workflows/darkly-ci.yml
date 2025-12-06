@@ -56,12 +56,12 @@ jobs:
           path: VERSION
           retention-days: 1
 
-  Debian:
-    needs: release-ci
-    uses: ./.github/workflows/debian14.yml
-    with:
-      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-      version: ${{ needs.release-ci.outputs.VERSION }}
+  # Debian:
+  #   needs: release-ci
+  #   uses: ./.github/workflows/debian14.yml
+  #   with:
+  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+  #     version: ${{ needs.release-ci.outputs.VERSION }}
 
   # Kubuntu:
   #   needs: release-ci
@@ -84,13 +84,13 @@ jobs:
   #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
   #     version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Fedora:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/fedora.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
-  #     containers: "['fedora:41','fedora:42','fedora:43']"
+  Fedora:
+    needs: release-ci
+    uses: ./.github/workflows/fedora.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
+      containers: "['fedora:41','fedora:42','fedora:43']"
 
   # Archlinux:
   #   needs: release-ci
@@ -108,4 +108,4 @@ jobs:
   release:
     uses: ./.github/workflows/release.yml
     # needs: ["archlinux", "fedora", "opensuse-tumbleweed", "kde-neon", "kubuntu", "debian", "flatpak"]
-    needs: ["debian"]
+    needs: ["fedora"]
