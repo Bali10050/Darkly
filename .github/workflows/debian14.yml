@@ -25,7 +25,7 @@ jobs:
         run: |
           apt update -y
           apt dist-upgrade -y
-          apt install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
+          apt install -y -qq zstd cmake build-essential libkf5config-dev libkdecorations3-dev \
                     libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
                     libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
                     libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \
