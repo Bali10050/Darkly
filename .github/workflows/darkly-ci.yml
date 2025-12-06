@@ -5,9 +5,7 @@ on:
     tags:
       - "v*"
 env:
-  BUILD_TYPE: Release
-  BUILD_WS: build_kf6
-  BUILD_REPO: https://github.com/Bali10050/Darkly
+  BUILD_REPO: https://github.com/DeltaCopy/Darkly
 jobs:
   release-ci:
     runs-on: ubuntu-24.04
@@ -49,13 +47,28 @@ jobs:
         with:
           path: ${{ steps.step_get_asset.outputs.ASSET }}
           key: ${{ runner.os }}-v${{ steps.step_getlatest_tag.outputs.VERSION }}-${{ hashFiles(steps.step_get_asset.outputs.ASSET) }}
+      - name: Save version
+        run: echo ${{ steps.step_get_artifact.outputs.VERSION }} > VERSION
+      - name: Upload version
+        uses: actions/upload-artifact@v5
+        with:
+          name: VERSION
+          path: VERSION
+          retention-days: 1
 
-  Kubuntu:
+  Debian:
     needs: release-ci
-    uses: ./.github/workflows/kubuntu.yml
+    uses: ./.github/workflows/debian14.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
+
+  # Kubuntu:
+  #   needs: release-ci
+  #   uses: ./.github/workflows/kubuntu.yml
+  #   with:
+  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+  #     version: ${{ needs.release-ci.outputs.VERSION }}
 
   openSUSE-Tumbleweed:
     needs: release-ci
@@ -77,7 +90,7 @@ jobs:
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
-      containers: "['fedora:latest', 'fedora:41', 'fedora:40']"
+      containers: "['fedora:42','fedora:43']"
 
   Archlinux:
     needs: release-ci
@@ -91,3 +104,15 @@ jobs:
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
+
+  release:
+    uses: ./.github/workflows/release.yml
+    needs:
+      [
+        "archlinux",
+        "fedora",
+        "opensuse-tumbleweed",
+        "kde-neon",
+        "debian",
+        "flatpak",
+      ]

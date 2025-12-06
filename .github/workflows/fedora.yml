@@ -13,8 +13,6 @@ on:
       containers:
         required: true
         type: string
-env:
-  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/darkly.spec
 jobs:
   build:
     strategy:
@@ -24,14 +22,6 @@ jobs:
     runs-on: ubuntu-24.04
     container: ${{ matrix.image }}
     steps:
-      - name: Checkout local
-        uses: actions/checkout@v4.2.0
-        with:
-          repository: ${{ github.repository }}
-          sparse-checkout: |
-            .github/assets/specs/darkly.spec
-      - name: Update tag version inside spec file
-        run: sed -i "s/.*%define release_tag.*/%define release_tag ${{ inputs.version }}/" ${{ env.SPEC_FILE }}
       - uses: actions/cache/restore@v4
         id: cache
         with:
@@ -50,24 +40,35 @@ jobs:
                 "cmake(KF6Crash)" "cmake(KF6GlobalAccel)" "cmake(KF6KIO)" "cmake(KF6Notifications)" \
                 "cmake(KF6Package)" "cmake(KWayland)" "cmake(Plasma)" "cmake(Plasma5Support)" \
                 kf6-kpackage-devel libepoxy-devel fdupes
-      - name: Create rpm tree
-        run: rpmdev-setuptree
-      - name: Move tarball asset to rpm build sources location
-        run: mv ${{ inputs.cache-file-path }} $HOME/rpmbuild/SOURCES/${{ inputs.version }}.tar.gz
-      - name: Move rpm specfile to specs
-        run: mv ${{ env.SPEC_FILE }} $HOME/rpmbuild/SPECS/
-      - name: Build rpm binary package
+      - name: Extract tarball
+        run: tar xf ${{ inputs.cache-file-path }}
+      - name: Build source
         run: |
-          cd $HOME/rpmbuild/SPECS
-          rpmbuild -bb --quiet darkly.spec
-          rpm_file=$(find $HOME/rpmbuild/RPMS/x86_64 -name "*.rpm*" ! -name "*src*" ! -name "*debug*")
-          echo "rpm_file = $rpm_file"
+          cmake_opts=(
+            -B Darkly-${{ inputs.version }}/build
+            -S Darkly-${{ inputs.version }}
+            -DBUILD_RPMS=ON
+          )
+          echo "${cmake_opts[@]}"
+          cmake "${cmake_opts[@]}" && cmake --build Darkly-${{ inputs.version }}/build -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+      - name: Build RPM package
+        id: step_build
+        run: |
+          cd Darkly-${{ inputs.version }}/build; cpack -G RPM -V -DCPACK_THREADS=$(nproc)
+          artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}.x86_64.rpm
           source /etc/os-release
           echo "Version ID = $VERSION_ID"
-          mv $rpm_file $HOME/rpmbuild/RPMS/x86_64/darkly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm
-          echo "RPM_ASSET=$HOME/rpmbuild/RPMS/x86_64/darkly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm" >> "$GITHUB_ENV"
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
+          publish_filename=darkly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm
+          echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
+          mv $artifact $GITHUB_WORKSPACE/$publish_filename
+          echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
+          SHA256SUM=$(sha256sum $GITHUB_WORKSPACE/$publish_filename | awk '{ print $1 }')
+          echo "ARTIFACT = $publish_filename | SHA256SUM = $SHA256SUM"
+          echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
+      - name: Publish RPM
+        if: ${{ env.SHA256SUM != '' }}
+        uses: actions/upload-artifact@v5
         with:
-          files: ${{ env.RPM_ASSET }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
+          retention-days: 1
