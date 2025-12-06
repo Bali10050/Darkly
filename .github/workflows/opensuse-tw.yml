@@ -10,8 +10,6 @@ on:
       version:
         required: true
         type: string
-env:
-  SPEC_FILE: $GITHUB_WORKSPACE/.github/assets/specs/darkly.spec
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -30,27 +28,33 @@ jobs:
           key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
           path: ${{ inputs.cache-file-path }}
           fail-on-cache-miss: true
-      - name: Move tarball asset to rpm build sources location
-        run: mv ${{ inputs.cache-file-path }} /usr/src/packages/SOURCES/${{ inputs.version }}.tar.gz
-      - name: Checkout local
-        uses: actions/checkout@v4.2.0
-        with:
-          repository: ${{ github.repository }}
-          sparse-checkout: .github/assets/specs/darkly.spec
-      - name: Update tag version inside spec file
-        run: sed -i "s/.*%define release_tag.*/%define release_tag ${{ inputs.version }}/" ${{ env.SPEC_FILE }}
-      - name: Copy opensuse specfile to rpm build location
-        run: cp ${{ env.SPEC_FILE }} /usr/src/packages/SPECS
-      - name: Create rpm binary file
+      - name: Extract tarball
+        run: tar xf ${{ inputs.cache-file-path }}
+      - name: Build source
         run: |
-          cd /usr/src/packages/SPECS
-          rpmbuild -bb darkly.spec
-          rpm_file=$(find /usr/src/packages/RPMS/x86_64 -name "*.rpm*" ! -name "*src*" ! -name "*debug*")
-          echo "rpm_file = $rpm_file"
-          mv $rpm_file /usr/src/packages/RPMS/x86_64/darkly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm
-          echo "RPM_ASSET= /usr/src/packages/RPMS/x86_64/darkly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm" >> "$GITHUB_ENV"
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
+          cmake_opts=(
+            -B ${{ inputs.package_name }}-${{ inputs.version }}/build
+            -S ${{ inputs.package_name }}-${{ inputs.version }}
+            -DBUILD_RPMS=ON
+          )
+          echo "${cmake_opts[@]}"
+          cmake "${cmake_opts[@]}" && cmake --build ${{ inputs.package_name }}-${{ inputs.version }}/build -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+      - name: Build RPM package
+        id: step_build
+        run: |
+          cd Darkly-${{ inputs.version }}/build; cpack -G RPM -V -DCPACK_THREADS=$(nproc)
+          artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}.x86_64.rpm
+          publish_filename=darkly-${{ inputs.version }}.openSUSE-tumbleweed.x86_64.rpm
+          echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
+          mv $artifact $GITHUB_WORKSPACE/$publish_filename
+          echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
+          SHA256SUM=$(sha256sum $GITHUB_WORKSPACE/$publish_filename | awk '{ print $1 }')
+          echo "ARTIFACT = $publish_filename | SHA256SUM = $SHA256SUM"
+          echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
+      - name: Publish RPM
+        if: ${{ env.SHA256SUM != '' }}
+        uses: actions/upload-artifact@v5
         with:
-          files: ${{ env.RPM_ASSET }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
+          retention-days: 1

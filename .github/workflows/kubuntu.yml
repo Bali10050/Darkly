@@ -12,6 +12,8 @@ on:
       version:
         required: true
         type: string
+env:
+  KUBUNTU_RELEASE: "25.10"
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -37,18 +39,29 @@ jobs:
         run: tar xvf ${{ inputs.cache-file-path }}
       - name: Build Darkly
         run: |
-          cmake -B build_kf6 -DBUILD_TESTING=OFF -Wno-dev -S Darkly-${{inputs.version}}
-          cmake --build build_kf6 -j $(nproc)
-      - name: Create deb package
+          cmake_opts=(
+            -B build_kf6
+            -S Darkly-${{inputs.version}}
+            -DBUILD_DEBS=ON
+          )
+          echo "${cmake_opts[@]}"
+          cmake "${cmake_opts[@]}" && cmake --build build_kf6 -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+      - name: Build DEB package
         id: create_deb_package
         run: |
-          cd build_kf6
-          checkinstall -D --pkgname darkly --pkgversion ${{ inputs.version }} --nodoc --fstrans=no --default
-          deb_file=$(find . -name "*.deb*")
-          test ! -z $deb_file && mv $deb_file ${{ env.GITHUB_WORKSPACE}}/darkly_${{ inputs.version }}_kubuntu_amd64.deb
-          echo "DEB_ASSET=${{ env.GITHUB_WORKSPACE}}/darkly_${{ inputs.version }}_kubuntu_amd64.deb" >> "$GITHUB_OUTPUT"
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
+          cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
+          artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
+          publish_filename="darkly-${{ inputs.version }}_kubuntu-${{ env.KUBUNTU_RELEASE }}_amd64.deb"
+          echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
+          mv $artifact $GITHUB_WORKSPACE/$publish_filename
+          echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
+          SHA256SUM=$(sha256sum $GITHUB_WORKSPACE/$publish_filename | awk '{ print $1 }')
+          echo "ARTIFACT = $publish_filename | SHA256SUM = $SHA256SUM"
+          echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
+      - name: Publish DEB
+        if: ${{ env.SHA256SUM != '' }}
+        uses: actions/upload-artifact@v5
         with:
-          files: ${{ steps.create_deb_package.outputs.DEB_ASSET }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
+          retention-days: 1

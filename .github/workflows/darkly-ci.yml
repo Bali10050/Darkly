@@ -3,10 +3,8 @@ name: Darkly build & release
 on:
   push:
     tags:
-      -  "v*"
+      - "v*"
 env:
-  BUILD_TYPE: Release
-  BUILD_WS: build_kf6
   BUILD_REPO: https://github.com/Bali10050/Darkly
 jobs:
   release-ci:
@@ -49,6 +47,21 @@ jobs:
         with:
           path: ${{ steps.step_get_asset.outputs.ASSET }}
           key: ${{ runner.os }}-v${{ steps.step_getlatest_tag.outputs.VERSION }}-${{ hashFiles(steps.step_get_asset.outputs.ASSET) }}
+      - name: Save version
+        run: echo ${{ steps.step_get_artifact.outputs.VERSION }} > VERSION
+      - name: Upload version
+        uses: actions/upload-artifact@v5
+        with:
+          name: VERSION
+          path: VERSION
+          retention-days: 1
+
+  Debian:
+    needs: release-ci
+    uses: ./.github/workflows/debian14.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
   Kubuntu:
     needs: release-ci
@@ -57,37 +70,41 @@ jobs:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # openSUSE-Tumbleweed:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/opensuse-tw.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  openSUSE-Tumbleweed:
+    needs: release-ci
+    uses: ./.github/workflows/opensuse-tw.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # KDE-Neon:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/neon.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  KDE-Neon:
+    needs: release-ci
+    uses: ./.github/workflows/neon.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Fedora:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/fedora.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
-  #     containers: "['fedora:41','fedora:42','fedora:43']"
+  Fedora:
+    needs: release-ci
+    uses: ./.github/workflows/fedora.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
+      containers: "['fedora:41','fedora:42','fedora:43']"
 
-  # Archlinux:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/archlinux.yml
-  #   with:
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  Archlinux:
+    needs: release-ci
+    uses: ./.github/workflows/archlinux.yml
+    with:
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Flatpak:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/flatpak.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  Flatpak:
+    needs: release-ci
+    uses: ./.github/workflows/flatpak.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
+
+  release:
+    uses: ./.github/workflows/release.yml
+    needs: ["archlinux", "fedora", "opensuse-tumbleweed", "kde-neon", "kubuntu", "debian"]
