@@ -33,12 +33,12 @@ jobs:
       - name: Build source
         run: |
           cmake_opts=(
-            -B ${{ inputs.package_name }}-${{ inputs.version }}/build
-            -S ${{ inputs.package_name }}-${{ inputs.version }}
+            -B Darkly-${{ inputs.version }}/build
+            -S Darkly-${{ inputs.version }}
             -DBUILD_RPMS=ON
           )
           echo "${cmake_opts[@]}"
-          cmake "${cmake_opts[@]}" && cmake --build ${{ inputs.package_name }}-${{ inputs.version }}/build -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+          cmake "${cmake_opts[@]}" && cmake --build Darkly-${{ inputs.version }}/build -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
       - name: Build RPM package
         id: step_build
         run: |
