@@ -1,0 +1,64 @@
+# Debian testing edition (forky)
+
+on:
+  workflow_call:
+    inputs:
+      cache-file-path:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+env:
+  DEBIAN_RELEASE: "14"
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container: debian:forky
+    steps:
+      - uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
+          path: ${{ inputs.cache-file-path }}
+          fail-on-cache-miss: true
+      - name: Install build dependencies
+        run: |
+          apt update -y
+          apt dist-upgrade -y
+          apt install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
+                    libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
+                    libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
+                    libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \
+                    qt6-base-dev libkf6coreaddons-dev libkf6colorscheme-dev \
+                    libkf6config-dev libkf6guiaddons-dev libkf6i18n-dev libkf6iconthemes-dev \
+                    libkf6windowsystem-dev libkf6kcmutils-dev libkirigami-dev libkf6style-dev
+      - name: Extract release tarball
+        run: tar xvf ${{ inputs.cache-file-path }}
+      - name: Build Darkly
+        run: |
+          cmake_opts=(
+            -B build_kf6
+            -S Darkly-${{inputs.version}}
+            -DBUILD_DEBS=ON
+          )
+          echo "${cmake_opts[@]}"
+          cmake "${cmake_opts[@]}" && cmake --build build_kf6 -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+      - name: Build DEB package
+        id: create_deb_package
+        run: |
+          cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
+          artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
+          publish_filename="darkly-${{ inputs.version }}_debian-${{ env.DEBIAN_RELEASE }}_amd64.deb"
+          echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
+          mv $artifact $GITHUB_WORKSPACE/$publish_filename
+          echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
+          SHA256SUM=$(sha256sum $GITHUB_WORKSPACE/$publish_filename | awk '{ print $1 }')
+          echo "ARTIFACT = $publish_filename | SHA256SUM = $SHA256SUM"
+          echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
+      - name: Publish DEB
+        if: ${{ env.SHA256SUM != '' }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
+          retention-days: 1
