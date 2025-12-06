@@ -5,7 +5,7 @@ on:
     tags:
       - "v*"
 env:
-  BUILD_REPO: https://github.com/Bali10050/Darkly
+  BUILD_REPO: https://github.com/DeltaCopy/Darkly
 jobs:
   release-ci:
     runs-on: ubuntu-24.04
