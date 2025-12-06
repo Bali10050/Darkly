@@ -16,6 +16,9 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container: deltacopy/darkly-kde-neon:0.2
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/cache/restore@v4
         id: cache
