@@ -51,7 +51,7 @@ jobs:
         run: |
           cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
           artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
-          publish_filename="darkly-${{ inputs.version }}_debian-${{ env.DEBIAN_RELEASE }}_amd64.deb"
+          publish_filename="darkly-${{ inputs.version }}_debian${{ env.DEBIAN_RELEASE }}_amd64.deb"
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
           mv $artifact $GITHUB_WORKSPACE/$publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
