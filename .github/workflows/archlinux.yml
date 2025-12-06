@@ -53,9 +53,11 @@ jobs:
           zst_file=$(find /var/tmp/darkly-archlinux -name "*.zst*")
           publish_filename=darkly-${{ inputs.version }}-x86_64.pkg.zst
           mv "$zst_file" $publish_filename
-          echo "ZST_ASSET=$publish_filename" >> "$GITHUB_ENV"
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
+          echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
         with:
-          files: ${{ env.ZST_ASSET }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
+          retention-days: 1
+
