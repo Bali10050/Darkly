@@ -1,7 +1,4 @@
-# Kubuntu
-# Requires a custom docker container
-# The Dockerfile is inside .github/assets/docker/kubuntu
-# Build Darkly from release tag and publish .deb package
+# Debian testing edition (forky)
 
 on:
   workflow_call:
@@ -13,28 +10,31 @@ on:
         required: true
         type: string
 env:
-  KUBUNTU_RELEASE: "25.10"
+  DEBIAN_RELEASE: "14"
 jobs:
   build:
     runs-on: ubuntu-24.04
-    container: deltacopy/kubuntu:25.10
+    container: debian:forky
+    defaults:
+      run:
+        shell: bash
     steps:
-      - uses: actions/cache/restore@v4
-        with:
-          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
-          path: ${{ inputs.cache-file-path }}
-          fail-on-cache-miss: true
       - name: Install build dependencies
         run: |
           apt update -y
           apt dist-upgrade -y
-          apt install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
+          apt install -y -qq zstd cmake build-essential libkf5config-dev libkdecorations3-dev \
                     libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
                     libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
                     libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \
                     qt6-base-dev libkf6coreaddons-dev libkf6colorscheme-dev \
                     libkf6config-dev libkf6guiaddons-dev libkf6i18n-dev libkf6iconthemes-dev \
                     libkf6windowsystem-dev libkf6kcmutils-dev libkirigami-dev libkf6style-dev
+      - uses: actions/cache/restore@v4
+        with:
+          key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
+          path: ${{ inputs.cache-file-path }}
+          fail-on-cache-miss: true
       - name: Extract release tarball
         run: tar xvf ${{ inputs.cache-file-path }}
       - name: Build Darkly
@@ -51,7 +51,7 @@ jobs:
         run: |
           cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
           artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
-          publish_filename="darkly-${{ inputs.version }}_kubuntu-${{ env.KUBUNTU_RELEASE }}_amd64.deb"
+          publish_filename="darkly-${{ inputs.version }}_debian${{ env.DEBIAN_RELEASE }}_amd64.deb"
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
           mv $artifact $GITHUB_WORKSPACE/$publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"

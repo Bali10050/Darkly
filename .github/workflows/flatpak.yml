@@ -45,10 +45,12 @@ jobs:
         run: |
           sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly5.json
           sudo flatpak build-bundle local/ darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT5_RUNTIME_VERSION }}
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.8
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Upload artifact
+        uses: actions/upload-artifact@v5
         with:
-          files: |
+          name: darkly-flatpak
+          path: |
             darkly-qt${{ env.QT6_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
             darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
+          retention-days: 1
+      
