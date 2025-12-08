@@ -28,7 +28,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH}  ${CMAKE_SOURCE_DI
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-include(cmake/CPackLists.cmake)
+if(BUILD_RPMS OR BUILD_DEBS)
+    include(cmake/CPackLists.cmake)
+endif()
 
 include(CMakePackageConfigHelpers)
 include(ECMInstallIcons)
