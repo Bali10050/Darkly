@@ -311,20 +311,8 @@ doas apk del build-deps
 
 ---
 
+### Older plasma versions
 
-## Known issues & solutions
+For plasma versions below 6.3, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly-6.2](https://github.com/Bali10050/Darkly/tree/Darkly-6.2) branch.
 
-### Blurred icon rendering on Wayland with fractional scaling
-
-As referenced in https://github.com/Bali10050/Darkly/issues/14
-
-On Wayland when scaling is set to >100% some icons appear blurred.
-
-The fix for now until QT is updated is to add `QT_SCALE_FACTOR_ROUNDING_POLICY=RoundPreferFloor` into the file `/etc/environment`
-
-Restart to apply the changes.
-
-For further details see: https://bugs.kde.org/show_bug.cgi?id=479891
-
-### Issues with window decorations on older plasma versions
-For plasma versions below 6.3, please use [v0.5.16](https://github.com/Bali10050/Darkly/releases/tag/v0.5.16) or the [Darkly\(6.2\)](https://github.com/Bali10050/Darkly/tree/Darkly(6.2)) branch.
+For plasma versions below 6.5, please use [v0.5.25](https://github.com/Bali10050/Darkly/releases/tag/v0.5.25) or the [Darkly-6.4](https://github.com/Bali10050/Darkly/tree/Darkly-6.4) branch.
