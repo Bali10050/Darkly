@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>670</width>
-    <height>502</height>
+    <height>503</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -566,6 +566,13 @@
           <widget class="QRadioButton" name="_tabBarAltStyle">
            <property name="text">
             <string>„TabBarAltStyle”</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="_documentModeTabs">
+           <property name="text">
+            <string>Lightly Document Mode Tabs</string>
            </property>
           </widget>
          </item>
