@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>670</width>
-    <height>502</height>
+    <height>529</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -548,7 +548,7 @@
          <item>
           <widget class="QRadioButton" name="_defaultTabbar">
            <property name="text">
-            <string>&amp;Default tabbar</string>
+            <string>Darkly</string>
            </property>
            <property name="checked">
             <bool>true</bool>
@@ -558,14 +558,21 @@
          <item>
           <widget class="QRadioButton" name="_oldTabbar">
            <property name="text">
-            <string>O&amp;ld tabbar</string>
+            <string>Lightly Default</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QRadioButton" name="_tabBarAltStyle">
            <property name="text">
-            <string>„TabBarAltStyle”</string>
+            <string>Lightly Alternative</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="_documentModeTabs">
+           <property name="text">
+            <string>Tabs sometimes inside frame</string>
            </property>
           </widget>
          </item>

@@ -2486,7 +2486,7 @@ QRect Style::tabWidgetTabBarRect(const QStyleOption *option, const QWidget *widg
         rect.setLeft(leftButtonRect.width() + (documentMode ? 0 : Metrics::Frame_FrameWidth));
         rect.setRight(rightButtonRect.left() + (documentMode ? 0 : Metrics::Frame_FrameWidth));
         const int sizeCorrection = -1; // HACK: for some reason, the rect size is 1px larger than expected, so it needs to be reduced
-        if (StyleConfigData::tabBarTabExpandFullWidth() && StyleConfigData::tabBarOpacity() == 100) {
+        if (StyleConfigData::tabBarTabExpandFullWidth() && /*StyleConfigData::tabBarOpacity() == 100 ||*/ StyleConfigData::documentModeTabs()) {
             tabBarRect.setWidth(rect.width() - 2 * Metrics::Frame_FrameWidth - sizeCorrection); // adwaita qt style tab
         } else {
             tabBarRect.setWidth(qMin(tabBarRect.width(), rect.width() - 2)); // fixed width tabs
@@ -2547,7 +2547,7 @@ QRect Style::tabWidgetTabContentsRect(const QStyleOption *option, const QWidget 
 
     // include margin and shadow size
     const bool documentMode(tabOption->lineWidth == 0);
-    if (documentMode) {
+    if (documentMode || !StyleConfigData::documentModeTabs()) {
         // add margin only to the relevant side
         switch (tabOption->shape) {
         case QTabBar::RoundedNorth:
@@ -2606,7 +2606,7 @@ QRect Style::tabWidgetTabPaneRect(const QStyleOption *option, const QWidget *wid
 
     // return here if tab is a qml widget or is not in document mode
     // we will not subtract the tab size from the tab pane for an unified look with immutable tabs
-    if (!tabOption || tabOption->tabBarSize.isEmpty() || !(tabOption->lineWidth == 0))
+    if (!tabOption || tabOption->tabBarSize.isEmpty() || (StyleConfigData::documentModeTabs() && !(tabOption->lineWidth == 0)))
         return option->rect;
 
     const int overlap = Metrics::TabBar_BaseOverlap - 1;
@@ -2617,6 +2617,9 @@ QRect Style::tabWidgetTabPaneRect(const QStyleOption *option, const QWidget *wid
     switch (tabOption->shape) {
     case QTabBar::RoundedNorth:
     case QTabBar::TriangularNorth:
+        if (!(tabOption->lineWidth == 0))
+        rect.adjust(0, tabBarSize.height() + 4, 0, 0);
+        else
         rect.adjust(0, tabBarSize.height(), 0, 0);
         break;
 
@@ -3676,6 +3679,13 @@ QSize Style::tabBarTabSizeFromContents(const QStyleOption *option, const QSize &
     if (hasRightButton && (hasText || hasIcon || hasLeftButton))
         widthIncrement += Metrics::TabBar_TabItemSpacing;
     const bool documentMode(tabOption && tabOption->documentMode);
+
+    int extra;
+    if (StyleConfigData::documentModeTabs())
+    extra = documentMode ? 0 : 8;
+    else
+    extra = documentMode ? 0 : 2;
+
     // add margins
     QSize size(contentsSize);
 
@@ -3693,7 +3703,7 @@ QSize Style::tabBarTabSizeFromContents(const QStyleOption *option, const QSize &
         if (hasIcon && !hasText)
             size = size.expandedTo(QSize(0, Metrics::TabBar_TabMinHeight + StyleConfigData::tabsHeight()));
         else
-            size = size.expandedTo(QSize(Metrics::TabBar_TabMinWidth, Metrics::TabBar_TabMinHeight + StyleConfigData::tabsHeight() + (documentMode ? 0 : 2 * 4)));
+            size = size.expandedTo(QSize(Metrics::TabBar_TabMinWidth, Metrics::TabBar_TabMinHeight + StyleConfigData::tabsHeight() +  extra));
     }
 
     return size;
@@ -6829,9 +6839,13 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
 
     // define the 'tabbar' background color
     QColor configTabBgColor = StyleConfigData::adjustToDarkThemes() ? QColor(StyleConfigData::tabBGColor() /*0, 0, 0, 160*/) : palette.color(QPalette::Shadow);
-    QColor backgroundColor = documentMode
+    QColor backgroundColor;
+    if (StyleConfigData::documentModeTabs())
+    backgroundColor = documentMode
         ? _helper->isDarkTheme(palette) ? _helper->alphaColor(configTabBgColor, 0.4) : _helper->alphaColor(configTabBgColor, 0.2)
         : _helper->alphaColor(configTabBgColor, 0.1);
+    else
+    backgroundColor = _helper->isDarkTheme(palette) ? _helper->alphaColor(configTabBgColor, 0.4) : _helper->alphaColor(configTabBgColor, 0.2);
 
     // opacity only target dolphin and konsole
     // if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && (widget->parentWidget()->inherits("DolphinTabWidget") ||
@@ -7158,13 +7172,16 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
             _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
             painter->setRenderHint(QPainter::Antialiasing, true);
             painter->setPen(Qt::NoPen);
+            if (StyleConfigData::documentModeTabs())
             backgroundRect.adjust(5, 6, -5, -6);
+            else backgroundRect.adjust(4, 4, -4, -4);
             _helper->renderBoxShadow(painter, backgroundRect, 0, 1, 6, QColor(0, 0, 0, 100), StyleConfigData::cornerRadius(), true);
             painter->setBrush(color);
             painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
 
             // Don't lighten the highlight color
             if (!StyleConfigData::tabUseHighlightColor()) {
+                if (StyleConfigData::documentModeTabs())
                 painter->setBrush(QColor(255, 255, 255, 20));
                 painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
             }
@@ -7181,7 +7198,9 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
                 }
             else
                 {
+                if (StyleConfigData::documentModeTabs())
                 backgroundRect.adjust(5, 6, -5, -6);
+                else backgroundRect.adjust(4, 4, -4, -4);
                 }
             painter->setBrush(_helper->alphaColor(_helper->hoverColor(palette), 0.2));
             painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
