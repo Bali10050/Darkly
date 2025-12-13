@@ -6821,7 +6821,7 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
     // swap state based on reverse layout, so that they become layout independent
     const bool reverseLayout(option->direction == Qt::RightToLeft);
     const bool verticalTabs(isVerticalTab(tabOption));
-    if (reverseLayout && !verticalTabs || _isLibreoffice) {
+    if ((reverseLayout && !verticalTabs) || _isLibreoffice) {
         qSwap(isFirst, isLast);
         qSwap(isLeftOfSelected, isRightOfSelected);
     }
