@@ -6821,7 +6821,7 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
     // swap state based on reverse layout, so that they become layout independent
     const bool reverseLayout(option->direction == Qt::RightToLeft);
     const bool verticalTabs(isVerticalTab(tabOption));
-    if (reverseLayout && !verticalTabs) {
+    if (reverseLayout && !verticalTabs || _isLibreoffice) {
         qSwap(isFirst, isLast);
         qSwap(isLeftOfSelected, isRightOfSelected);
     }
@@ -7140,7 +7140,7 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
                 _helper->renderBoxShadow(painter, shadowRect, 0, 1, shadowSize, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
 
                 _helper->renderBoxShadow(painter, rect /*.adjusted(0,0,0,4)*/, 0, 1, 4, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
-                _helper->renderTabBarTab(painter, rect, color, corners);
+                _helper->renderTabBarTab(painter, rect, _isLibreoffice ? palette.color(QPalette::Highlight) : color, corners);
             }
 
             // highlight
