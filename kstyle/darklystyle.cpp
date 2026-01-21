@@ -4413,10 +4413,18 @@ bool Style::drawFrameTabBarBasePrimitive(const QStyleOption *option, QPainter *p
     painter->setRenderHint(QPainter::Antialiasing, false);
 
     // precaution don't change the alpha channel if the tabbar opacity is at 100
-    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100) && !_isOpaque) {
-        QColor backgroundColor = _helper->transparentBarBgColor(widget->palette().color(QPalette::Window), painter, widget->rect(), BarType::TabBar);
-        painter->setBrush(backgroundColor);
-        painter->fillRect(rect, backgroundColor);
+    if ((_isDolphin || _isKonsole) && (StyleConfigData::tabBarOpacity() < 100)) {
+        if (!_isOpaque) {
+            QColor backgroundColor = _helper->transparentBarBgColor(widget->palette().color(QPalette::Window), painter, widget->rect(), BarType::TabBar);
+            painter->setBrush(backgroundColor);
+            painter->fillRect(rect, backgroundColor);
+        } else {
+            // When opaque mode is forced (e.g., fractional scaling), render solid background
+            // instead of transparent to avoid fully transparent tabbar
+            QColor backgroundColor = widget->palette().color(QPalette::Window);
+            painter->setBrush(backgroundColor);
+            painter->fillRect(rect, backgroundColor);
+        }
     } else {
         const auto outline(QColor(0, 0, 0, 1));
 
