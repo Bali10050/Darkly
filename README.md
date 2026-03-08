@@ -1,9 +1,13 @@
 
-# Darkly
+<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/bee6d027-051a-4d4b-9a56-f40a1fe4d8f6" />
+<br>
+<br>
+
+![Darkly](https://github.com/user-attachments/assets/624352f7-ac29-46e4-b2e8-bb7df3ecb7ed)
 
 Forked from the ***lightly*** theme, this style brings a fresh and unique look to your applications
 
-![Darkly](https://github.com/user-attachments/assets/624352f7-ac29-46e4-b2e8-bb7df3ecb7ed)
+***
 
 ### What to expect?
 
