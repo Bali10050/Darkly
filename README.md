@@ -1,4 +1,4 @@
-<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/7b5936cc-b2b7-42bc-9929-c3f99bd67ee5" />
+<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/fa0c41cb-6291-49d3-81f6-4c9cf01a1c10" />
 <br>
 <br>
 Forked from the ***lightly*** theme, this style brings a fresh and unique look to your applications
