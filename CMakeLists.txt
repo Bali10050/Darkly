@@ -152,6 +152,7 @@ function(build_qt6)
     #add_subdirectory(colors)
     add_subdirectory(kstyle kstyle6)
     add_subdirectory(libdarklycommon libdarklycommon6)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/desktoptheme ${CMAKE_BINARY_DIR}/desktoptheme_build)
     #add_subdirectory(misc)
 
     if(WITH_DECORATIONS)

@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="220"
+   height="212"
+   version="1.0"
+   id="svg285"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3">
+    <style
+       id="current-color-scheme"
+       type="text/css">.ColorScheme-Text {
+        color:#31363b;
+        stop-color:#31363b;
+      }
+      .ColorScheme-Background {
+        color:#eff0f1;
+        stop-color:#eff0f1;
+      }
+      .ColorScheme-Highlight {
+        color:#3daee9;
+        stop-color:#3daee9;
+      }
+      .ColorScheme-ViewText {
+        color:#31363b;
+        stop-color:#31363b;
+      }
+      .ColorScheme-ViewBackground {
+        color:#fcfcfc;
+        stop-color:#fcfcfc;
+      }
+      .ColorScheme-ViewHover {
+        color:#93cee9;
+        stop-color:#93cee9;
+      }
+      .ColorScheme-ViewFocus{
+        color:#3daee9;
+        stop-color:#3daee9;
+      }
+      .ColorScheme-ButtonText {
+        color:#31363b;
+        stop-color:#31363b;
+      }
+      .ColorScheme-ButtonBackground {
+        color:#eff0f1;
+        stop-color:#eff0f1;
+      }
+      .ColorScheme-ButtonHover {
+        color:#93cee9;
+        stop-color:#93cee9;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#3daee9;
+        stop-color:#3daee9;
+      }</style>
+  </defs>
+  <rect
+     id="normal-hint-compose-over-border"
+     x="13"
+     y="25"
+     width="3"
+     height="3"
+     ry="0"
+     fill="#4e9a06" />
+  <path
+     id="hover-center"
+     class="ColorScheme-Text"
+     d="M 32,72 V 96 H 80 V 72 Z"
+     fill="currentColor"
+     opacity="0.2"
+     style="fill-opacity:1" />
+  <g
+     id="hover-topleft"
+     transform="translate(-159.14,-758.86)">
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.2"
+       id="path7"
+       style="fill-opacity:1" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path9" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,66 c -2.77,0 -5,2.23 -5,5 h 2 c 0,-1.662 1.338,-3 3,-3 z"
+       opacity="0"
+       id="path11" />
+  </g>
+  <g
+     id="hover-top"
+     transform="matrix(0.36641,0,0,1,-37.67,-758.86)">
+    <path
+       class="ColorScheme-Text"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.2"
+       id="path14"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path16" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 2 h 131 v -2 z"
+       opacity="0"
+       id="path18" />
+  </g>
+  <use
+     id="hover-topright"
+     transform="matrix(-1,0,0,1,112,0)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-topleft"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <use
+     id="hover-left"
+     transform="matrix(0,-0.5,1,0,-40,112)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-top"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <use
+     id="hover-right"
+     transform="matrix(0,0.5,-1,0,152,56)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-top"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <use
+     id="hover-bottom"
+     transform="matrix(1,0,0,-1,-2.707e-5,168)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-top"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <use
+     id="hover-bottomleft"
+     transform="matrix(1,0,0,-1,-7.0000003e-8,168)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-topleft"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <use
+     id="hover-bottomright"
+     transform="rotate(180,56,84)"
+     width="100%"
+     height="100%"
+     xlink:href="#hover-topleft"
+     x="0"
+     y="0"
+     style="fill-opacity:1" />
+  <rect
+     id="hover-hint-top-margin"
+     x="55"
+     y="66"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="hover-hint-right-margin"
+     transform="rotate(-90)"
+     x="-84"
+     y="85.899994"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="hover-hint-left-margin"
+     transform="rotate(-90)"
+     x="-85"
+     y="26"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="hover-hint-bottom-margin"
+     x="55"
+     y="101.9"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <path
+     id="normal-center"
+     class="ColorScheme-Text"
+     d="M 32,27 V 51 H 80 V 27 Z"
+     fill="currentColor"
+     opacity="0.15"
+     style="fill-opacity:1" />
+  <g
+     id="normal-topleft"
+     transform="translate(-159.14,-803.86)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path32" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.15"
+       id="path34"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="normal-top"
+     transform="matrix(0.36641,0,0,1,-37.67,-803.86)">
+    <path
+       class="ColorScheme-Text"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.15"
+       id="path37"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path39" />
+  </g>
+  <g
+     id="normal-topright"
+     transform="matrix(-1,0,0,1,271.14,-803.86)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path42" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.15"
+       id="path44"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="normal-left"
+     transform="matrix(0,-0.18321,1,0,-798.86,85.835)">
+    <path
+       class="ColorScheme-Text"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.15"
+       id="path47"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path49" />
+  </g>
+  <g
+     id="normal-right"
+     transform="matrix(0,0.18321,-1,0,910.86,-7.8348)">
+    <path
+       class="ColorScheme-Text"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.15"
+       id="path52"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path54" />
+  </g>
+  <g
+     id="normal-bottom"
+     transform="matrix(0.36641,0,0,-1,-37.67,881.86)">
+    <path
+       class="ColorScheme-Text"
+       d="m 190.14,824.86 v 5.0001 h 131 V 824.86 Z"
+       fill="currentColor"
+       opacity="0.15"
+       id="path57"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path59" />
+  </g>
+  <g
+     id="normal-bottomleft"
+     transform="matrix(1,0,0,-1,-159.14,881.86)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path62" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.15"
+       id="path64"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="normal-bottomright"
+     transform="rotate(180,135.56999,440.93)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path67" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5.0001,2.23 -5.0001,5.0001 h 5.0001 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.15"
+       id="path69"
+       style="fill-opacity:1" />
+  </g>
+  <path
+     id="pressed-center"
+     class="ColorScheme-Highlight"
+     d="m 32,163 v 24 h 48 v -24 z"
+     fill="currentColor"
+     style="fill-opacity:1" />
+  <g
+     id="pressed-topleft"
+     transform="translate(-159.14,-667.86)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path73" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       fill="currentColor"
+       id="path75"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="pressed-top"
+     transform="matrix(0.36641,0,0,1,-37.67,-667.86)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       id="path78"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path80" />
+  </g>
+  <g
+     id="pressed-topright"
+     transform="matrix(-1,0,0,1,271.14,-667.86)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path83" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       fill="currentColor"
+       id="path85"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="pressed-left"
+     transform="matrix(0,-0.18321,1,0,-798.86,221.83)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       id="path88"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path90" />
+  </g>
+  <g
+     id="pressed-right"
+     transform="matrix(0,0.18321,-1,0,910.86,128.17)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5.0001 h 131 V 824.86 Z"
+       fill="currentColor"
+       id="path93"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path95" />
+  </g>
+  <g
+     id="pressed-bottom"
+     transform="matrix(0.36641,0,0,-1,-37.67,1017.9)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5.0001 h 131 V 824.86 Z"
+       fill="currentColor"
+       id="path98"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path100" />
+  </g>
+  <g
+     id="pressed-bottomleft"
+     transform="matrix(1,0,0,-1,-159.14,1017.9)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path103" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5.0001 h 5 z"
+       fill="currentColor"
+       id="path105"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="pressed-bottomright"
+     transform="rotate(180,135.56999,508.93)">
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path108" />
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5.0001 h 5 z"
+       fill="currentColor"
+       id="path110"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+  </g>
+  <path
+     id="focus-center"
+     class="ColorScheme-Highlight"
+     d="m 32,117 v 24 h 48 v -24 z"
+     fill="currentColor"
+     opacity="0.75"
+     style="fill-opacity:1" />
+  <g
+     id="focus-topleft"
+     transform="translate(-159.14,-713.86)">
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path114"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path116" />
+  </g>
+  <g
+     id="focus-top"
+     transform="matrix(0.36641,0,0,1,-37.67,-713.86)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path119"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path121" />
+  </g>
+  <g
+     id="focus-topright"
+     transform="matrix(-1,0,0,1,271.14,-713.86)">
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5,2.23 -5,5 h 5 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path124"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path126" />
+  </g>
+  <g
+     id="focus-left"
+     transform="matrix(0,-0.18321,1,0,-798.86,175.83)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5 h 131 v -5 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path129"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path131" />
+  </g>
+  <g
+     id="focus-right"
+     transform="matrix(0,0.18321,-1,0,910.86,82.165)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5.0001 h 131 V 824.86 Z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path134"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path136" />
+  </g>
+  <g
+     id="focus-bottom"
+     transform="matrix(0.36641,0,0,-1,-37.67,971.86)">
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,824.86 v 5.0001 h 131 V 824.86 Z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path139"
+       style="fill-opacity:1" />
+    <path
+       class="ColorScheme-Highlight"
+       d="m 190.14,823.86 v 2 h 131 v -2 z"
+       fill="none"
+       id="path141" />
+  </g>
+  <g
+     id="focus-bottomleft"
+     transform="matrix(1,0,0,-1,-159.14,971.86)">
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5.0001,2.23 -5.0001,5.0001 h 5.0001 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path144"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path146" />
+  </g>
+  <g
+     id="focus-bottomright"
+     transform="rotate(180,135.56999,485.93)">
+    <path
+       d="m 190.14,824.86 c -2.77,0 -5.0001,2.23 -5.0001,5.0001 h 5.0001 z"
+       fill="currentColor"
+       opacity="0.75"
+       id="path149"
+       class="ColorScheme-Highlight"
+       style="fill-opacity:1" />
+    <path
+       transform="translate(81.14,758.86)"
+       d="m 109,65 c -3.324,0 -6,2.676 -6,6 h 2 c 0,-2.216 1.784,-4 4,-4 z"
+       fill="none"
+       id="path151" />
+  </g>
+  <rect
+     id="focus-hint-top-margin"
+     x="55"
+     y="111"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="focus-hint-right-margin"
+     transform="rotate(-90)"
+     x="-129"
+     y="85.899994"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="focus-hint-left-margin"
+     transform="rotate(-90)"
+     x="-130"
+     y="26"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <rect
+     id="focus-hint-bottom-margin"
+     x="55"
+     y="146.89999"
+     width="2"
+     height="0.1"
+     fill="#9a06ff" />
+  <g
+     id="toolbutton-hover-right"
+     transform="matrix(-1,0,0,1,199,25)">
+    <path
+       transform="matrix(-1.25,0,0,1,503.5,73)"
+       d="m 362,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.2"
+       id="path158"
+       style="fill-opacity:1;opacity:0.15" />
+  </g>
+  <g
+     id="toolbutton-hover-bottomright"
+     transform="translate(109,-968.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g163">
+      <path
+         transform="matrix(-1.25,0,0,1.25,457.5,78)"
+         d="m 362,-20 v 4 c 2.216,0 4,-1.784 4,-4 h -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path161"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-hover-left"
+     transform="translate(62.999998,25)">
+    <path
+       transform="matrix(1.25,0,0,1,-359,73)"
+       d="m 324,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.2"
+       id="path166"
+       style="fill-opacity:1;opacity:0.15" />
+  </g>
+  <rect
+     id="toolbutton-hover-hint-left-margin"
+     transform="rotate(-90)"
+     x="-63"
+     y="109"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <g
+     id="toolbutton-hover-bottom"
+     transform="matrix(1,0,0,0.71349,110,-668.57)">
+    <g
+       transform="translate(-48,994.36)"
+       id="g172">
+      <path
+         transform="matrix(1,0,0,1.752,-276,87.039)"
+         d="m 329,-20 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path170"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-hover-bottomleft"
+     transform="matrix(1.2,0,0,1.2,110.4,-1177.6)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g177">
+      <path
+         d="m 0.83334,53 c 0,2.3083 1.8583,4.1667 4.1667,4.1667 V 53 h -2.0833 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path175"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-hover-top"
+     transform="translate(110,-966.36)">
+    <g
+       transform="translate(-48,988.36)"
+       id="g182">
+      <path
+         transform="matrix(1,0,0,1.25,-276,89.5)"
+         d="m 329,-58 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path180"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-hover-topleft"
+     transform="matrix(1.6667,0,0,1.6667,109,-1639.9)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g187">
+      <path
+         transform="matrix(0.75,0,0,0.75,-241,57.5)"
+         d="m 328,-58 c -2.216,0 -4,1.784 -4,4 h 4 v -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path185"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-hover-topright"
+     transform="translate(109,-966.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g192">
+      <path
+         transform="matrix(-1.25,0,0,1.25,457.5,84.5)"
+         d="m 362,-58 v 4 h 4 c 0,-2.216 -1.784,-4 -4,-4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path190"
+         style="fill-opacity:1;opacity:0.15" />
+    </g>
+  </g>
+  <path
+     id="toolbutton-hover-center"
+     d="M 147,77 V 45 h -32 v 32 z"
+     class="ColorScheme-Text"
+     fill="currentColor"
+     opacity="0.2"
+     style="fill-opacity:1;opacity:0.15" />
+  <rect
+     id="toolbutton-hover-hint-top-margin"
+     x="129.99998"
+     y="39"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-hover-hint-right-margin"
+     transform="rotate(-90)"
+     x="-62"
+     y="147.99998"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-hover-hint-bottom-margin"
+     x="129.99998"
+     y="78"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <g
+     id="toolbutton-pressed-right"
+     transform="matrix(-1,0,0,1,254,25)">
+    <path
+       transform="matrix(-1.25,0,0,1,572.25,73)"
+       d="m 417,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.3"
+       id="path199"
+       style="fill-opacity:1;opacity:0.25" />
+  </g>
+  <g
+     id="toolbutton-pressed-bottomright"
+     transform="translate(164,-968.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g204">
+      <path
+         transform="matrix(-1.25,0,0,1.25,526.25,78)"
+         d="m 417,-20 v 4 c 2.216,0 4,-1.784 4,-4 h -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path202"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-pressed-left"
+     transform="translate(118,25)">
+    <path
+       transform="matrix(1.25,0,0,1,-427.75,73)"
+       d="m 379,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.3"
+       id="path207"
+       style="fill-opacity:1;opacity:0.25" />
+  </g>
+  <rect
+     id="toolbutton-pressed-hint-left-margin"
+     transform="rotate(-90)"
+     x="-62"
+     y="163.99998"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <g
+     id="toolbutton-pressed-bottom"
+     transform="matrix(1,0,0,0.71349,165,-668.57)">
+    <g
+       transform="translate(-48,994.36)"
+       id="g213">
+      <path
+         transform="matrix(1,0,0,1.752,-331,87.039)"
+         d="m 384,-20 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path211"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-pressed-bottomleft"
+     transform="translate(166,-968.36)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g218">
+      <path
+         transform="matrix(1.25,0,0,1.25,-473.75,78)"
+         d="m 379,-20 c 0,2.216 1.784,4 4,4 v -4 h -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path216"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-pressed-top"
+     transform="matrix(1,0,0,0.99998,165,-966.34)">
+    <g
+       transform="translate(-48,988.36)"
+       id="g223">
+      <path
+         transform="matrix(1,0,0,1.25,-331,89.5)"
+         d="m 384,-58 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path221"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-pressed-topleft"
+     transform="matrix(1.6667,0,0,1.6667,164,-1639.9)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g228">
+      <path
+         transform="matrix(0.75,0,0,0.75,-282.25,57.5)"
+         d="m 383,-58 c -2.216,0 -4,1.784 -4,4 h 4 v -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path226"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-pressed-topright"
+     transform="translate(164,-966.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g233">
+      <path
+         transform="matrix(-1.25,0,0,1.25,526.25,84.5)"
+         d="m 417,-58 v 4 h 4 c 0,-2.216 -1.784,-4 -4,-4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.3"
+         id="path231"
+         style="fill-opacity:1;opacity:0.25" />
+    </g>
+  </g>
+  <path
+     id="toolbutton-pressed-center"
+     d="M 202,77 V 45 h -32 v 32 z"
+     class="ColorScheme-Text"
+     fill="currentColor"
+     opacity="0.3"
+     style="fill-opacity:1;opacity:0.25" />
+  <rect
+     id="toolbutton-pressed-hint-top-margin"
+     x="184.99998"
+     y="39"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-pressed-hint-right-margin"
+     transform="rotate(-90)"
+     x="-61"
+     y="202.99998"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-pressed-hint-bottom-margin"
+     x="184.99998"
+     y="78"
+     width="2"
+     height="4"
+     fill="#4e9a06" />
+  <rect
+     id="normal-hint-bottom-margin"
+     x="55"
+     y="52"
+     width="2"
+     height="6.0001001"
+     fill="#4e9a06" />
+  <rect
+     id="normal-hint-top-margin"
+     x="55"
+     y="20"
+     width="2"
+     height="6"
+     fill="#4e9a06" />
+  <rect
+     id="normal-hint-left-margin"
+     transform="rotate(-90)"
+     x="-40"
+     y="25"
+     width="2"
+     height="6"
+     fill="#4e9a06" />
+  <rect
+     id="normal-hint-right-margin"
+     transform="rotate(-90)"
+     x="-40"
+     y="81"
+     width="2"
+     height="6"
+     fill="#4e9a06" />
+  <g
+     id="toolbutton-focus-right"
+     transform="matrix(-1,0,0,1,199,81)">
+    <path
+       transform="matrix(-1.25,0,0,1,503.5,73)"
+       d="m 362,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.2"
+       id="path244"
+       style="fill-opacity:1" />
+  </g>
+  <g
+     id="toolbutton-focus-bottomright"
+     transform="translate(109,-912.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g249">
+      <path
+         transform="matrix(-1.25,0,0,1.25,457.5,78)"
+         d="m 362,-20 v 4 c 2.216,0 4,-1.784 4,-4 h -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path247"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-focus-left"
+     transform="translate(62.999998,81)">
+    <path
+       transform="matrix(1.25,0,0,1,-359,73)"
+       d="m 324,-53 v 32 h 4 v -32 h -2 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       opacity="0.2"
+       id="path252"
+       style="fill-opacity:1" />
+  </g>
+  <rect
+     id="toolbutton-focus-hint-left-margin"
+     transform="rotate(-90)"
+     x="-119"
+     y="109"
+     width="2"
+     height="0.1"
+     fill="#4e9a06" />
+  <g
+     id="toolbutton-focus-bottom"
+     transform="matrix(1,0,0,0.71349,110,-612.57)">
+    <g
+       transform="translate(-48,994.36)"
+       id="g258">
+      <path
+         transform="matrix(1,0,0,1.752,-276,87.039)"
+         d="m 329,-20 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path256"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-focus-bottomleft"
+     transform="matrix(1.2,0,0,1.2,110.4,-1121.6)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g263">
+      <path
+         d="m 0.83334,53 c 0,2.3083 1.8583,4.1667 4.1667,4.1667 V 53 h -2.0833 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path261"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-focus-top"
+     transform="translate(110,-910.36)">
+    <g
+       transform="translate(-48,988.36)"
+       id="g268">
+      <path
+         transform="matrix(1,0,0,1.25,-276,89.5)"
+         d="m 329,-58 v 4 h 32 v -4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path266"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-focus-topleft"
+     transform="matrix(1.6667,0,0,1.6667,109,-1583.9)">
+    <g
+       transform="translate(-2,993.36)"
+       id="g273">
+      <path
+         transform="matrix(0.75,0,0,0.75,-241,57.5)"
+         d="m 328,-58 c -2.216,0 -4,1.784 -4,4 h 4 v -2 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path271"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="toolbutton-focus-topright"
+     transform="translate(109,-910.36)">
+    <g
+       transform="matrix(-1,0,0,1,44,993.36)"
+       id="g278">
+      <path
+         transform="matrix(-1.25,0,0,1.25,457.5,84.5)"
+         d="m 362,-58 v 4 h 4 c 0,-2.216 -1.784,-4 -4,-4 z"
+         class="ColorScheme-Text"
+         fill="currentColor"
+         opacity="0.2"
+         id="path276"
+         style="fill-opacity:1" />
+    </g>
+  </g>
+  <path
+     id="toolbutton-focus-center"
+     d="m 147,133 v -32 h -32 v 32 z"
+     class="ColorScheme-Text"
+     fill="currentColor"
+     opacity="0.2"
+     style="fill-opacity:1" />
+  <rect
+     id="toolbutton-focus-hint-top-margin"
+     x="129.99998"
+     y="95"
+     width="2"
+     height="0.1"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-focus-hint-right-margin"
+     transform="rotate(-90)"
+     x="-118"
+     y="152.89998"
+     width="2"
+     height="0.1"
+     fill="#4e9a06" />
+  <rect
+     id="toolbutton-focus-hint-bottom-margin"
+     x="129.99998"
+     y="138.89999"
+     width="2"
+     height="0.1"
+     fill="#4e9a06" />
+</svg>

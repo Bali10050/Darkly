@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="63.500011"
+   height="49"
+   viewBox="0 0 63.500011 49.000002"
+   version="1.1"
+   id="svg17788"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   sodipodi:docname="slider.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview17790"
+     pagecolor="#d1d1d1"
+     bordercolor="#6b6b6b"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     shape-rendering="crispEdges"
+     inkscape:zoom="10.11556"
+     inkscape:cx="15.372357"
+     inkscape:cy="23.528109"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="2560"
+     inkscape:window-height="1362"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid14689"
+       originx="-51.99999"
+       originy="-5"
+       spacingy="1"
+       spacingx="1"
+       units="px"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs17785">
+    <style
+       id="current-color-scheme"
+       type="text/css" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.999989,-5)">
+    <rect
+       style="fill:#666666;fill-opacity:1;stroke-width:0.999997;stroke-linecap:round;stroke-linejoin:round"
+       id="groove-center"
+       width="3"
+       height="3"
+       x="60"
+       y="22" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-top"
+       id="groove-bottom"
+       transform="matrix(1,0,0,-1,-1e-6,30)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-topright"
+       id="groove-topleft"
+       transform="matrix(-1,0,0,1,125,0)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-topright"
+       id="groove-bottomright"
+       transform="matrix(1,0,0,-1,-1e-6,30)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-topright"
+       id="groove-bottomleft"
+       transform="rotate(180,62.5,15)" />
+    <g
+       id="horizontal-slider-handle"
+       transform="translate(25.000001,-9.9999978)">
+      <circle
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         id="circle3"
+         cx="36"
+         cy="54.999996"
+         r="9" />
+      <path
+         id="circle18283"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         d="m 35.999989,46 a 9,9 0 0 0 -9,9 9,9 0 0 0 3.169922,6.830078 A 9,9 0 0 1 27.999989,56 a 9,9 0 0 1 9,-9 9,9 0 0 1 5.830078,2.169922 A 9,9 0 0 0 35.999989,46 Z" />
+      <path
+         id="path1"
+         style="opacity:0.2;fill:#ffffff;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         d="m 35.999989,46 a 9,9 0 0 0 -9,9 9,9 0 0 0 3.169922,6.830078 A 9,9 0 0 1 27.999989,56 a 9,9 0 0 1 9,-9 9,9 0 0 1 5.830078,2.169922 A 9,9 0 0 0 35.999989,46 Z" />
+    </g>
+    <circle
+       id="hint-handle-size"
+       cx="105"
+       cy="13"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.6"
+       r="8" />
+    <g
+       id="groove-top"
+       transform="translate(6,-10)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke-width:0.999997;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18394"
+         width="3"
+         height="3"
+         x="55"
+         y="22" />
+      <rect
+        class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18388"
+         width="3"
+         height="2"
+         x="55"
+         y="23" />
+    </g>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-center"
+       id="groove-right"
+       transform="matrix(0.66666633,0,0,1,23.00002,2.0000025e-8)"
+       style="fill:#666666;stroke-width:1.22475" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-center"
+       id="groove-left"
+       transform="matrix(0.666667,0,0,1,17.999979,2.0000025e-8)"
+       style="fill:#666666;stroke-width:1.22474" />
+    <g
+       id="groove-topright"
+       transform="matrix(0.66666633,0,0,0.99999987,18.666689,-10.999997)"
+       style="stroke-width:1.22475">
+      <rect
+         style="fill:none;fill-opacity:1;stroke-width:1.22475;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18496"
+         width="3"
+         height="3"
+         x="68"
+         y="23" />
+      <path
+        class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke-width:1.22474;stroke-linecap:round;stroke-linejoin:round"
+         id="path18442"
+         sodipodi:type="arc"
+         sodipodi:cx="68"
+         sodipodi:cy="-26"
+         sodipodi:rx="3"
+         sodipodi:ry="2"
+         sodipodi:start="0"
+         sodipodi:end="1.5707963"
+         sodipodi:arc-type="slice"
+         d="m 71,-26 a 3,2 0 0 1 -3,2 v -2 z"
+         transform="scale(1,-1)" />
+    </g>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:1;stroke-width:0.999997;stroke-linecap:round;stroke-linejoin:round"
+       id="groove-highlight-center"
+       width="3"
+       height="3"
+       x="76"
+       y="22" />
+    <g
+       id="groove-highlight-top"
+       transform="translate(21,-10)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke-width:0.999997;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18582"
+         width="3"
+         height="3"
+         x="55"
+         y="22" />
+      <rect
+         class="ColorScheme-Highlight"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:0.999996;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18584"
+         width="3"
+         height="2"
+         x="55"
+         y="23" />
+    </g>
+    <g
+       id="groove-highlight-topright"
+       transform="matrix(0.66666704,0,0,0.9999997,33.666641,-10.999992)"
+       style="stroke-width:1.22474">
+      <rect
+         style="fill:none;fill-opacity:1;stroke-width:1.22474;stroke-linecap:round;stroke-linejoin:round"
+         id="rect18588"
+         width="3"
+         height="3"
+         x="68"
+         y="23" />
+      <path
+         class="ColorScheme-Highlight"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:1.22474;stroke-linecap:round;stroke-linejoin:round"
+         id="path18590"
+         sodipodi:type="arc"
+         sodipodi:cx="68"
+         sodipodi:cy="-26"
+         sodipodi:rx="3"
+         sodipodi:ry="2"
+         sodipodi:start="0"
+         sodipodi:end="1.5707963"
+         sodipodi:arc-type="slice"
+         d="m 71,-26 a 3,2 0 0 1 -3,2 v -2 z"
+         transform="scale(1,-1)" />
+    </g>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-top"
+       id="groove-highlight-bottom"
+       transform="matrix(1,0,0,-1,-1e-6,30)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-center"
+       id="groove-highlight-left"
+       transform="matrix(0.66666633,0,0,0.99999983,23.333359,3.45e-6)"
+       style="fill:#666666;stroke-width:1.22475" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-center"
+       id="groove-highlight-right"
+       transform="matrix(0.666667,0,0,0.99999983,28.333308,3.74e-6)"
+       style="fill:#666666;stroke-width:1.22474" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-topright"
+       id="groove-highlight-topleft"
+       transform="matrix(-1,0,0,1,155,-1.48e-6)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-topright"
+       id="groove-highlight-bottomright"
+       transform="matrix(1,0,0,-1,-1e-6,30.000002)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#groove-highlight-topright"
+       id="groove-highlight-bottomleft"
+       transform="rotate(180,77.5,15)" />
+    <g
+       id="horizontal-slider-shadow"
+       transform="translate(45.000001,-33.000001)">
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;stroke:none;stroke-width:0.999998;stroke-linecap:round"
+         id="rect4"
+         width="20"
+         height="20"
+         x="50"
+         y="62" />
+      <ellipse
+         style="opacity:0.4;fill:#1a1a1a;fill-opacity:1;stroke:none;stroke-width:0.999999;stroke-linecap:round"
+         id="ellipse4"
+         cx="61"
+         cy="73"
+         rx="9"
+         ry="9.0000029" />
+    </g>
+    <g
+       id="horizontal-slider-hover"
+       transform="translate(45.000001,-9.9999978)">
+      <circle
+         class="ColorScheme-ButtonHover"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         id="circle4"
+         cx="36"
+         cy="54.999996"
+         r="9" />
+      <path
+         id="path4"
+         class="ColorScheme-ButtonHover"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         d="m 35.999989,46 a 9,9 0 0 0 -9,9 9,9 0 0 0 3.169922,6.830078 A 9,9 0 0 1 27.999989,56 a 9,9 0 0 1 9,-9 9,9 0 0 1 5.830078,2.169922 A 9,9 0 0 0 35.999989,46 Z" />
+      <path
+         id="path2"
+         style="opacity:0.2;fill:#ffffff;fill-opacity:1;stroke-width:0.5;stroke-linecap:round"
+         d="m 35.999989,46 a 9,9 0 0 0 -9,9 9,9 0 0 0 3.169922,6.830078 A 9,9 0 0 1 27.999989,56 a 9,9 0 0 1 9,-9 9,9 0 0 1 5.830078,2.169922 A 9,9 0 0 0 35.999989,46 Z" />
+    </g>
+  </g>
+</svg>
