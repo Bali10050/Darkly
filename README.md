@@ -1,5 +1,4 @@
-
-<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/bee6d027-051a-4d4b-9a56-f40a1fe4d8f6" />
+<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/5c17d5b2-910c-486b-890b-3cf63801d490" />
 <br>
 <br>
 
