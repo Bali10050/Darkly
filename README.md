@@ -1,4 +1,4 @@
-<img width="20%" alt="Logo" src="https://github.com/user-attachments/assets/5c17d5b2-910c-486b-890b-3cf63801d490" />
+<img width="20%" alt="Darkly" src="https://github.com/user-attachments/assets/5c17d5b2-910c-486b-890b-3cf63801d490" />
 <br>
 <br>
 
