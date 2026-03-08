@@ -18,6 +18,9 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container: deltacopy/kubuntu:25.10
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/cache/restore@v4
         with:
@@ -40,16 +43,16 @@ jobs:
       - name: Build Darkly
         run: |
           cmake_opts=(
-            -B build_kf6
+            -B Darkly-${{ inputs.version }}/build
             -S Darkly-${{inputs.version}}
             -DBUILD_DEBS=ON
           )
           echo "${cmake_opts[@]}"
-          cmake "${cmake_opts[@]}" && cmake --build build_kf6 -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
-      - name: Build DEB package
+          cmake "${cmake_opts[@]}" && cmake --build Darkly-${{ inputs.version }}/build -j$(nproc) && echo "Build completed!" || echo "Build failed!" || exit 1
+      - name: Build DEB
         id: create_deb_package
         run: |
-          cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
+          cd Darkly-${{ inputs.version }}/build; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
           artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
           publish_filename="darkly-${{ inputs.version }}_kubuntu-${{ env.KUBUNTU_RELEASE }}_amd64.deb"
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"

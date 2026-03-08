@@ -63,12 +63,12 @@ jobs:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Kubuntu:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/kubuntu.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  Kubuntu:
+    needs: release-ci
+    uses: ./.github/workflows/kubuntu.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
   openSUSE-Tumbleweed:
     needs: release-ci
@@ -115,4 +115,5 @@ jobs:
         "kde-neon",
         "debian",
         "flatpak",
+        'kubuntu',
       ]
