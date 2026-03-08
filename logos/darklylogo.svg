@@ -44,31 +44,40 @@
        id="guide2"
        inkscape:locked="false" />
   </sodipodi:namedview>
-  <defs
-     id="defs1" />
+  <defs id="defs1">
+    <style>
+      .followScheme{color:#222}
+      @media (prefers-color-scheme: dark){.followScheme{color:#fff}}
+    </style>
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
     <path
        id="rect2"
-       style="fill:#222222;stroke-width:0.569774"
+       class="followScheme"
+       style="fill:currentColor;stroke-width:0.569774"
        d="M 95.728809,0 V 320.54236 L 256,160.27118 Z" />
     <path
        id="rect2-9"
-       style="fill:#222222;stroke-width:0.569774"
+       class="followScheme"
+       style="fill:currentColor;stroke-width:0.569774"
        d="M 416.27117,320.54236 V 160.27118 H 256 Z" />
     <path
        id="path6"
-       style="fill:#222222;stroke-width:0.481286"
+       class="followScheme"
+       style="fill:currentColor;stroke-width:0.481286"
        d="m 287.18463,320.54233 -95.72792,95.72884 h 95.72792 z m 0,191.45767 -95.72792,-95.72883 h 95.72792 z" />
     <path
        id="path7"
-       style="fill:#222222;stroke-width:0.481286"
+       class="followScheme"
+       style="fill:currentColor;stroke-width:0.481286"
        d="M 191.45671,416.27117 95.728809,320.54233 h 95.727901 z" />
     <path
        id="path8"
-       style="fill:#222222;stroke-width:0.481286"
+       class="followScheme"
+       style="fill:currentColor;stroke-width:0.481286"
        d="M 191.45671,512 95.728809,416.27117 h 95.727901 z" />
     <rect
        style="fill:#1ba1d5;fill-opacity:1;stroke-width:0.477437"
@@ -79,7 +88,8 @@
        y="320.54233" />
     <path
        id="rect9"
-       style="fill:#222222"
+       class="followScheme"
+       style="fill:currentColor"
        d="m 320.54291,416.271 h 95.72825 v 95.72902 h -95.72825 z m 95.72826,-95.72885 -95.72791,95.72885 h 95.72791 z" />
   </g>
 </svg>
