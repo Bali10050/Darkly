@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Darkly
+Comment=Made from the „Nostrum - Future Retro”, „ChromeOS Plasma”, „Breeze” and the „Andromeda Plasma” themes, this style should match perfectly with the „Darkly” application and window style.
+X-KDE-PluginInfo-Author=Bali10050
+X-KDE-PluginInfo-Email=serabali10050@gmail.com
+X-KDE-PluginInfo-Name=Darkly
+X-KDE-PluginInfo-Version=@PROJECT_VERSION@
+X-KDE-PluginInfo-Website=https://github.com/Bali10050/Darkly
+X-KDE-PluginInfo-Category=Plasma Theme
+X-KDE-PluginInfo-License=GPLv2
+X-KDE-PluginInfo-EnabledByDefault=true
+X-Plasma-API=5.0
+
+[AdaptiveTransparency]
+enabled=true
