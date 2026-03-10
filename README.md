@@ -1,4 +1,8 @@
-<img height="72pt" alt="Darkly" src="https://github.com/user-attachments/assets/5c17d5b2-910c-486b-890b-3cf63801d490" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/c768e2b8-692f-4179-ab01-5a7197e3cc8a">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/624352f7-ac29-46e4-b2e8-bb7df3ecb7ed">
+  <img height="72pt" alt="Darkly" src="https://github.com/user-attachments/assets/5c17d5b2-910c-486b-890b-3cf63801d490" />
+</picture>
 <br>
 <br>
 
