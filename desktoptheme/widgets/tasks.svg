@@ -26,10 +26,10 @@
      inkscape:document-units="px"
      showgrid="true"
      shape-rendering="crispEdges"
-     inkscape:zoom="11.321284"
-     inkscape:cx="54.101637"
-     inkscape:cy="53.792485"
-     inkscape:current-layer="svg17788"
+     inkscape:zoom="4.0026783"
+     inkscape:cx="37.100158"
+     inkscape:cy="97.934424"
+     inkscape:current-layer="layer1"
      inkscape:window-width="2560"
      inkscape:window-height="1362"
      inkscape:window-x="0"
@@ -255,42 +255,6 @@
          style="fill:url(#linearGradient8);fill-opacity:1;stroke:none;stroke-width:0.500001;stroke-linecap:round;opacity:0.2"
          d="m 420.00001,474.99999 v 1 a 4,4 0 0 0 -4,4 h -1 a 5,5 0 0 1 5,-5 z" />
     </g>
-    <rect
-       style="opacity:0.9;fill:#008080;stroke:none;stroke-width:2;stroke-linecap:round"
-       id="hint-top-margin"
-       width="1"
-       height="7"
-       x="544"
-       y="513"
-       rx="0.028995324"
-       ry="0.17312887" />
-    <rect
-       style="opacity:0.9;fill:#008080;stroke:none;stroke-width:2;stroke-linecap:round"
-       id="hint-bottom-margin"
-       width="1"
-       height="7"
-       x="544"
-       y="523"
-       rx="0.028995324"
-       ry="0.17312887" />
-    <rect
-       style="opacity:0.9;fill:#008080;stroke:none;stroke-width:2;stroke-linecap:round"
-       id="hint-right-margin"
-       width="7"
-       height="1"
-       x="546"
-       y="521"
-       rx="0.20296726"
-       ry="0.024732696" />
-    <rect
-       style="opacity:0.9;fill:#008080;stroke:none;stroke-width:2;stroke-linecap:round"
-       id="hint-left-margin"
-       width="7"
-       height="1"
-       x="536"
-       y="521"
-       rx="0.20296726"
-       ry="0.024732696" />
     <g
        id="normal-top"
        transform="matrix(6.12323e-17 1 -1 6.12323e-17 915 60)">
@@ -797,14 +761,14 @@
          r="5.5" />
     </g>
     <rect
-       style="opacity:0.9;fill:#008080;stroke:none;stroke-width:2;stroke-linecap:round"
+       style="opacity:0.9;fill:#00ff57;fill-opacity:1;stroke:none;stroke-width:3.02374;stroke-linecap:round"
        id="hint-stretch-borders"
-       width="1"
-       height="7"
-       x="553"
-       y="510.99997"
-       rx="0.028995324"
-       ry="0.17312887" />
+       width="4"
+       height="4.000051"
+       x="534"
+       y="518.99994"
+       rx="0.1159813"
+       ry="0.098932058" />
     <g
        id="normal-bottomleft"
        transform="matrix(1 0 0 -1 -1e-05 975)"
@@ -1591,5 +1555,33 @@
          y="413"
          transform="rotate(-90)" />
     </g>
+    <rect
+       id="normal-hint-top-margin"
+       x="534"
+       y="514.99994"
+       width="4"
+       height="4"
+       fill="#ff00ff" />
+    <rect
+       id="normal-hint-bottom-margin"
+       x="530"
+       y="518.99994"
+       width="4"
+       height="4"
+       fill="#ff00ff" />
+    <rect
+       id="normal-hint-right-margin"
+       x="538"
+       y="518.99994"
+       width="4"
+       height="4"
+       fill="#ff00ff" />
+    <rect
+       id="normal-hint-left-margin"
+       x="534"
+       y="522.99994"
+       width="4"
+       height="4"
+       fill="#ff00ff" />
   </g>
 </svg>
