@@ -43,6 +43,11 @@
 
 #include <QEvent>
 
+#include <QPainter>
+#include <QGraphicsBlurEffect>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+
 // #include <QDebug>
 
 namespace Darkly
@@ -580,26 +585,63 @@ void Helper::renderOutline(QPainter *painter, const QRectF &rect, const int radi
 }
 
 //______________________________________________________________________________
-void Helper::renderBoxShadow(QPainter *painter,
-                             const QRect &rect,
-                             const int xOffset,
-                             const int yOffset,
-                             const int size,
-                             const QColor &color,
-                             const int cornerRadius,
-                             const bool active,
-                             TileSet::Tiles tiles) const
-{
-    if (!StyleConfigData::widgetDrawShadow())
-        return;
-    Q_UNUSED(active)
-    // if (!active) {renderOutline(painter, rect, cornerRadius, 30);return;}
-    CustomShadowParams params = CustomShadowParams(QPoint(xOffset, yOffset), size, color);
-    TileSet shadow = ShadowHelper::shadowTiles(cornerRadius, params);
-    shadow.render(rect.adjusted(-params.radius, -params.radius, params.radius + params.offset.x(), params.radius + params.offset.y()), painter, tiles);
-    // qDebug() << "shadow on: " << rect.adjusted(-params.radius, -params.radius, params.radius, params.radius);
-}
+void Darkly::Helper::renderBoxShadow(QPainter *painter,
+                                     const QRect &rect,
+                                     int xOffset,
+                                     int yOffset,
+                                     int blurRadius,
+                                     const QColor & /*color*/,
+                                     int cornerRadius,
+                                     bool /*active*/,
+                                     TileSet::Tiles /*tiles*/) const
+                                     {
+                                         if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
+                                             return;
 
+                                         const QColor shadowColor(0, 0, 0, 80); // always black
+
+                                         // Padding + offsets
+                                         const int framePadding = 8;
+                                         int leftPadding   = framePadding + blurRadius - std::min(0, xOffset);
+                                         int topPadding    = framePadding + blurRadius - std::min(0, yOffset);
+                                         int rightPadding  = framePadding + blurRadius + std::max(0, xOffset);
+                                         int bottomPadding = framePadding + blurRadius + std::max(0, yOffset);
+
+                                         QSize shadowSize(rect.width() + leftPadding + rightPadding,
+                                                          rect.height() + topPadding + bottomPadding);
+
+                                         QPixmap shadowPixmap(shadowSize);
+                                         shadowPixmap.fill(Qt::transparent);
+
+                                         QPainter shadowPainter(&shadowPixmap);
+                                         shadowPainter.setRenderHint(QPainter::Antialiasing);
+                                         shadowPainter.setBrush(shadowColor);
+                                         shadowPainter.setPen(Qt::NoPen);
+
+                                         QRect shadowRect(leftPadding, topPadding, rect.width(), rect.height());
+                                         shadowPainter.drawRoundedRect(shadowRect, cornerRadius, cornerRadius);
+                                         shadowPainter.end();
+
+                                         QGraphicsScene scene;
+                                         QGraphicsPixmapItem item(QPixmap::fromImage(shadowPixmap.toImage()));
+                                         QGraphicsBlurEffect blur;
+                                         blur.setBlurRadius(blurRadius);
+                                         item.setGraphicsEffect(&blur);
+                                         scene.addItem(&item);
+
+                                         QImage blurred(shadowPixmap.size(), QImage::Format_ARGB32_Premultiplied);
+                                         blurred.fill(Qt::transparent);
+                                         QPainter blurPainter(&blurred);
+                                         scene.render(&blurPainter, QRectF(), QRectF(0, 0, shadowPixmap.width(), shadowPixmap.height()));
+                                         blurPainter.end();
+
+                                         painter->save();
+                                         painter->setRenderHint(QPainter::Antialiasing);
+                                         QPoint drawOffset = QPoint(rect.left() - leftPadding + xOffset,
+                                                                    rect.top() - topPadding + yOffset);
+                                         painter->drawImage(drawOffset, blurred);
+                                         painter->restore();
+                                     }
 //______________________________________________________________________________
 void Helper::renderEllipseShadow(QPainter *painter,
                                  const QRectF &rect,
@@ -1106,7 +1148,6 @@ void Helper::renderCheckBox(QPainter *painter,
     if (state == CheckOff) {
         // shadow
         if (mouseOver && !sunken) {
-            renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 120), 1, windowActive);
             renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 90), radius, windowActive);
         } else {
             renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 160), radius, windowActive);
