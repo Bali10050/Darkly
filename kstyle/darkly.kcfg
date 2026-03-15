@@ -158,7 +158,7 @@
 
     <!-- shadows on widgets -->
     <entry name="WidgetDrawShadow" type="Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
 
     <!-- shadow underneath toolbar -->

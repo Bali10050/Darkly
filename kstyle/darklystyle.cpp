@@ -2216,7 +2216,6 @@ bool Style::eventFilterDockWidget(QDockWidget *dockWidget, QEvent *event)
                     }
 
                     if (darkTheme) {
-                        _helper->renderBoxShadow(&painter, shadowRect.adjusted(0, 0, 0, 5), 0, 0, 8, QColor(0, 0, 0, 160), 2, true);
                         _helper->renderBoxShadow(&painter, shadowRect.adjusted(0, 0, 0, 5), 0, 0, 3, QColor(0, 0, 0, 160), 2, true);
                     } else {
                         int shadowSize = 5;
@@ -6301,7 +6300,6 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
 
                 else {
                     QRect shadowRect(copy.bottomLeft() + QPoint(-1, 1), QSize(copy.width(), 50));
-                    _helper->renderBoxShadow(painter, shadowRect, 0, 0, 8, QColor(0, 0, 0, 160), 2, true);
                     _helper->renderBoxShadow(painter, shadowRect, 0, 0, 3, QColor(0, 0, 0, 160), 2, true);
                 }
             }
@@ -7503,7 +7501,6 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
                 _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
                 _helper->renderBoxShadow(painter, shadowRect, 0, 1, shadowSize, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
 
-                _helper->renderBoxShadow(painter, rect /*.adjusted(0,0,0,4)*/, 0, 1, 4, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
                 _helper->renderTabBarTab(painter, rect, _isLibreoffice ? palette.color(QPalette::Highlight) : color, corners);
             }
 
