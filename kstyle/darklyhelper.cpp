@@ -43,7 +43,6 @@
 
 #include <QEvent>
 
-#include <QPainter>
 #include <QGraphicsBlurEffect>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
@@ -585,62 +584,52 @@ void Helper::renderOutline(QPainter *painter, const QRectF &rect, const int radi
 }
 
 //______________________________________________________________________________
-void Darkly::Helper::renderBoxShadow(QPainter *painter,
-                                     const QRect &rect,
-                                     int xOffset,
-                                     int yOffset,
-                                     int blurRadius,
-                                     const QColor &,
-                                     int cornerRadius,
-                                     bool,
-                                     TileSet::Tiles) const
-                                     {
-                                         if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
-                                             return;
+void Darkly::Helper::renderBoxShadow(QPainter *painter, const QRect &rect, int xOffset, int yOffset, int blurRadius, const QColor &, int cornerRadius, bool, TileSet::Tiles) const
+{
+    if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
+    return;
 
-                                         const QColor shadowColor(0, 0, 0, 40);
+    const QColor shadowColor(0, 0, 0, 40);
 
-                                         const int framePadding = 8;
-                                         int leftPadding   = framePadding + blurRadius - std::min(0, xOffset);
-                                         int topPadding    = framePadding + blurRadius - std::min(0, yOffset);
-                                         int rightPadding  = framePadding + blurRadius + std::max(0, xOffset);
-                                         int bottomPadding = framePadding + blurRadius + std::max(0, yOffset);
+    const int framePadding = 8;
+    int leftPadding   = framePadding + blurRadius - std::min(0, xOffset);
+    int topPadding    = framePadding + blurRadius - std::min(0, yOffset);
+    int rightPadding  = framePadding + blurRadius + std::max(0, xOffset);
+    int bottomPadding = framePadding + blurRadius + std::max(0, yOffset);
 
-                                         QSize shadowSize(rect.width() + leftPadding + rightPadding,
-                                                          rect.height() + topPadding + bottomPadding);
+    QSize shadowSize(rect.width() + leftPadding + rightPadding, rect.height() + topPadding + bottomPadding);
 
-                                         QPixmap shadowPixmap(shadowSize);
-                                         shadowPixmap.fill(Qt::transparent);
+    QPixmap shadowPixmap(shadowSize);
+    shadowPixmap.fill(Qt::transparent);
 
-                                         QPainter shadowPainter(&shadowPixmap);
-                                         shadowPainter.setRenderHint(QPainter::Antialiasing);
-                                         shadowPainter.setBrush(shadowColor);
-                                         shadowPainter.setPen(Qt::NoPen);
+    QPainter shadowPainter(&shadowPixmap);
+    shadowPainter.setRenderHint(QPainter::Antialiasing);
+    shadowPainter.setBrush(shadowColor);
+    shadowPainter.setPen(Qt::NoPen);
 
-                                         QRect shadowRect(leftPadding, topPadding, rect.width(), rect.height());
-                                         shadowPainter.drawRoundedRect(shadowRect, cornerRadius, cornerRadius);
-                                         shadowPainter.end();
+    QRect shadowRect(leftPadding, topPadding, rect.width(), rect.height());
+    shadowPainter.drawRoundedRect(shadowRect, cornerRadius, cornerRadius);
+    shadowPainter.end();
 
-                                         QGraphicsScene scene;
-                                         QGraphicsPixmapItem item(QPixmap::fromImage(shadowPixmap.toImage()));
-                                         QGraphicsBlurEffect blur;
-                                         blur.setBlurRadius(blurRadius);
-                                         item.setGraphicsEffect(&blur);
-                                         scene.addItem(&item);
+    QGraphicsScene scene;
+    QGraphicsPixmapItem item(QPixmap::fromImage(shadowPixmap.toImage()));
+    QGraphicsBlurEffect blur;
+    blur.setBlurRadius(blurRadius);
+    item.setGraphicsEffect(&blur);
+    scene.addItem(&item);
 
-                                         QImage blurred(shadowPixmap.size(), QImage::Format_ARGB32_Premultiplied);
-                                         blurred.fill(Qt::transparent);
-                                         QPainter blurPainter(&blurred);
-                                         scene.render(&blurPainter, QRectF(), QRectF(0, 0, shadowPixmap.width(), shadowPixmap.height()));
-                                         blurPainter.end();
+    QImage blurred(shadowPixmap.size(), QImage::Format_ARGB32_Premultiplied);
+    blurred.fill(Qt::transparent);
+    QPainter blurPainter(&blurred);
+    scene.render(&blurPainter, QRectF(), QRectF(0, 0, shadowPixmap.width(), shadowPixmap.height()));
+    blurPainter.end();
 
-                                         painter->save();
-                                         painter->setRenderHint(QPainter::Antialiasing);
-                                         QPoint drawOffset = QPoint(rect.left() - leftPadding + xOffset,
-                                                                    rect.top() - topPadding + yOffset);
-                                         painter->drawImage(drawOffset, blurred);
-                                         painter->restore();
-                                     }
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPoint drawOffset = QPoint(rect.left() - leftPadding + xOffset, rect.top() - topPadding + yOffset);
+    painter->drawImage(drawOffset, blurred);
+    painter->restore();
+}
 //______________________________________________________________________________
 void Helper::renderEllipseShadow(QPainter *painter,
                                  const QRectF &rect,
