@@ -43,6 +43,10 @@
 
 #include <QEvent>
 
+#include <QGraphicsBlurEffect>
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+
 // #include <QDebug>
 
 namespace Darkly
@@ -580,26 +584,52 @@ void Helper::renderOutline(QPainter *painter, const QRectF &rect, const int radi
 }
 
 //______________________________________________________________________________
-void Helper::renderBoxShadow(QPainter *painter,
-                             const QRect &rect,
-                             const int xOffset,
-                             const int yOffset,
-                             const int size,
-                             const QColor &color,
-                             const int cornerRadius,
-                             const bool active,
-                             TileSet::Tiles tiles) const
+void Darkly::Helper::renderBoxShadow(QPainter *painter, const QRect &rect, int xOffset, int yOffset, int blurRadius, const QColor &, int cornerRadius, bool, TileSet::Tiles) const
 {
-    if (!StyleConfigData::widgetDrawShadow())
-        return;
-    Q_UNUSED(active)
-    // if (!active) {renderOutline(painter, rect, cornerRadius, 30);return;}
-    CustomShadowParams params = CustomShadowParams(QPoint(xOffset, yOffset), size, color);
-    TileSet shadow = ShadowHelper::shadowTiles(cornerRadius, params);
-    shadow.render(rect.adjusted(-params.radius, -params.radius, params.radius + params.offset.x(), params.radius + params.offset.y()), painter, tiles);
-    // qDebug() << "shadow on: " << rect.adjusted(-params.radius, -params.radius, params.radius, params.radius);
-}
+    if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
+    return;
 
+    const QColor shadowColor(0, 0, 0, 40);
+
+    const int framePadding = 8;
+    int leftPadding   = framePadding + blurRadius - std::min(0, xOffset);
+    int topPadding    = framePadding + blurRadius - std::min(0, yOffset);
+    int rightPadding  = framePadding + blurRadius + std::max(0, xOffset);
+    int bottomPadding = framePadding + blurRadius + std::max(0, yOffset);
+
+    QSize shadowSize(rect.width() + leftPadding + rightPadding, rect.height() + topPadding + bottomPadding);
+
+    QPixmap shadowPixmap(shadowSize);
+    shadowPixmap.fill(Qt::transparent);
+
+    QPainter shadowPainter(&shadowPixmap);
+    shadowPainter.setRenderHint(QPainter::Antialiasing);
+    shadowPainter.setBrush(shadowColor);
+    shadowPainter.setPen(Qt::NoPen);
+
+    QRect shadowRect(leftPadding, topPadding, rect.width(), rect.height());
+    shadowPainter.drawRoundedRect(shadowRect, cornerRadius, cornerRadius);
+    shadowPainter.end();
+
+    QGraphicsScene scene;
+    QGraphicsPixmapItem item(QPixmap::fromImage(shadowPixmap.toImage()));
+    QGraphicsBlurEffect blur;
+    blur.setBlurRadius(blurRadius);
+    item.setGraphicsEffect(&blur);
+    scene.addItem(&item);
+
+    QImage blurred(shadowPixmap.size(), QImage::Format_ARGB32_Premultiplied);
+    blurred.fill(Qt::transparent);
+    QPainter blurPainter(&blurred);
+    scene.render(&blurPainter, QRectF(), QRectF(0, 0, shadowPixmap.width(), shadowPixmap.height()));
+    blurPainter.end();
+
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPoint drawOffset = QPoint(rect.left() - leftPadding + xOffset, rect.top() - topPadding + yOffset);
+    painter->drawImage(drawOffset, blurred);
+    painter->restore();
+}
 //______________________________________________________________________________
 void Helper::renderEllipseShadow(QPainter *painter,
                                  const QRectF &rect,
@@ -931,8 +961,6 @@ void Helper::renderLineEdit(QPainter *painter,
                 p.setCompositionMode(QPainter::CompositionMode_SourceOver);
                 p.setPen(Qt::NoPen);
                 renderBoxShadow(&p, frameRect, 0, 1, 6, outline.darker(120), radius, windowActive); // comment this out for only the outline animation
-                renderBoxShadow(&p, frameRect, 0, 1, 4, outline.darker(130), radius, windowActive); // comment this out for only the outline animation
-                renderBoxShadow(&p, frameRect, 0, 1, 4, outline.darker(140), radius, windowActive); // comment this out for only the outline animation
                 p.setBrush(alphaColor(outline, 0.6));
                 QRectF focusFrame = frameRect.adjusted(-2, -2, 2, 2);
                 p.drawRoundedRect(focusFrame, radius + 1, radius + 1); // outline around lineedit
@@ -949,8 +977,6 @@ void Helper::renderLineEdit(QPainter *painter,
             // focus animation done
             else {
                 renderBoxShadow(painter, frameRect, 0, 1, 7, outline.darker(120), radius, windowActive);
-                renderBoxShadow(painter, frameRect, 0, 1, 5, outline.darker(130), radius, windowActive);
-                renderBoxShadow(painter, frameRect, 0, 1, 4, outline.darker(140), radius, windowActive);
                 painter->setBrush(alphaColor(outline, 0.6));
                 QRectF focusFrame = frameRect.adjusted(-2, -2, 2, 2);
                 painter->drawRoundedRect(focusFrame, radius + 1, radius + 1);
@@ -984,7 +1010,6 @@ void Helper::renderLineEdit(QPainter *painter,
                 p.setCompositionMode(QPainter::CompositionMode_SourceOver);
                 p.setPen(Qt::NoPen);
                 renderBoxShadow(&p, frameRect, 0, 1, 6, outline.darker(120), radius, windowActive);
-                renderBoxShadow(&p, frameRect, 0, 1, 4, outline.darker(120), radius, windowActive);
                 p.setBrush(alphaColor(outline, 0.6));
                 QRectF focusFrame = frameRect.adjusted(-1, -1, 1, 1);
                 p.drawRoundedRect(focusFrame, radius + 1, radius + 1);
@@ -1006,7 +1031,7 @@ void Helper::renderLineEdit(QPainter *painter,
             // normal or mouse over
             else {
                 if (mouseOver && !hasFocus)
-                    renderBoxShadow(painter, frameRect, 0, 1, 6, QColor(0, 0, 0, 160), radius, windowActive);
+                    renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 84), radius, windowActive);
                 else {
                     renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 84), radius, windowActive);
                     renderOutline(painter, frameRect, radius, 6);
@@ -1106,7 +1131,6 @@ void Helper::renderCheckBox(QPainter *painter,
     if (state == CheckOff) {
         // shadow
         if (mouseOver && !sunken) {
-            renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 120), 1, windowActive);
             renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 90), radius, windowActive);
         } else {
             renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 160), radius, windowActive);
@@ -1195,7 +1219,6 @@ void Helper::renderCheckBox(QPainter *painter,
             // small shadow
             if (StyleConfigData::sunkenEffect()){
             if (mouseOver && !sunken) {
-                renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 120), 1, windowActive);
                 renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 90), radius, windowActive);
             } else {
                 renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 160), radius, windowActive);
@@ -1212,7 +1235,6 @@ void Helper::renderCheckBox(QPainter *painter,
             if (darkTheme)
                 renderBoxShadow(painter, frameRect, 0, 1, 4, mouseOver ? background.darker(140) : background.darker(200), radius, windowActive);
             else {
-                renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 120), 1, windowActive);
                 renderBoxShadow(painter, frameRect, 0, 1, 2, QColor(0, 0, 0, 90), radius, windowActive);
             }
             painter->setBrush(mouseOver ? background.lighter(110) : background);
