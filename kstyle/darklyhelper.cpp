@@ -590,17 +590,16 @@ void Darkly::Helper::renderBoxShadow(QPainter *painter,
                                      int xOffset,
                                      int yOffset,
                                      int blurRadius,
-                                     const QColor & /*color*/,
+                                     const QColor &,
                                      int cornerRadius,
-                                     bool /*active*/,
-                                     TileSet::Tiles /*tiles*/) const
+                                     bool,
+                                     TileSet::Tiles) const
                                      {
                                          if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
                                              return;
 
-                                         const QColor shadowColor(0, 0, 0, 80); // always black
+                                         const QColor shadowColor(0, 0, 0, 40);
 
-                                         // Padding + offsets
                                          const int framePadding = 8;
                                          int leftPadding   = framePadding + blurRadius - std::min(0, xOffset);
                                          int topPadding    = framePadding + blurRadius - std::min(0, yOffset);
