@@ -281,7 +281,7 @@ QColor Helper::buttonBackgroundColor(const QPalette &palette, bool mouseOver, bo
 QColor Helper::toolButtonColor(const QPalette &palette, bool mouseOver, bool hasFocus, bool sunken, qreal opacity, AnimationMode mode) const
 {
     QColor outline;
-    const QColor hoverColor(this->hoverColor(palette));
+    const QColor hoverColor = alphaColor(palette.color(QPalette::WindowText), 0.1);
     const QColor focusColor(this->focusColor(palette));
     const QColor sunkenColor = alphaColor(palette.color(QPalette::WindowText), 0.2);
 
@@ -778,10 +778,9 @@ void Helper::renderToolButtonFrame(QPainter *painter, const QRect &rect, const Q
     } else {
         const qreal radius(frameRadius(PenWidth::Frame));
 
-        painter->setPen(color);
-        painter->setBrush(Qt::NoBrush);
-        const QRectF outlineRect(strokedRect(baseRect));
-        painter->drawRoundedRect(outlineRect, radius, radius);
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(color);
+        painter->drawRoundedRect(baseRect, radius, radius);
     }
 }
 
