@@ -7498,10 +7498,10 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
                 _helper->renderTabBarTab(painter, rect, color, corners);
             } else {
                 // render dark background and shadow
-                _helper->renderTabBarTab(painter, backgroundRect, backgroundColor, backgroundCorners);
-                _helper->renderBoxShadow(painter, shadowRect, 0, 1, shadowSize, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
+                _helper->renderTabBarTab(painter, _isLibreoffice ? backgroundRect.adjusted(0, 0, 0, -2) : backgroundRect, backgroundColor, backgroundCorners);
+                _helper->renderBoxShadow(painter, _isLibreoffice ? shadowRect.adjusted(0, 0, 0, -2) : shadowRect, 0, 1, shadowSize, QColor(0, 0, 0, 220), StyleConfigData::cornerRadius(), true);
 
-                _helper->renderTabBarTab(painter, rect, _isLibreoffice ? palette.color(QPalette::Highlight) : color, corners);
+                _helper->renderTabBarTab(painter, _isLibreoffice ? rect.adjusted(0, 0, 0, -2) : rect, _isLibreoffice ? palette.color(QPalette::Highlight) : color, corners);
             }
 
             // highlight
