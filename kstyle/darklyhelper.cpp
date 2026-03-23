@@ -681,6 +681,8 @@ void Helper::renderEllipseShadow(QPainter *painter,
 //______________________________________________________________________________
 void Helper::topHighlight(QPainter *painter, const QRectF &rect, const int radius, const QColor &color) const
 {
+    if (!StyleConfigData::noOutline())
+    {
     QPixmap pixmap = QPixmap(rect.width(), rect.height());
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
@@ -703,6 +705,7 @@ void Helper::topHighlight(QPainter *painter, const QRectF &rect, const int radiu
     {
     p.drawRoundedRect(QRect(0, 1, rect.width(), rect.height()), radius, radius);
     painter->drawPixmap(QRect(rect.x(), rect.y(), rect.width(), rect.height()), pixmap);
+    }
     }
 }
 
