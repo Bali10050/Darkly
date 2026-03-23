@@ -119,6 +119,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_useNewCheckBox, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_documentModeTabs, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_fullOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_noOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_scrollBarTransient, &QAbstractButton::toggled, this, [this](bool checked) {
         _scrollBarTransientAlwaysShowSlim->setEnabled(checked);
         StyleConfig::updateChanged();
@@ -178,6 +179,7 @@ void StyleConfig::save()
     StyleConfigData::setUseNewCheckBox(_useNewCheckBox->isChecked());
     StyleConfigData::setDocumentModeTabs(_documentModeTabs->isChecked());
     StyleConfigData::setFullOutline(_fullOutline->isChecked());
+    StyleConfigData::setNoOutline(_noOutline->isChecked());
     StyleConfigData::setScrollBarTransient(_scrollBarTransient->isChecked());
     StyleConfigData::setScrollBarTransientAlwaysShowSlim(_scrollBarTransientAlwaysShowSlim->isChecked());
 
@@ -313,6 +315,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_fullOutline->isChecked() != StyleConfigData::fullOutline())
         modified = true;
+    else if (_noOutline->isChecked() != StyleConfigData::noOutline())
+        modified = true;
     else if (_scrollBarTransient->isChecked() != StyleConfigData::scrollBarTransient())
         modified = true;
     else if (_scrollBarTransientAlwaysShowSlim->isChecked() != StyleConfigData::scrollBarTransientAlwaysShowSlim())
@@ -399,6 +403,7 @@ void StyleConfig::load()
     _useNewCheckBox->setChecked(StyleConfigData::useNewCheckBox());
     _documentModeTabs->setChecked(StyleConfigData::documentModeTabs());
     _fullOutline->setChecked(StyleConfigData::fullOutline());
+    _noOutline->setChecked(StyleConfigData::noOutline());
     _scrollBarTransient->setChecked(StyleConfigData::scrollBarTransient());
     _scrollBarTransientAlwaysShowSlim->setChecked(StyleConfigData::scrollBarTransientAlwaysShowSlim());
 

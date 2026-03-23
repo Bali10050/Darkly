@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>670</width>
-    <height>529</height>
+    <height>553</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -953,6 +953,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QCheckBox" name="_noOutline">
+           <property name="text">
+            <string>No outline</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -1232,7 +1239,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_5">
          <property name="toolTip">
-          <string>Dolphin sidebar transparency. Requires "Draw frame around dockable panels" to be disabled.</string>
+          <string>Dolphin sidebar transparency. Requires &quot;Draw frame around dockable panels&quot; to be disabled.</string>
          </property>
          <property name="text">
           <string>Si&amp;debar:</string>
@@ -1248,7 +1255,7 @@
        <item row="2" column="1">
         <widget class="QSlider" name="_sidebarOpacity">
          <property name="toolTip">
-          <string>Dolphin sidebar transparency. Requires "Draw frame around dockable panels" to be disabled.</string>
+          <string>Dolphin sidebar transparency. Requires &quot;Draw frame around dockable panels&quot; to be disabled.</string>
          </property>
          <property name="maximum">
           <number>100</number>
