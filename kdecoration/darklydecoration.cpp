@@ -536,7 +536,7 @@ if (m_internalSettings->floatingTitlebar()){
     }
 
     setResizeOnlyBorders(QMarginsF(extSides, 0, extSides, extBottom));
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+
     qreal topLeftRadius = 0;
     qreal topRightRadius = 0;
     qreal bottomLeftRadius = 0;
@@ -554,40 +554,36 @@ if (m_internalSettings->floatingTitlebar()){
             bottomRightRadius = m_scaledCornerRadius;
         }
     }
-#endif
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
-    setBorderRadius(KDecoration3::BorderRadius(topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius));
-#endif
+
+    setBorderRadius(KDecoration3::BorderRadius(topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius, true));
 
     if (isMaximized() || !outlinesEnabled()) {
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
         setBorderOutline(KDecoration3::BorderOutline()); // no outline
-#endif
     } else {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0) && KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+        #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         const auto color = KColorUtils::mix(
             window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive,
                             ColorRole::Frame),
                             window()->palette().text().color(),
                                             KColorScheme::frameContrast()
         );
-#else
-        KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
-                         window()->palette().text().color(),
-                         0.2);
-#endif
+        #else
+        const auto color = KColorUtils::mix(
+            window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive,
+                            ColorRole::Frame),
+                            window()->palette().text().color(),
+                                            0.2
+        );
+        #endif
 
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
         const qreal thickness = std::max(KDecoration3::pixelSize(window()->scale()),
                                          KDecoration3::snapToPixelGrid(1, window()->scale()));
-#endif
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+
         const KDecoration3::BorderRadius outlineRadius(
             topLeftRadius, topRightRadius, bottomRightRadius, bottomLeftRadius
         );
 
         setBorderOutline(KDecoration3::BorderOutline(thickness, color, outlineRadius));
-#endif
     }
 } else {
     setBorders(bordersFor(window()->nextScale()));
@@ -609,10 +605,9 @@ if (m_internalSettings->floatingTitlebar()){
     }
 
     setResizeOnlyBorders(QMarginsF(extSides, 0, extSides, extBottom));
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+
     qreal bottomLeftRadius = 0;
     qreal bottomRightRadius = 0;
-
     if (hasNoBorders() && m_internalSettings->roundedCorners()) {
         if (!isBottomEdge()) {
             if (!isLeftEdge()) {
@@ -623,41 +618,31 @@ if (m_internalSettings->floatingTitlebar()){
             }
         }
     }
-#endif
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
     setBorderRadius(KDecoration3::BorderRadius(0, 0, bottomRightRadius, bottomLeftRadius));
-#endif
+
     if (isMaximized() || !outlinesEnabled()) {
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
         setBorderOutline(KDecoration3::BorderOutline());
-#endif
     } else {
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0) && KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+        #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         const auto color = KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
                                             window()->palette().text().color(),
                                             KColorScheme::frameContrast());
-#else
-        KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
-                         window()->palette().text().color(),
-                         0.2);
-#endif
-
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
+        #else
+        const auto color = KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
+                                            window()->palette().text().color(),
+                                            0.2);
+        #endif
         const qreal thickness = std::max(KDecoration3::pixelSize(window()->scale()), KDecoration3::snapToPixelGrid(1, window()->scale()));
 
         qreal bottomLeftRadius = 0;
         qreal bottomRightRadius = 0;
-
         if (!hasNoBorders() || m_internalSettings->roundedCorners()) {
             bottomLeftRadius = m_scaledCornerRadius;
             bottomRightRadius = m_scaledCornerRadius;
         }
-#endif
 
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
         const auto radius = KDecoration3::BorderRadius(m_scaledCornerRadius, m_scaledCornerRadius, bottomRightRadius, bottomLeftRadius);
         setBorderOutline(KDecoration3::BorderOutline(thickness, color, radius));
-#endif
     }
 }
 }
@@ -833,28 +818,33 @@ if (m_internalSettings->floatingTitlebar()){
 //________________________________________________________________
 void Decoration::paint(QPainter *painter, const QRectF &repaintRegion)
 {
-    // TODO: optimize based on repaintRegion
+    constexpr int topMargin = 37;
     auto c = window();
     auto s = settings();
 
     calculateWindowAndTitleBarShapes();
 
-    // paint background
     if (!c->isShaded()) {
-        painter->fillRect(rect(), Qt::transparent);
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing);
         painter->setPen(Qt::NoPen);
-        painter->setBrush(c->color(c->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame));
 
-        // clip away the top part
-        if (!hideTitleBar())
-            painter->setClipRect(0, borderTop(), size().width(), size().height() - borderTop(), Qt::IntersectClip);
+        QPainterPath path;
+        QRectF redRect(rect().x(), rect().y() + topMargin, rect().width(), rect().height() - topMargin);
+        if (s->isAlphaChannelSupported()) {
+            path.addRoundedRect(redRect, m_scaledCornerRadius, m_scaledCornerRadius);
+        } else {
+            path.addRect(redRect);
+        }
 
-        if (s->isAlphaChannelSupported())
-            painter->drawRoundedRect(rect(), m_scaledCornerRadius, m_scaledCornerRadius);
-        else
-            painter->drawRect(rect());
+        QColor backgroundColor;
+        if (c->isActive()) {
+            backgroundColor = c->color(ColorGroup::Active, ColorRole::TitleBar);
+        } else {
+            backgroundColor = c->color(ColorGroup::Inactive, ColorRole::TitleBar);
+        }
+        painter->setBrush(backgroundColor);
+        painter->drawPath(path);
 
         painter->restore();
     }
@@ -866,7 +856,8 @@ void Decoration::paint(QPainter *painter, const QRectF &repaintRegion)
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, false);
         painter->setBrush(Qt::NoBrush);
-        painter->setPen(c->isActive() ? c->color(ColorGroup::Active, ColorRole::TitleBar) : c->color(ColorGroup::Inactive, ColorRole::Foreground));
+        painter->setPen(c->isActive() ? c->color(ColorGroup::Active, ColorRole::TitleBar)
+        : c->color(ColorGroup::Inactive, ColorRole::Foreground));
 
         painter->drawRect(rect().adjusted(0, 0, -1, -1));
         painter->restore();

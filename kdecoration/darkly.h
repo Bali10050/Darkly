@@ -22,8 +22,6 @@
  */
 #pragma once
 #include "darklysettings.h"
-#define KDECORATION_VERSION KDECORATION_VERSION_CHECK(KDECORATION_VERSION_MAJOR, KDECORATION_VERSION_MINOR, KDECORATION_VERSION_PATCH)
-#define KDECORATION_VERSION_CHECK(major, minor, patch) ((major << 16) | (minor << 8) | (patch))
 
 #include <QList>
 #include <QSharedPointer>

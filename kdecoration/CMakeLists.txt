@@ -27,6 +27,9 @@ set_target_properties(darklydecoration PROPERTIES
 )
 
 target_link_libraries(darklydecoration
+     PUBLIC
+        Qt6::DBus
+        KDecoration3::KDecoration
      PRIVATE
         darklycommon6
         KF6::CoreAddons
@@ -36,8 +39,6 @@ target_link_libraries(darklydecoration
         KF6::IconThemes
         KF6::WindowSystem
         KF6::KCMUtils
-        Qt6::DBus
-        KDecoration3::KDecoration
 )
 install(TARGETS darklydecoration DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
 install(FILES config/darklydecorationconfig.desktop DESTINATION  ${KDE_INSTALL_DATADIR}/kservices6)

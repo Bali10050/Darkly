@@ -84,12 +84,7 @@ void ConfigWidget::load()
     m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
     m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
     m_ui.drawTitleBarSeparator->setChecked(m_internalSettings->drawTitleBarSeparator());
-#if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
     m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
-#else
-    m_ui.roundedCorners->setChecked(false);
-    m_ui.roundedCorners->setEnabled(false);
-#endif
     m_ui.otherCornerRadius->setValue(m_internalSettings->otherCornerRadius());
     m_ui.floatingTitlebar->setChecked(m_internalSettings->floatingTitlebar());
 

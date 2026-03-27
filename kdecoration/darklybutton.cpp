@@ -272,7 +272,6 @@ void Button::drawIcon(QPainter *painter) const
             break;
         }
 
-        #if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 6, 0)
         case DecorationButtonType::ExcludeFromCapture: {
             // A spy hat (like view-private.svg icon)
             const qreal cx = 9, cy = 9;
@@ -294,7 +293,6 @@ void Button::drawIcon(QPainter *painter) const
             painter->drawLine(QPointF(cx - 1.5, cy + 3.8), QPointF(cx + 1.5, cy + 3.8));
             break;
         }
-        #endif
 
         case DecorationButtonType::ApplicationMenu: {
             painter->drawRect(QRectF(3.5, 4.5, 11, 1));
@@ -333,16 +331,12 @@ QColor Button::foregroundColor() const
 
     } else if (type() == DecorationButtonType::Close && d->internalSettings()->outlineCloseButton()) {
         return d->titleBarColor();
-    #if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 6, 0)
+
     } else if ((type() == DecorationButtonType::KeepBelow || type() == DecorationButtonType::KeepAbove || type() == DecorationButtonType::Shade
                 || type() == DecorationButtonType::ExcludeFromCapture)
                && isChecked()) {
         return d->titleBarColor();
-    #else
-    } else if ((type() == DecorationButtonType::KeepBelow || type() == DecorationButtonType::KeepAbove || type() == DecorationButtonType::Shade)
-               && isChecked()) {
-        return d->titleBarColor();
-    #endif
+
     } else if (m_animation->state() == QAbstractAnimation::Running) {
         return KColorUtils::mix(d->fontColor(), d->titleBarColor(), m_opacity);
 
@@ -372,10 +366,8 @@ QColor Button::backgroundColor() const
     } else if ((type() == DecorationButtonType::KeepBelow || type() == DecorationButtonType::KeepAbove || type() == DecorationButtonType::Shade)
                && isChecked()) {
         return d->fontColor();
-    #if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 6, 0)
     } else if (type() == DecorationButtonType::ExcludeFromCapture && isChecked()) {
         return c->color(ColorGroup::Warning, ColorRole::Foreground);
-    #endif
     } else if (m_animation->state() == QAbstractAnimation::Running) {
         if (type() == DecorationButtonType::Close) {
             if (d->internalSettings()->outlineCloseButton()) {

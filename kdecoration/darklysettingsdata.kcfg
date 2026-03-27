@@ -15,7 +15,7 @@
     </entry>
 
     <entry name="FloatingTitlebar" type = "Bool">
-      <default>false</default>
+      <default>true</default>
     </entry>
 
     <!-- shadow -->
