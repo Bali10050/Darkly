@@ -20,6 +20,16 @@ Other than that we maintain a style for **Plasma window decorations** and a **co
 
 Most changes are optional, if you don't like them, you can turn them off in the settings.
 
+***
+
+### GTK style
+
+If you want **a matching style for your gtk applications**, I recommend checking out this project:
+
+<https://github.com/wrymt/darkly-gtk>
+
+***
+
 ## Installation
 
 ## Automatic
