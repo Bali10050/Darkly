@@ -9,13 +9,14 @@ on:
         required: true
         type: string
 env:
-  QT6_RUNTIME_VERSION: 6.9
+  QT6_9_RUNTIME_VERSION: 6.9
+  QT6_10_RUNTIME_VERSION: 6.10
   QT5_RUNTIME_VERSION: 5.15-24.08
 jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5.0.3
         with:
           key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
           path: ${{ inputs.cache-file-path }}
@@ -29,28 +30,37 @@ jobs:
         run: tar xvf ${{ inputs.cache-file-path }}
       - name: Flatpak remote-add flathub
         run: sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-      - name: Flatpak build setup - QT6
+      - name: Flatpak build setup - QT6.9
         run: |
-          sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT6_RUNTIME_VERSION }} -y
-          sudo flatpak install org.kde.Platform/x86_64/${{ env.QT6_RUNTIME_VERSION }} -y
+          sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT6_9_RUNTIME_VERSION }} -y
+          sudo flatpak install org.kde.Platform/x86_64/${{ env.QT6_9_RUNTIME_VERSION }} -y
+      - name: Flatpak build setup - QT6.10
+        run: |
+          sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT6_10_RUNTIME_VERSION }} -y
+          sudo flatpak install org.kde.Platform/x86_64/${{ env.QT6_10_RUNTIME_VERSION }} -y
       - name: Flatpak build setup - QT5
         run: |
           sudo flatpak install org.kde.Sdk/x86_64/${{ env.QT5_RUNTIME_VERSION }} -y
           sudo flatpak install org.kde.Platform/x86_64/${{ env.QT5_RUNTIME_VERSION }} -y
-      - name: Flatpak build & bundle - QT6
+      - name: Flatpak build & bundle - QT6.9
         run: |
-          sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly6.json
-          sudo flatpak build-bundle local/ darkly-qt${{ env.QT6_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT6_RUNTIME_VERSION }}
+          sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly6.9.json
+          sudo flatpak build-bundle local/ darkly-qt${{ env.QT6_9_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT6_9_RUNTIME_VERSION }}
+      - name: Flatpak build & bundle - QT6.10
+        run: |
+          sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly6.10.json
+          sudo flatpak build-bundle local/ darkly-qt${{ env.QT6_10_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT6_10_RUNTIME_VERSION }}
       - name: Flatpak build & bundle - QT5
         run: |
           sudo flatpak-builder flatpak-build --repo=local --force-clean --ccache Darkly-${{inputs.version}}/org.kde.KStyle.Darkly5.json
           sudo flatpak build-bundle local/ darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak runtime/org.kde.KStyle.Darkly/x86_64/${{ env.QT5_RUNTIME_VERSION }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: darkly-flatpak
           path: |
-            darkly-qt${{ env.QT6_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
+            darkly-qt${{ env.QT6_9_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
+            darkly-qt${{ env.QT6_10_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
             darkly-qt${{ env.QT5_RUNTIME_VERSION }}-${{ inputs.version }}-x86_64.flatpak
           retention-days: 1
       
