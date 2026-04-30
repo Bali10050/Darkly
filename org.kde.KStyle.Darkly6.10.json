@@ -1,0 +1,32 @@
+{
+  "id": "org.kde.KStyle.Darkly",
+  "branch": "6.10",
+  "runtime": "org.kde.Platform",
+  "build-extension": true,
+  "sdk": "org.kde.Sdk",
+  "runtime-version": "6.10",
+  "appstream-compose": false,
+  "separate-locales": false,
+  "modules": [
+    {
+      "name": "Darkly",
+      "buildsystem": "cmake",
+      "builddir": true,
+      "config-opts": [
+        "-DQT_PLUGINS_DIR=/usr/share/runtime/lib/plugins/Darkly",
+        "-DCMAKE_INSTALL_PREFIX=/usr/share/runtime/lib/plugins/Darkly",
+        "-DBUILD_QT6=ON",
+        "-DBUILD_QT5=OFF",
+        "-DWITH_DECORATIONS=OFF",
+        "-DFOR_FLATPAK=ON"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/Bali10050/Darkly",
+          "branch": "main"
+        }
+      ]
+    }
+  ]
+}
