@@ -70,10 +70,7 @@ sudo eopkg install darkly
 
 ### Flatpak
 
-Due to flatpak's [restriction on file system access](https://docs.flatpak.org/en/latest/sandbox-permissions.html) (in short no access to system libraries, /dev, etc), Darkly flatpak bundle is only an extension of KDE runtime.\
-If you want to apply Darkly as the application style, you either need:
-- Darkly installed on the system via package manager (pacman, rpm, apt-get, etc) or
-- Set manually with QT_STYLE_OVERRIDE=Darkly env variable \[`sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)]
+Due to flatpak's [restriction on file system access](https://docs.flatpak.org/en/latest/sandbox-permissions.html) (in short no access to system libraries, /dev, etc), Darkly flatpak bundle is only an extension of KDE runtime.
 
 **Important (primarily) for users of immutable distros!**\
 Darkly won't show as an option in `System settings > Theme > Application styles` without system installation. Also, both Darkly runtime version and the KDE runtime version must match (if they don't match, the app won't use Darkly)
@@ -105,7 +102,23 @@ org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/or
 ```
 flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>
 ```
-Where `<runtime_version>` is 5.15-24.08, 6.9 or 6.10
+Where `<runtime_version>` can be either 5.15-24.08, 6.9 or 6.10
+
+#### Install with:
+
+`flatpak install darkly.flatpak`
+
+
+### Post installation steps:
+
+If you want to apply Darkly as the application style.
+
+Adjust flatpak settings (via Flatseal or command)
+
+- Set environment variables: `QT_STYLE_OVERRIDE=Darkly` and `QT_QPA_PLATFORMTHEME=kde`
+- `sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)
+
+- Allow filesystem access to `xdg-config/darklyrc:ro`
 
 ***
 
