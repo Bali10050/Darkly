@@ -84,17 +84,28 @@ This brings some untentended behaviour (for any application style, not Darkly in
 
 Manifests should have the latest versions of KDE Runtime and SDK. Change the version accordingly. (you can find the version of runtime for each app by running `flatpak list --app --columns=app,runtime`)
 
-#### Build with:
+Flatpak manifests can be found inside the flatpak directory.
+
+#### QT5 Build with:
 ```
-org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly5.json
 ```
 
-use `org.kde.KStyle.Darkly5.json` for KF5
+#### QT6.9 Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly6.9.json
+```
+
+#### QT6.10 Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly6.10.json
+```
 
 #### Bundle with:
 ```
 flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>
 ```
+Where `<runtime_version>` is 5.15-24.08, 6.9 or 6.10
 
 ***
 
