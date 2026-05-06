@@ -1,0 +1,19 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "serabali10050@gmail.com",
+                "Name": "Bali10050"
+            }
+        ],
+        "Category": "Plasma Theme",
+        "Description": "Made from the 'Nostrum - Future Retro', 'ChromeOS Plasma', 'Breeze' and the 'Andromeda Plasma' themes, this style should match perfectly with the 'Darkly' application and window style.",
+        "EnabledByDefault": true,
+        "Id": "darkly",
+        "License": "GPLv2",
+        "Name": "Darkly",
+        "Version": "@PROJECT_VERSION@",
+        "Website": "https://github.com/Bali10050/Darkly"
+    },
+    "X-Plasma-API": "5.0"
+}
