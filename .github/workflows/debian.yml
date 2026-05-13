@@ -61,16 +61,16 @@ jobs:
           echo "Version codename = $VERSION_CODENAME"
           case $VERSION_CODENAME in
             "trixie")
-                VERSION_ID=13_trixie
+                VERSION_ID=13
             ;;
             "forky")
-                VERSION_ID=14_forky
+                VERSION_ID=14
             ;;
             *)
                 VERSION_ID=debian
             ;;
           esac
-          publish_filename="darkly-${{ inputs.version }}_debian$VERSION_ID_amd64.deb"
+          publish_filename="darkly-${{ inputs.version }}_debian${VERSION_ID}_amd64.deb"
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
           mv $artifact $GITHUB_WORKSPACE/$publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
