@@ -144,7 +144,7 @@ cd Darkly
 #### <u>Arch Linux</u>
 
 ```
-sudo pacman -S --noconfirm cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
+sudo pacman -S --needed cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
       kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git \
       qt5-declarative qt5-x11extras gcc make kcmutils5 \
       frameworkintegration5 kconfigwidgets5 kiconthemes5 \
@@ -164,7 +164,7 @@ cd Darkly
 ##### Fedora 40/41
 
 ```
-sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
+sudo dnf install git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
       kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
       kf6-kirigami-devel kf6-kcmutils-devel kf6-frameworkintegration-devel \
       libepoxy-devel "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(KF5GuiAddons)" \
@@ -211,7 +211,7 @@ cd Darkly
 #### <u>KDE neon</u>
 
 ```
-sudo apt install -y git build-essential cmake kf6-extra-cmake-modules \
+sudo apt install git build-essential cmake kf6-extra-cmake-modules \
       kf6-extra-cmake-modules kf6-frameworkintegration-dev \
       kf6-kcmutils-dev kf6-kcolorscheme-dev kf6-kconfig-dev kf6-kconfigwidgets-dev \
       kf6-kcoreaddons-dev kf6-kguiaddons-dev kf6-ki18n-dev kf6-kiconthemes-dev \
@@ -240,7 +240,7 @@ distrobox enter lightly
 ```
 
 ```
-sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
+sudo dnf install git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
     kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
     kf6-kirigami-devel kf6-kcmutils-devel \
     libepoxy-devel "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(KF5GuiAddons)" \
@@ -276,7 +276,7 @@ echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME
 #### <u>Kubuntu (25.04)</u>
 
 ```
-sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
+sudo apt-get install cmake build-essential libkf5config-dev libkdecorations3-dev \
       libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
       libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
       libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \
