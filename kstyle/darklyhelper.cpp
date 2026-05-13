@@ -586,7 +586,7 @@ void Helper::renderOutline(QPainter *painter, const QRectF &rect, const int radi
 //______________________________________________________________________________
 void Darkly::Helper::renderBoxShadow(QPainter *painter, const QRect &rect, int xOffset, int yOffset, int blurRadius, const QColor &, int cornerRadius, bool, TileSet::Tiles) const
 {
-    if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0)
+    if (!StyleConfigData::widgetDrawShadow() || blurRadius <= 0 || StyleConfigData::forceNoShadow().contains(QApplication::applicationName(), Qt::CaseInsensitive))
     return;
 
     const QColor shadowColor(0, 0, 0, 40);
