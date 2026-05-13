@@ -56,7 +56,14 @@ jobs:
           path: VERSION
           retention-days: 1
 
-  Debian:
+  Debian13:
+    needs: release-ci
+    uses: ./.github/workflows/debian13.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
+
+  Debian14:
     needs: release-ci
     uses: ./.github/workflows/debian14.yml
     with:
@@ -113,7 +120,8 @@ jobs:
         "fedora",
         "opensuse-tumbleweed",
         "kde-neon",
-        "debian",
+        "debian13",
+        "debian14",
         "flatpak",
         'kubuntu',
       ]
