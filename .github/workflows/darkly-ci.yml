@@ -58,7 +58,7 @@ jobs:
 
   Debian:
     needs: release-ci
-    uses: ./.github/workflows/debian13.yml
+    uses: ./.github/workflows/debian.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
