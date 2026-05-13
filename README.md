@@ -161,7 +161,7 @@ cd Darkly
 
 #### <u>Fedora</u>
 
-##### Fedora 40/41
+##### Fedora
 
 ```
 sudo dnf install git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
