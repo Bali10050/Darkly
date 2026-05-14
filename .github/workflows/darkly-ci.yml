@@ -99,12 +99,12 @@ jobs:
     with:
       version: ${{ needs.release-ci.outputs.VERSION }}
 
-  # Flatpak:
-  #   needs: release-ci
-  #   uses: ./.github/workflows/flatpak.yml
-  #   with:
-  #     cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
-  #     version: ${{ needs.release-ci.outputs.VERSION }}
+  Flatpak:
+    needs: release-ci
+    uses: ./.github/workflows/flatpak.yml
+    with:
+      cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
+      version: ${{ needs.release-ci.outputs.VERSION }}
 
   release:
     uses: ./.github/workflows/release.yml
@@ -115,6 +115,6 @@ jobs:
         "opensuse-tumbleweed",
         "kde-neon",
         "debian",
+        "flatpak",
         'kubuntu',
-        
       ]
