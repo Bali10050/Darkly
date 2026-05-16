@@ -1,4 +1,5 @@
-# Debian testing edition (forky)
+# Debian 13/14
+# Build Darkly from release tag and publish .rpm package
 
 on:
   workflow_call:
@@ -9,15 +10,20 @@ on:
       version:
         required: true
         type: string
-env:
-  DEBIAN_RELEASE: "14"
+      containers:
+        required: true
+        type: string
 jobs:
   build:
+    strategy:
+      max-parallel: 2
+      matrix:
+        image: ${{ fromJson(inputs.containers) }}
     runs-on: ubuntu-24.04
-    container: debian:forky
     defaults:
       run:
         shell: bash
+    container: ${{ matrix.image }}
     steps:
       - name: Install build dependencies
         run: |
@@ -30,7 +36,7 @@ jobs:
                     qt6-base-dev libkf6coreaddons-dev libkf6colorscheme-dev \
                     libkf6config-dev libkf6guiaddons-dev libkf6i18n-dev libkf6iconthemes-dev \
                     libkf6windowsystem-dev libkf6kcmutils-dev libkirigami-dev libkf6style-dev
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5.0.5
         with:
           key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
           path: ${{ inputs.cache-file-path }}
@@ -51,7 +57,20 @@ jobs:
         run: |
           cd build_kf6; cpack -G DEB -V -DCPACK_THREADS=$(nproc)
           artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}_amd64.deb
-          publish_filename="darkly-${{ inputs.version }}_debian${{ env.DEBIAN_RELEASE }}_amd64.deb"
+          source /etc/os-release
+          echo "Version codename = $VERSION_CODENAME"
+          case $VERSION_CODENAME in
+            "trixie")
+                VERSION_ID=13
+            ;;
+            "forky")
+                VERSION_ID=14
+            ;;
+            *)
+                VERSION_ID=debian
+            ;;
+          esac
+          publish_filename="darkly-${{ inputs.version }}_debian${VERSION_ID}_amd64.deb"
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
           mv $artifact $GITHUB_WORKSPACE/$publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
@@ -60,7 +79,7 @@ jobs:
           echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
       - name: Publish DEB
         if: ${{ env.SHA256SUM != '' }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}

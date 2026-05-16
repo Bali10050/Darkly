@@ -4,20 +4,20 @@ jobs:
   publish:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6.0.2
       - name: Get version
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8.0.1
         with:
           name: VERSION
       - name: Set version
         run: echo "VERSION=$(cat VERSION | xargs)" >> "$GITHUB_ENV"
       - name: Download artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8.0.1
         with:
           pattern: darkly-${{ env.VERSION }}*
           merge-multiple: true
       - name: Release
-        uses: softprops/action-gh-release@v2.4.2
+        uses: softprops/action-gh-release@v3.0.0
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: darkly-${{ env.VERSION }}*

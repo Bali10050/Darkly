@@ -14,7 +14,7 @@ jobs:
       ASSET: ${{ steps.step_get_asset.outputs.ASSET }}
     steps:
       - name: Checkout local
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v6.0.2
         with:
           repository: ${{ github.repository }}
           sparse-checkout: |
@@ -42,7 +42,7 @@ jobs:
         run: |
           curl -L $BUILD_REPO/archive/refs/tags/${{ env.LATEST_TAG }}.tar.gz --output darkly-${{ env.LATEST_TAG }}.tar.gz
           echo "ASSET=darkly-${{ env.LATEST_TAG }}.tar.gz" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v5.0.5
         id: cache
         with:
           path: ${{ steps.step_get_asset.outputs.ASSET }}
@@ -50,7 +50,7 @@ jobs:
       - name: Save version
         run: echo ${{ steps.step_get_artifact.outputs.VERSION }} > VERSION
       - name: Upload version
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: VERSION
           path: VERSION
@@ -58,10 +58,11 @@ jobs:
 
   Debian:
     needs: release-ci
-    uses: ./.github/workflows/debian14.yml
+    uses: ./.github/workflows/debian.yml
     with:
       cache-file-path: ${{ needs.release-ci.outputs.ASSET }}
       version: ${{ needs.release-ci.outputs.VERSION }}
+      containers: "['debian:trixie','debian:forky']"
 
   Kubuntu:
     needs: release-ci
