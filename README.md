@@ -80,10 +80,7 @@ sudo eopkg install darkly
 
 ### Flatpak
 
-Due to flatpak's [restriction on file system access](https://docs.flatpak.org/en/latest/sandbox-permissions.html) (in short no access to system libraries, /dev, etc), Darkly flatpak bundle is only an extension of KDE runtime.\
-If you want to apply Darkly as the application style, you either need:
-- Darkly installed on the system via package manager (pacman, rpm, apt-get, etc) or
-- Set manually with QT_STYLE_OVERRIDE=Darkly env variable \[`sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)]
+Due to flatpak's [restriction on file system access](https://docs.flatpak.org/en/latest/sandbox-permissions.html) (in short no access to system libraries, /dev, etc), Darkly flatpak bundle is only an extension of KDE runtime.
 
 **Important (primarily) for users of immutable distros!**\
 Darkly won't show as an option in `System settings > Theme > Application styles` without system installation. Also, both Darkly runtime version and the KDE runtime version must match (if they don't match, the app won't use Darkly)
@@ -94,17 +91,44 @@ This brings some untentended behaviour (for any application style, not Darkly in
 
 Manifests should have the latest versions of KDE Runtime and SDK. Change the version accordingly. (you can find the version of runtime for each app by running `flatpak list --app --columns=app,runtime`)
 
-#### Build with:
+Flatpak manifests can be found inside the flatpak directory.
+
+#### QT5 Build with:
 ```
-org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache org.kde.KStyle.Darkly6.json
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly5.json
 ```
 
-use `org.kde.KStyle.Darkly5.json` for KF5
+#### QT6.9 Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly6.9.json
+```
+
+#### QT6.10 Build with:
+```
+org.flatpak.Builder flatpak-build --repo=local --force-clean --ccache flatpak/org.kde.KStyle.Darkly6.10.json
+```
 
 #### Bundle with:
 ```
 flatpak build-bundle local/ darkly.flatpak runtime/org.kde.KStyle.Darkly/x86_64/<runtime_version>
 ```
+Where `<runtime_version>` can be either 5.15-24.08, 6.9 or 6.10
+
+#### Install with:
+
+`flatpak install darkly.flatpak`
+
+
+### Post installation steps:
+
+If you want to apply Darkly as the application style.
+
+Adjust flatpak settings (via Flatseal or command)
+
+- Set environment variables: `QT_STYLE_OVERRIDE=Darkly` and `QT_QPA_PLATFORMTHEME=kde`
+- `sudo flatpak override --env=QT_QPA_PLATFORMTHEME=kde` (`sudo` only applies for flatpaks in /var/lib/flatpak, otherwise use `--user` without sudo)
+
+- Allow filesystem access to `xdg-config/darklyrc:ro`
 
 ***
 
@@ -130,7 +154,7 @@ cd Darkly
 #### <u>Arch Linux</u>
 
 ```
-sudo pacman -S --noconfirm cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
+sudo pacman -S --needed cmake extra-cmake-modules kdecoration qt6-declarative kcoreaddons \
       kcmutils kcolorscheme kconfig kguiaddons kiconthemes kwindowsystem git \
       qt5-declarative qt5-x11extras gcc make kcmutils5 \
       frameworkintegration5 kconfigwidgets5 kiconthemes5 \
@@ -147,10 +171,10 @@ cd Darkly
 
 #### <u>Fedora</u>
 
-##### Fedora 40/41
+##### Fedora
 
 ```
-sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
+sudo dnf install git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
       kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
       kf6-kirigami-devel kf6-kcmutils-devel kf6-frameworkintegration-devel \
       libepoxy-devel "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(KF5GuiAddons)" \
@@ -197,7 +221,7 @@ cd Darkly
 #### <u>KDE neon</u>
 
 ```
-sudo apt install -y git build-essential cmake kf6-extra-cmake-modules \
+sudo apt install git build-essential cmake kf6-extra-cmake-modules \
       kf6-extra-cmake-modules kf6-frameworkintegration-dev \
       kf6-kcmutils-dev kf6-kcolorscheme-dev kf6-kconfig-dev kf6-kconfigwidgets-dev \
       kf6-kcoreaddons-dev kf6-kguiaddons-dev kf6-ki18n-dev kf6-kiconthemes-dev \
@@ -226,7 +250,7 @@ distrobox enter lightly
 ```
 
 ```
-sudo dnf install -y git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
+sudo dnf install git cmake extra-cmake-modules "cmake(KDecoration3)" kwin-devel \
     kf6-kcolorscheme-devel kf6-kguiaddons-devel kf6-ki18n-devel kf6-kiconthemes-devel \
     kf6-kirigami-devel kf6-kcmutils-devel \
     libepoxy-devel "cmake(Qt5Core)" "cmake(Qt5Gui)" "cmake(Qt5DBus)" "cmake(KF5GuiAddons)" \
@@ -262,7 +286,7 @@ echo "export QT_PLUGIN_PATH=$HOME/.local/lib64/plugins:\$QT_PLUGIN_PATH" > $HOME
 #### <u>Kubuntu (25.04)</u>
 
 ```
-sudo apt-get install -y -qq cmake build-essential libkf5config-dev libkdecorations3-dev \
+sudo apt-get install cmake build-essential libkf5config-dev libkdecorations3-dev \
       libqt5x11extras5-dev qtdeclarative5-dev extra-cmake-modules \
       libkf5guiaddons-dev libkf5configwidgets-dev libkf5windowsystem-dev kirigami2-dev \
       libkf5coreaddons-dev libkf5iconthemes-dev gettext qt3d5-dev libkf5kcmutils-dev \

@@ -20,7 +20,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5.0.5
         id: cache
         with:
           key: ${{ runner.os }}-v${{ inputs.version }}-${{ hashFiles(inputs.cache-file-path) }}
@@ -61,7 +61,7 @@ jobs:
           echo "SHA256SUM=$SHA256SUM" >> "$GITHUB_ENV"
       - name: Publish DEB
         if: ${{ env.SHA256SUM != '' }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}

@@ -15,7 +15,7 @@ jobs:
     container: archlinux:latest
     steps:
       - name: Checkout local
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v6.0.2
         with:
           repository: ${{ github.repository }}
           sparse-checkout: .github
@@ -55,7 +55,7 @@ jobs:
           mv "$zst_file" $publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
       - name: Upload artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
