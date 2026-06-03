@@ -2476,13 +2476,12 @@
        xlink:href="#linearGradient4388"
        inkscape:collect="always" />
   </defs>
-  <defs>
+  <defs
+     id="defs1">
     <style
-      id="current-color-scheme"
-      type="text/css">
-    </style>
-    </defs>
-
+       id="current-color-scheme"
+       type="text/css" />
+  </defs>
   <sodipodi:namedview
      inkscape:document-rotation="0"
      borderlayer="false"
@@ -2499,18 +2498,18 @@
      inkscape:window-maximized="1"
      inkscape:window-y="0"
      inkscape:window-x="0"
-     inkscape:window-height="1362"
-     inkscape:window-width="2560"
+     inkscape:window-height="835"
+     inkscape:window-width="1440"
      fit-margin-bottom="0"
      fit-margin-right="0"
      fit-margin-left="0"
      fit-margin-top="0"
      showgrid="true"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="base-topleft"
      inkscape:document-units="px"
-     inkscape:cy="22.337868"
-     inkscape:cx="-4.1300632"
-     inkscape:zoom="11.258908"
+     inkscape:cy="12.812058"
+     inkscape:cx="-4.3962944"
+     inkscape:zoom="7.9612502"
      inkscape:pageshadow="2"
      inkscape:pageopacity="1"
      borderopacity="1.0"
@@ -2556,8 +2555,8 @@
       <path
          id="path4449"
          d="m 296.14285,566.64795 h 11 v -8 h -11 z"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc" />
     </g>
@@ -2568,8 +2567,8 @@
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.904534"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.904534"
          d="m 298.14285,564.64795 h 7 v -6 h -7 z"
          id="path4455" />
     </g>
@@ -2580,14 +2579,14 @@
       <path
          id="path4461"
          d="m 298.14285,564.64795 h 7 v -6 h -7 z"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.797724"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.797724"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc" />
     </g>
     <path
        class="ColorScheme-ButtonBackground"
-      style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.797724"
+       style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.797724"
        d="m 296.14285,566.64795 h 11 v 7 h -11 z"
        id="base-center"
        inkscape:connector-curvature="0" />
@@ -2598,8 +2597,8 @@
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none"
          d="m 298.5873,566.64795 h 8.55555 v -8 h -8.55555 z"
          id="path4469" />
     </g>
@@ -2607,8 +2606,8 @@
        style="fill:#161925;fill-opacity:1"
        id="base-topright">
       <path
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333"
          d="m 305.14286,558.64795 c 5.33333,0 7.99999,2.66666 7.99999,7.99998 l -8,2e-5 z"
          id="path4477"
          inkscape:connector-curvature="0"
@@ -2619,12 +2618,12 @@
        id="base-topleft"
        transform="matrix(-1,0,0,1,603.2857,0)">
       <path
-         sodipodi:nodetypes="cccc"
+         class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333"
+         d="m 313.14285,566.64794 c 0,-5.33333 -2.66666,-7.99999 -7.99998,-7.99999 l -2e-5,8 z"
+         id="path4477-7"
          inkscape:connector-curvature="0"
-         id="path4485"
-         d="m 305.14285,558.64795 c 4,0 8,4 8,8 l -8.00001,10e-6 z"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none" />
+         sodipodi:nodetypes="cccc" />
     </g>
     <g
        style="fill:#161925;fill-opacity:1"
@@ -2635,16 +2634,16 @@
          inkscape:connector-curvature="0"
          id="path4493"
          d="m 305.14286,558.64795 c 5.33333,0 7.99999,2.66666 7.99999,7.99999 l -8,1e-5 z"
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333" />
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333" />
     </g>
     <g
        style="fill:#161925;fill-opacity:1"
        transform="rotate(180,301.64285,570.14795)"
        id="base-bottomleft">
       <path
-        class="ColorScheme-ButtonBackground"
-        style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333"
+         class="ColorScheme-ButtonBackground"
+         style="opacity:1;fill:currentColor;fill-opacity:1;stroke:none;stroke-width:1.33333"
          d="m 305.14287,558.64795 c 5.33332,0 7.99998,2.66666 7.99998,7.99999 l -8,1e-5 z"
          id="path4499"
          inkscape:connector-curvature="0"
