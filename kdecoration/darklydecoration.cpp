@@ -932,6 +932,9 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         }
     }
 
+    painter->restore();
+
+if (m_internalSettings->floatingTitlebar()){
     const QColor outlineColor(this->outlineColor());
     if (!c->isShaded() && outlineColor.isValid()) {
         // outline
@@ -940,9 +943,6 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         painter->setPen(outlineColor);
         painter->drawLine(m_titleRect.bottomLeft(), m_titleRect.bottomRight());
     }
-
-    painter->restore();
-if (m_internalSettings->floatingTitlebar()){
 
     // draw caption
     painter->setFont(s->font());
