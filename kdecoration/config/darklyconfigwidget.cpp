@@ -51,6 +51,7 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     connect(m_ui.drawBorderOnMaximizedWindows, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.drawTitleBarSeparator, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+    connect(m_ui.matchInactiveTitleBar, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.roundedCorners, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.otherCornerRadius, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
     connect(m_ui.floatingTitlebar, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
@@ -84,6 +85,7 @@ void ConfigWidget::load()
     m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
     m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
     m_ui.drawTitleBarSeparator->setChecked(m_internalSettings->drawTitleBarSeparator());
+    m_ui.matchInactiveTitleBar->setChecked(m_internalSettings->matchInactiveTitleBar());
 #if KDECORATION_VERSION >= KDECORATION_VERSION_CHECK(6, 5, 0)
     m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
 #else
@@ -125,6 +127,7 @@ void ConfigWidget::save()
     m_internalSettings->setAnimationsEnabled(m_ui.animationsEnabled->isChecked());
     m_internalSettings->setAnimationsDuration(m_ui.animationsDuration->value());
     m_internalSettings->setDrawTitleBarSeparator(m_ui.drawTitleBarSeparator->isChecked());
+    m_internalSettings->setMatchInactiveTitleBar(m_ui.matchInactiveTitleBar->isChecked());
     m_internalSettings->setRoundedCorners(m_ui.roundedCorners->isChecked());
     m_internalSettings->setOtherCornerRadius(m_ui.otherCornerRadius->value());
     m_internalSettings->setFloatingTitlebar(m_ui.floatingTitlebar->isChecked());
@@ -173,6 +176,7 @@ void ConfigWidget::defaults()
     m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
     m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
     m_ui.drawTitleBarSeparator->setChecked(m_internalSettings->drawTitleBarSeparator());
+    m_ui.matchInactiveTitleBar->setChecked(m_internalSettings->matchInactiveTitleBar());
     m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
     m_ui.otherCornerRadius->setValue(m_internalSettings->otherCornerRadius());
     m_ui.floatingTitlebar->setChecked(m_internalSettings->floatingTitlebar());
@@ -193,6 +197,8 @@ void ConfigWidget::updateChanged()
     bool modified(false);
 
     if (m_ui.drawTitleBarSeparator->isChecked() != m_internalSettings->drawTitleBarSeparator())
+        modified = true;
+    if (m_ui.matchInactiveTitleBar->isChecked() != m_internalSettings->matchInactiveTitleBar())
         modified = true;
     if (m_ui.titleAlignment->currentIndex() != m_internalSettings->titleAlignment())
         modified = true;

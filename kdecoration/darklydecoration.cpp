@@ -174,6 +174,8 @@ QColor Decoration::titleBarColor() const
     auto c = window();
     if (hideTitleBar())
         return c->color(ColorGroup::Inactive, ColorRole::TitleBar);
+    else if (m_internalSettings->matchInactiveTitleBar())
+        return c->color(ColorGroup::Active, ColorRole::TitleBar);
     else if (m_animation->state() == QAbstractAnimation::Running) {
         return KColorUtils::mix(c->color(ColorGroup::Inactive, ColorRole::TitleBar), c->color(ColorGroup::Active, ColorRole::TitleBar), m_opacity);
     } else
@@ -199,7 +201,8 @@ QColor Decoration::outlineColor() const
 QColor Decoration::fontColor() const
 {
     auto c = window();
-    return c->color(c->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Foreground);
+    const bool useActive = c->isActive() || m_internalSettings->matchInactiveTitleBar();
+    return c->color(useActive ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Foreground);
 }
 
 //________________________________________________________________
