@@ -249,7 +249,7 @@ void Style::polish(QApplication *app)
 
     const qreal dpr = qApp->devicePixelRatio();
     bool nonIntegerScale = (dpr > static_cast<qreal>(1) && static_cast<qreal>(qRound(dpr)) != dpr);
-    if (nonIntegerScale)
+    if (nonIntegerScale && !StyleConfigData::allowTransparencyOnFractionalScaling())
         _isOpaque = true;
     if (_translucentWidgets.size() > 0)
         _translucentWidgets.clear();
