@@ -36,9 +36,15 @@ If you want **a matching style for your gtk applications**, I recommend checking
 
 ### Thanks to @DeltaCopy, you can use one of these install methods:
 
-#### Fedora copr
+#### Fedora and Derivatives
+
+Install from the Copr:
 
 <https://copr.fedorainfracloud.org/coprs/deltacopy/darkly/>
+
+Or install from the [Terra Repository](https://terrapkg.com/):
+
+<https://github.com/terrapkg/packages/blob/frawhide/anda/themes/darkly/darkly.spec>
 
 #### AUR
 
