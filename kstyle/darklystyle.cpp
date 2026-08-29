@@ -311,7 +311,7 @@ protected:
         : QPalette::Inactive;
 
         QColor outlineColor =
-        parentWidget()->style()->standardPalette().color(group, QPalette::Window);
+        qApp->palette().color(group, QPalette::Window);
 
         painter.setPen(Qt::NoPen);
         painter.setBrush(outlineColor);
