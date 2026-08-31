@@ -24,13 +24,7 @@ jobs:
         run: pacman -Syu --noconfirm
       - name: Install sudo, git and compile dependencies
         run: |
-          pacman -Sy sudo git binutils make gcc pkg-config fakeroot plasma-desktop \
-          cmake extra-cmake-modules qt6-base \
-          kdecoration qt6-declarative kcoreaddons \
-          kcmutils kcolorscheme kconfig kguiaddons \
-          kiconthemes kwindowsystem kcmutils5 \
-          frameworkintegration5 kconfigwidgets5 kiconthemes5 \
-          kirigami2 kwindowsystem5 --noconfirm
+           pacman -Syq base-devel git --noconfirm
       - name: Setup build user
         run: |
           useradd builduser -m # Create the builduser
@@ -49,7 +43,7 @@ jobs:
         run: sudo -u builduser bash -c 'cd /var/tmp/darkly-archlinux; makepkg -g >> PKGBUILD'
       - name: Build package
         run: |
-          sudo -u builduser bash -c 'cd /var/tmp/darkly-archlinux; makepkg -s'
+          sudo -u builduser bash -c 'cd /var/tmp/darkly-archlinux; makepkg -s --noconfirm'
           zst_file=$(find /var/tmp/darkly-archlinux -name "*.zst*")
           publish_filename=darkly-${{ inputs.version }}-x86_64.pkg.zst
           mv "$zst_file" $publish_filename
@@ -60,4 +54,3 @@ jobs:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
           retention-days: 1
-

@@ -1,6 +1,7 @@
 # Maintainer: DeltaCopy <7x0bb03yq@mozmail.com>
 # Description: Builds Darkly from https://github.com/Bali10050/Darkly
 # Used inside Github Action workflow archlinux-ci
+# This package relies on Qt6 and KF6 build dependencies (Qt5 and KF5 dependencies are now dropped)
 
 # basic info
 dev="Bali10050"
@@ -49,13 +50,14 @@ depends_kf5=(
     'kwindowsystem5'
 )
 
-depends=("${depends_kf6[@]}" "${depends_kf5[@]}")
+depends=("${depends_kf6[@]}")
 
 conflicts=(
     lightly-kf6
     lightly-qt
     lightly-qt6
     lightly-qt6-bin
+    darkly
 )
 
 pkgver() {
@@ -72,7 +74,9 @@ build() (
         -B $build_dir
         -S "$pkgname.git"
         -DBUILD_TESTING=OFF
-        -Wno-dev
+        -DBUILD_QT6=ON
+        -DBUILD_QT5=OFF
+        -Wno-author
     )
 
     cmake "${cmake_options[@]}"
