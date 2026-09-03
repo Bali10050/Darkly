@@ -1031,15 +1031,9 @@ void Helper::renderLineEdit(QPainter *painter,
 
             }
 
-            // normal or mouse over
+            // normal
             else {
-                if (mouseOver && !hasFocus)
-                    renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 84), radius, windowActive);
-                else {
-                    renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 84), radius, windowActive);
-                    renderOutline(painter, frameRect, radius, 6);
-                    painter->setPen(Qt::NoPen);
-                }
+                renderBoxShadow(painter, frameRect, 0, 1, 5, QColor(0, 0, 0, 84), radius, windowActive);
             }
         }
     }
