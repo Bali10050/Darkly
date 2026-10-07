@@ -1,0 +1,241 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-07 16:35+0800\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "&Matching window property: "
+msgstr "匹配窗口属性(&M)："
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Allow resizing maximized windows from window edges"
+msgstr "允许从窗口边缘调整最大化窗口的大小"
+
+msgid "Anima&tions duration:"
+msgstr "动画时长(&T)："
+
+msgid "Animations"
+msgstr "动画"
+
+msgid "B&utton size:"
+msgstr "按钮大小(&U)："
+
+msgid "Border size:"
+msgstr "边框大小："
+
+msgid "Center"
+msgstr "居中"
+
+msgid "Center (Full Width)"
+msgstr "居中 (完整宽度)"
+
+msgid "Class: "
+msgstr "窗口类："
+
+msgid "Color:"
+msgstr "颜色："
+
+msgid "Decoration Options"
+msgstr "装饰选项"
+
+msgid "Detect Window Properties"
+msgstr "检测窗口属性"
+
+msgid "Dialog"
+msgstr "对话框"
+
+msgid "Draw a circle around close button"
+msgstr "在关闭按钮周围绘制圆圈"
+
+msgid "Draw separator under active window's titlebar"
+msgstr "在活动窗口标题栏下方绘制分隔线"
+
+msgid "Draw titlebar background gradient"
+msgstr "绘制标题栏背景色渐变"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit Exception - Darkly Settings"
+msgstr "编辑例外 - Darkly 设置"
+
+msgid "Enable animations"
+msgstr "启用动画"
+
+msgid "Enable/disable this exception"
+msgstr "启用/禁用此例外"
+
+msgid "Exception Type"
+msgstr "例外类型"
+
+msgid "Floating titlebar"
+msgstr "浮动标题栏"
+
+msgid "General"
+msgstr "常规"
+
+msgid "Hide window title bar"
+msgstr "隐藏窗口标题栏"
+
+msgid "Information about Selected Window"
+msgstr "所选窗口的信息"
+
+msgid "Keep the titlebar background and text colors identical whether the window is focused or not, so unfocused windows don't appear lighter or more transparent."
+msgstr "无论窗口是否处于焦点状态，都保持标题栏背景和文字颜色一致，这样未聚焦的窗口不会显得更亮或更透明。"
+
+msgid "Left"
+msgstr "居左"
+
+msgid "Make the title bar translucent and blurred, matched to the toolbar opacity so the top of the window is seamless."
+msgstr "使标题栏半透明并模糊，与工具栏不透明度相匹配，使窗口顶部浑然一体。"
+
+msgid "Move Down"
+msgstr "下移"
+
+msgid "Move Up"
+msgstr "上移"
+
+msgid "New Exception - Darkly Settings"
+msgstr "新建例外 - Darkly 设置"
+
+msgid "Question - Darkly Settings"
+msgstr "问题 - Darkly 设置"
+
+msgid "Regular Expression"
+msgstr "正则表达式"
+
+msgid "Regular Expression syntax is incorrect"
+msgstr "正则表达式语法错误"
+
+msgid "Regular expression &to match: "
+msgstr "匹配正则表达式(&T)："
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Remove selected exception?"
+msgstr "移除所选例外吗？"
+
+msgid "Right"
+msgstr "居右"
+
+msgid "Round bottom corners with no borders"
+msgstr "无边框时圆角化底部边角"
+
+msgid "Shadows"
+msgstr "阴影"
+
+msgid "Si&ze:"
+msgstr "大小(&Z)："
+
+msgid "Tiny"
+msgstr "超小"
+
+msgid "Tit&le alignment:"
+msgstr "标题对齐(&L)："
+
+msgid "Title: "
+msgstr "窗口标题："
+
+msgid "Transparent, blurred title bar"
+msgstr "透明模糊标题栏"
+
+msgid "Use active titlebar colors for inactive windows"
+msgstr "对非活动窗口使用活动标题栏颜色"
+
+msgid "Use window class (whole application)"
+msgstr "使用窗口类（整个应用）"
+
+msgid "Use window title"
+msgstr "使用窗口标题"
+
+msgid "Warning - Darkly Settings"
+msgstr "警告 - Darkly 设置"
+
+msgid "Window Class Name"
+msgstr "窗口类名"
+
+msgid "Window Identification"
+msgstr "窗口标识符"
+
+msgid "Window Property Selection"
+msgstr "窗口属性选择"
+
+msgid "Window Title"
+msgstr "窗口标题"
+
+msgid "Window corner radus:"
+msgstr "窗口圆角半径："
+
+msgid "Window-Specific Overrides"
+msgstr "特定窗口优先规则"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Huge"
+msgstr "特大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Border"
+msgstr "无边框"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Side Borders"
+msgstr "无侧边框"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Normal"
+msgstr "标准"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Oversized"
+msgstr "极大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Tiny"
+msgstr "小"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Huge"
+msgstr "超特大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Large"
+msgstr "超大"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Medium"
+msgstr "中等"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "None"
+msgstr "无"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Small"
+msgstr "小"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Very Large"
+msgstr "超大"
+
+msgctxt "strength of the shadow (from transparent to opaque)"
+msgid "S&trength:"
+msgstr "强度(&T)："
