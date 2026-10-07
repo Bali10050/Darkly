@@ -38,6 +38,8 @@ depends_kf6=(
     'kguiaddons'
     'kiconthemes'
     'kwindowsystem'
+    'libplasma'
+    'frameworkintegration'
 )
 
 # KF5/QT5 for backward compatibility
