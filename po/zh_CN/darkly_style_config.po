@@ -1,0 +1,274 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-07 16:35+0800\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "&Top arrow button type:       "
+msgstr "顶部箭头按钮类型(&T)："
+
+msgid "&View:"
+msgstr "视图(&V)："
+
+msgid "A&nimations duration:"
+msgstr "动画时长(&N)："
+
+msgid "All empty areas"
+msgstr "所有空白区域"
+
+msgid "Always Hide"
+msgstr "始终隐藏"
+
+msgid "Always Show"
+msgstr "始终显示"
+
+msgid "Always show slim"
+msgstr "始终显示细滚动条"
+
+msgid "Animations"
+msgstr "动画"
+
+msgid "Bigger"
+msgstr "更大"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "底部箭头按钮类型(&Y)："
+
+msgid "Center tabbar tabs"
+msgstr "标签页居中显示"
+
+msgid "Color:"
+msgstr "颜色："
+
+msgid "Context Menu:"
+msgstr "上下文菜单："
+
+msgid "Corner Radius:"
+msgstr "圆角半径："
+
+msgid "Custom tabbar background"
+msgstr "自定义标签栏背景"
+
+msgid "Darkly Alternative"
+msgstr "Darkly 备选"
+
+msgid "Darkly Default"
+msgstr "Darkly 默认"
+
+msgid "Darkly Settings"
+msgstr "Darkly 设置"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "禁用 Dolphin 网址导航栏背景"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Dolphin 侧边栏透明度。需要禁用“为可停靠面板绘制外框”。"
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "绘制细线以指示菜单和菜单栏的焦点"
+
+msgid "Draw focus indicator in lists"
+msgstr "在列表中绘制焦点指示器"
+
+msgid "Draw frame around KTextEdit"
+msgstr "为 KTextEdit 绘制外框"
+
+msgid "Draw frame around dockable panels"
+msgstr "为可停靠面板绘制外框"
+
+msgid "Draw frame around page titles"
+msgstr "为页面标题绘制外框"
+
+msgid "Draw frame around side panels"
+msgstr "为侧边面板绘制外框"
+
+msgid "Draw highlight on active tab"
+msgstr "高亮活动标签页"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "为橡皮筋控件绘制圆角外框"
+
+msgid "Draw shadow under toolbar"
+msgstr "在工具栏下方绘制阴影"
+
+msgid "Draw toolbar item separators"
+msgstr "绘制工具栏项目分隔线"
+
+msgid "Draw widget shadow"
+msgstr "绘制部件阴影"
+
+msgid "Enable animations"
+msgstr "启用动画"
+
+msgid "Fancy margins"
+msgstr "增大边距"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "复选框和单选按钮的浮起与凹陷效果"
+
+msgid "Frames"
+msgstr "外框"
+
+msgid "Full outline"
+msgstr "完整轮廓"
+
+msgid "General"
+msgstr "常规"
+
+msgid "Height:"
+msgstr "高度："
+
+msgid "High"
+msgstr "高"
+
+msgid "Increase button size"
+msgstr "增大按钮尺寸"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "提高标签页关闭图标的亮度"
+
+msgid "Intensity:"
+msgstr "强度："
+
+msgid "Keyboard accelerators visibility:"
+msgstr "键盘快捷键可见性："
+
+msgid "Low"
+msgstr "低"
+
+msgid "Maximum"
+msgstr "最大"
+
+msgid "Medium"
+msgstr "中"
+
+msgid "Menu item height"
+msgstr "菜单项高度"
+
+msgid "Menubar:"
+msgstr "菜单栏："
+
+msgid "No Buttons"
+msgstr "无按钮"
+
+msgid "No outline"
+msgstr "无轮廓"
+
+msgid "One Button"
+msgstr "一个按钮"
+
+msgid "Opaque"
+msgstr "不透明"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "在滚动条之间绘制细分隔线"
+
+msgid "Scrollable popup menu"
+msgstr "可滚动弹出菜单"
+
+msgid "Scrollbars"
+msgstr "滚动条"
+
+msgid "Shadow"
+msgstr "阴影"
+
+msgid "Si&debar:"
+msgstr "侧边栏(&D)："
+
+msgid "Size:"
+msgstr "大小："
+
+msgid "Smaller"
+msgstr "较小"
+
+msgid "Strength:"
+msgstr "强度："
+
+msgid "Tab size:"
+msgstr "标签页大小："
+
+msgid "Tabbar background"
+msgstr "标签栏背景"
+
+msgid "Tabbar:"
+msgstr "标签栏："
+
+msgid "Tabs"
+msgstr "标签页"
+
+msgid "Tabs sometimes inside frame"
+msgstr "标签页有时位于外框内"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "这些设置更改菜单阴影轮廓的显示方式"
+
+msgid "This changes the menubar opacity"
+msgstr "更改菜单栏不透明度"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "更改 Dolphin 和 Konsole 中标签栏的不透明度"
+
+msgid "This changes the toolbar opacity"
+msgstr "更改工具栏不透明度"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "更改上下文菜单和弹出菜单的透明度"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "更改 Dolphin 主文件视图区域的透明度"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "使选择矩形外框变为圆角"
+
+msgid "Titlebar only"
+msgstr "仅标题栏"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "标题栏、菜单栏和工具栏"
+
+msgid "Toolbar:"
+msgstr "工具栏："
+
+msgid "Transient scrollbar"
+msgstr "临时滚动条"
+
+msgid "Transparency"
+msgstr "透明度"
+
+msgid "Transparent"
+msgstr "透明"
+
+msgid "Two Buttons"
+msgstr "两个按钮"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "使 Konsole 标签栏与标题区域统一"
+
+msgid "Use brighter close icon"
+msgstr "使用更亮的关闭图标"
+
+msgid "Use highlight color as selected tab background"
+msgstr "使用高亮色作为选中标签页的背景"
+
+msgid "Use the new checkbox style"
+msgstr "使用新的复选框样式"
+
+msgid "When Needed"
+msgstr "需要时"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "启用后禁用 Dolphin 侧边栏透明度"
+
+msgid "Width:"
+msgstr "宽度："
+
+msgid "Windows' &drag mode:"
+msgstr "窗口拖动模式(&D)："

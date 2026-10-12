@@ -73,7 +73,7 @@ protected:
 
 private:
     //* column titles
-    static const QString m_columnTitles[nColumns];
+    static const QString *columnTitles();
 };
 
 }

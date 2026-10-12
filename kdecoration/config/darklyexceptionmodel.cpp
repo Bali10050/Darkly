@@ -31,7 +31,13 @@ namespace Darkly
 {
 
 //_______________________________________________
-const QString ExceptionModel::m_columnTitles[ExceptionModel::nColumns] = {QStringLiteral(""), i18n("Exception Type"), i18n("Regular Expression")};
+const QString *ExceptionModel::columnTitles()
+{
+    // Function-local static: initialized on first call (C++11), i.e. after the
+    // QTranslator has been installed, instead of during static initialization.
+    static const QString titles[nColumns] = {QStringLiteral(""), i18n("Exception Type"), i18n("Regular Expression")};
+    return titles;
+}
 
 //__________________________________________________________________
 QVariant ExceptionModel::data(const QModelIndex &index, int role) const
@@ -78,7 +84,7 @@ QVariant ExceptionModel::data(const QModelIndex &index, int role) const
 QVariant ExceptionModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation == Qt::Horizontal && role == Qt::DisplayRole && section >= 0 && section < nColumns) {
-        return m_columnTitles[section];
+        return columnTitles()[section];
     }
 
     // return empty

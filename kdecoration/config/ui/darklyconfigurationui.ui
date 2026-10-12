@@ -240,7 +240,7 @@
           <bool>false</bool>
          </property>
          <property name="suffix">
-          <string> ms</string>
+          <string notr="true"> ms</string>
          </property>
          <property name="maximum">
           <number>500</number>
@@ -362,7 +362,7 @@
        <item row="1" column="2">
         <widget class="QSpinBox" name="shadowStrength">
          <property name="suffix">
-          <string>%</string>
+          <string notr="true">%</string>
          </property>
          <property name="minimum">
           <number>10</number>
