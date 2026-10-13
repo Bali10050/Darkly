@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "&Matching window property: "
+msgstr "一致するウィンドウプロパティ(&M)："
+
+msgid "Add"
+msgstr "追加"
+
+msgid "Allow resizing maximized windows from window edges"
+msgstr "最大化されたウィンドウを端からサイズ変更できるようにする"
+
+msgid "Anima&tions duration:"
+msgstr "アニメーションの長さ(&T)："
+
+msgid "Animations"
+msgstr "アニメーション"
+
+msgid "B&utton size:"
+msgstr "ボタンのサイズ(&U)："
+
+msgid "Border size:"
+msgstr "枠線のサイズ："
+
+msgid "Center"
+msgstr "中央"
+
+msgid "Center (Full Width)"
+msgstr "中央（全幅）"
+
+msgid "Class: "
+msgstr "クラス："
+
+msgid "Color:"
+msgstr "色："
+
+msgid "Decoration Options"
+msgstr "装飾オプション"
+
+msgid "Detect Window Properties"
+msgstr "ウィンドウプロパティを検出"
+
+msgid "Dialog"
+msgstr "ダイアログ"
+
+msgid "Draw a circle around close button"
+msgstr "閉じるボタンの周囲に円を描く"
+
+msgid "Draw separator under active window's titlebar"
+msgstr "アクティブウィンドウのタイトルバー下に区切り線を描く"
+
+msgid "Draw titlebar background gradient"
+msgstr "タイトルバーの背景グラデーションを描く"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit Exception - Darkly Settings"
+msgstr "例外を編集 - Darkly 設定"
+
+msgid "Enable animations"
+msgstr "アニメーションを有効にする"
+
+msgid "Enable/disable this exception"
+msgstr "この例外を有効/無効にする"
+
+msgid "Exception Type"
+msgstr "例外の種類"
+
+msgid "Floating titlebar"
+msgstr "フローティングタイトルバー"
+
+msgid "General"
+msgstr "全般"
+
+msgid "Hide window title bar"
+msgstr "ウィンドウのタイトルバーを隠す"
+
+msgid "Information about Selected Window"
+msgstr "選択されたウィンドウの情報"
+
+msgid "Keep the titlebar background and text colors identical whether the window is focused or not, so unfocused windows don't appear lighter or more transparent."
+msgstr "ウィンドウがフォーカスされているかどうかに関係なくタイトルバーの背景色と文字色を同じに保ちます。これにより、フォーカスのないウィンドウが明るくまたは透明に見えなくなります。"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Make the title bar translucent and blurred, matched to the toolbar opacity so the top of the window is seamless."
+msgstr "タイトルバーを半透明にしてぼかし、ツールバーの不透明度に合わせてウィンドウの上部がシームレスになるようにします。"
+
+msgid "Move Down"
+msgstr "下へ移動"
+
+msgid "Move Up"
+msgstr "上へ移動"
+
+msgid "New Exception - Darkly Settings"
+msgstr "新しい例外 - Darkly 設定"
+
+msgid "Question - Darkly Settings"
+msgstr "質問 - Darkly 設定"
+
+msgid "Regular Expression"
+msgstr "正規表現"
+
+msgid "Regular Expression syntax is incorrect"
+msgstr "正規表現の構文が正しくありません"
+
+msgid "Regular expression &to match: "
+msgstr "一致させる正規表現(&R)："
+
+msgid "Remove"
+msgstr "削除"
+
+msgid "Remove selected exception?"
+msgstr "選択した例外を削除しますか？"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Round bottom corners with no borders"
+msgstr "枠線なしで下部の角を丸くする"
+
+msgid "Shadows"
+msgstr "シャドウ"
+
+msgid "Si&ze:"
+msgstr "サイズ(&Z)："
+
+msgid "Tiny"
+msgstr "極小"
+
+msgid "Tit&le alignment:"
+msgstr "タイトルの配置(&L)："
+
+msgid "Title: "
+msgstr "タイトル："
+
+msgid "Transparent, blurred title bar"
+msgstr "透明でぼかされたタイトルバー"
+
+msgid "Use active titlebar colors for inactive windows"
+msgstr "非アクティブウィンドウにアクティブなタイトルバーの色を使用"
+
+msgid "Use window class (whole application)"
+msgstr "ウィンドウクラスを使用（アプリケーション全体）"
+
+msgid "Use window title"
+msgstr "ウィンドウタイトルを使用"
+
+msgid "Warning - Darkly Settings"
+msgstr "警告 - Darkly 設定"
+
+msgid "Window Class Name"
+msgstr "ウィンドウクラス名"
+
+msgid "Window Identification"
+msgstr "ウィンドウの識別"
+
+msgid "Window Property Selection"
+msgstr "ウィンドウプロパティの選択"
+
+msgid "Window Title"
+msgstr "ウィンドウタイトル"
+
+msgid "Window corner radus:"
+msgstr "ウィンドウの角の半径："
+
+msgid "Window-Specific Overrides"
+msgstr "ウィンドウ固有のオーバーライド"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Huge"
+msgstr "特大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Border"
+msgstr "枠線なし"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Side Borders"
+msgstr "側面の枠線なし"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Normal"
+msgstr "標準"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Oversized"
+msgstr "特大サイズ"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Tiny"
+msgstr "小"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Huge"
+msgstr "超特大"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Large"
+msgstr "非常大"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Medium"
+msgstr "中"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "None"
+msgstr "なし"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Small"
+msgstr "小"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Very Large"
+msgstr "非常大"
+
+msgctxt "strength of the shadow (from transparent to opaque)"
+msgid "S&trength:"
+msgstr "強さ(&S)："

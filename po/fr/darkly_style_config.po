@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+
+msgid "&Top arrow button type:       "
+msgstr "Type du bouton flèche supérieur(&T) :"
+
+msgid "&View:"
+msgstr "Affichage(&V) :"
+
+msgid "A&nimations duration:"
+msgstr "Durée des animations(&N) :"
+
+msgid "All empty areas"
+msgstr "Toutes les zones vides"
+
+msgid "Always Hide"
+msgstr "Toujours masquer"
+
+msgid "Always Show"
+msgstr "Toujours afficher"
+
+msgid "Always show slim"
+msgstr "Toujours afficher une barre fine"
+
+msgid "Animations"
+msgstr "Animations"
+
+msgid "Bigger"
+msgstr "Plus grande"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "Type du bouton flèche inférieur(&Y) :"
+
+msgid "Center tabbar tabs"
+msgstr "Centrer les onglets de la barre d’onglets"
+
+msgid "Color:"
+msgstr "Couleur :"
+
+msgid "Context Menu:"
+msgstr "Menu contextuel :"
+
+msgid "Corner Radius:"
+msgstr "Rayon des coins :"
+
+msgid "Custom tabbar background"
+msgstr "Fond personnalisé de la barre d’onglets"
+
+msgid "Darkly Alternative"
+msgstr "Darkly alternatif"
+
+msgid "Darkly Default"
+msgstr "Darkly par défaut"
+
+msgid "Darkly Settings"
+msgstr "Paramètres Darkly"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "Désactiver le fond du navigateur d’URL de Dolphin"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Transparence de la barre latérale de Dolphin. Nécessite la désactivation de « Dessiner un cadre autour des panneaux ancrables »."
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "Dessiner une ligne fine pour indiquer le focus dans les menus et les barres de menus"
+
+msgid "Draw focus indicator in lists"
+msgstr "Dessiner un indicateur de focus dans les listes"
+
+msgid "Draw frame around KTextEdit"
+msgstr "Dessiner un cadre autour de KTextEdit"
+
+msgid "Draw frame around dockable panels"
+msgstr "Dessiner un cadre autour des panneaux ancrables"
+
+msgid "Draw frame around page titles"
+msgstr "Dessiner un cadre autour des titres de page"
+
+msgid "Draw frame around side panels"
+msgstr "Dessiner un cadre autour des panneaux latéraux"
+
+msgid "Draw highlight on active tab"
+msgstr "Dessiner un surlignage sur l’onglet actif"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "Dessiner un cadre arrondi sur le contrôle de sélection"
+
+msgid "Draw shadow under toolbar"
+msgstr "Dessiner une ombre sous la barre d’outils"
+
+msgid "Draw toolbar item separators"
+msgstr "Dessiner des séparateurs entre les éléments de la barre d’outils"
+
+msgid "Draw widget shadow"
+msgstr "Dessiner l’ombre des widgets"
+
+msgid "Enable animations"
+msgstr "Activer les animations"
+
+msgid "Fancy margins"
+msgstr "Marges plus grandes"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "Effet flottant et enfoncé sur les cases à cocher et les boutons radio"
+
+msgid "Frames"
+msgstr "Cadres"
+
+msgid "Full outline"
+msgstr "Contour complet"
+
+msgid "General"
+msgstr "Général"
+
+msgid "Height:"
+msgstr "Hauteur :"
+
+msgid "High"
+msgstr "Élevé"
+
+msgid "Increase button size"
+msgstr "Augmenter la taille des boutons"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "Augmente la luminosité des icônes de fermeture des onglets"
+
+msgid "Intensity:"
+msgstr "Intensité :"
+
+msgid "Keyboard accelerators visibility:"
+msgstr "Visibilité des raccourcis clavier :"
+
+msgid "Low"
+msgstr "Faible"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "Medium"
+msgstr "Moyenne"
+
+msgid "Menu item height"
+msgstr "Hauteur des éléments de menu"
+
+msgid "Menubar:"
+msgstr "Barre de menus :"
+
+msgid "No Buttons"
+msgstr "Aucun bouton"
+
+msgid "No outline"
+msgstr "Sans contour"
+
+msgid "One Button"
+msgstr "Un bouton"
+
+msgid "Opaque"
+msgstr "Opaque"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "Afficher un fin séparateur entre les barres de défilement"
+
+msgid "Scrollable popup menu"
+msgstr "Menu surgissant défilable"
+
+msgid "Scrollbars"
+msgstr "Barres de défilement"
+
+msgid "Shadow"
+msgstr "Ombre"
+
+msgid "Si&debar:"
+msgstr "Barre latérale(&D) :"
+
+msgid "Size:"
+msgstr "Taille :"
+
+msgid "Smaller"
+msgstr "Plus petite"
+
+msgid "Strength:"
+msgstr "Force :"
+
+msgid "Tab size:"
+msgstr "Taille des onglets :"
+
+msgid "Tabbar background"
+msgstr "Fond de la barre d’onglets"
+
+msgid "Tabbar:"
+msgstr "Barre d’onglets :"
+
+msgid "Tabs"
+msgstr "Onglets"
+
+msgid "Tabs sometimes inside frame"
+msgstr "Onglets parfois à l’intérieur du cadre"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "Ces paramètres modifient l’affichage des contours d’ombre des menus"
+
+msgid "This changes the menubar opacity"
+msgstr "Modifie l’opacité de la barre de menus"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "Modifie l’opacité de la barre d’onglets dans Dolphin et Konsole"
+
+msgid "This changes the toolbar opacity"
+msgstr "Modifie l’opacité de la barre d’outils"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "Modifie la transparence des menus contextuels et des menus surgissants"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "Modifie la transparence de la zone d’affichage principale des fichiers de Dolphin"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "Rend le cadre du rectangle de sélection arrondi"
+
+msgid "Titlebar only"
+msgstr "Barre de titre uniquement"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "Barre de titre, barre de menus et barres d’outils"
+
+msgid "Toolbar:"
+msgstr "Barre d’outils :"
+
+msgid "Transient scrollbar"
+msgstr "Barre de défilement transitoire"
+
+msgid "Transparency"
+msgstr "Transparence"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "Two Buttons"
+msgstr "Deux boutons"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "Unifier la barre d’onglets de Konsole avec la zone d’en-tête"
+
+msgid "Use brighter close icon"
+msgstr "Utiliser une icône de fermeture plus lumineuse"
+
+msgid "Use highlight color as selected tab background"
+msgstr "Utiliser la couleur de surlignage comme fond de l’onglet sélectionné"
+
+msgid "Use the new checkbox style"
+msgstr "Utiliser le nouveau style de case à cocher"
+
+msgid "When Needed"
+msgstr "Si nécessaire"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "Lorsqu’il est activé, désactive la transparence de la barre latérale de Dolphin"
+
+msgid "Width:"
+msgstr "Largeur :"
+
+msgid "Windows' &drag mode:"
+msgstr "Mode de glissement des fenêtres(&W) :"

@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+
+msgid "&Matching window property: "
+msgstr "Propriété de fenêtre correspondante(&M) :"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "Allow resizing maximized windows from window edges"
+msgstr "Autoriser le redimensionnement des fenêtres maximisées depuis leurs bords"
+
+msgid "Anima&tions duration:"
+msgstr "Durée des animations(&T) :"
+
+msgid "Animations"
+msgstr "Animations"
+
+msgid "B&utton size:"
+msgstr "Taille des boutons(&U) :"
+
+msgid "Border size:"
+msgstr "Taille de la bordure :"
+
+msgid "Center"
+msgstr "Centré"
+
+msgid "Center (Full Width)"
+msgstr "Centré (pleine largeur)"
+
+msgid "Class: "
+msgstr "Classe :"
+
+msgid "Color:"
+msgstr "Couleur :"
+
+msgid "Decoration Options"
+msgstr "Options de décoration"
+
+msgid "Detect Window Properties"
+msgstr "Détecter les propriétés de fenêtre"
+
+msgid "Dialog"
+msgstr "Boîte de dialogue"
+
+msgid "Draw a circle around close button"
+msgstr "Dessiner un cercle autour du bouton de fermeture"
+
+msgid "Draw separator under active window's titlebar"
+msgstr "Dessiner un séparateur sous la barre de titre de la fenêtre active"
+
+msgid "Draw titlebar background gradient"
+msgstr "Dessiner un dégradé de fond de barre de titre"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Edit Exception - Darkly Settings"
+msgstr "Modifier l'exception – Paramètres Darkly"
+
+msgid "Enable animations"
+msgstr "Activer les animations"
+
+msgid "Enable/disable this exception"
+msgstr "Activer/désactiver cette exception"
+
+msgid "Exception Type"
+msgstr "Type d'exception"
+
+msgid "Floating titlebar"
+msgstr "Barre de titre flottante"
+
+msgid "General"
+msgstr "Général"
+
+msgid "Hide window title bar"
+msgstr "Masquer la barre de titre de la fenêtre"
+
+msgid "Information about Selected Window"
+msgstr "Informations sur la fenêtre sélectionnée"
+
+msgid "Keep the titlebar background and text colors identical whether the window is focused or not, so unfocused windows don't appear lighter or more transparent."
+msgstr "Conserver des couleurs de fond et de texte identiques pour la barre de titre, que la fenêtre soit focalisée ou non, afin que les fenêtres non focalisées ne paraissent ni plus claires ni plus transparentes."
+
+msgid "Left"
+msgstr "Gauche"
+
+msgid "Make the title bar translucent and blurred, matched to the toolbar opacity so the top of the window is seamless."
+msgstr "Rendre la barre de titre translucide et floutée, assortie à l'opacité de la barre d'outils afin que le haut de la fenêtre soit homogène."
+
+msgid "Move Down"
+msgstr "Descendre"
+
+msgid "Move Up"
+msgstr "Monter"
+
+msgid "New Exception - Darkly Settings"
+msgstr "Nouvelle exception – Paramètres Darkly"
+
+msgid "Question - Darkly Settings"
+msgstr "Question – Paramètres Darkly"
+
+msgid "Regular Expression"
+msgstr "Expression régulière"
+
+msgid "Regular Expression syntax is incorrect"
+msgstr "La syntaxe de l'expression régulière est incorrecte"
+
+msgid "Regular expression &to match: "
+msgstr "Expression régulière à faire correspondre(&R) :"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Remove selected exception?"
+msgstr "Supprimer l'exception sélectionnée ?"
+
+msgid "Right"
+msgstr "Droite"
+
+msgid "Round bottom corners with no borders"
+msgstr "Arrondir les coins inférieurs sans bordure"
+
+msgid "Shadows"
+msgstr "Ombres"
+
+msgid "Si&ze:"
+msgstr "Taille(&Z) :"
+
+msgid "Tiny"
+msgstr "Minuscule"
+
+msgid "Tit&le alignment:"
+msgstr "Alignement du titre(&L) :"
+
+msgid "Title: "
+msgstr "Titre :"
+
+msgid "Transparent, blurred title bar"
+msgstr "Barre de titre transparente et floutée"
+
+msgid "Use active titlebar colors for inactive windows"
+msgstr "Utiliser les couleurs de barre de titre active pour les fenêtres inactives"
+
+msgid "Use window class (whole application)"
+msgstr "Utiliser la classe de fenêtre (toute l’application)"
+
+msgid "Use window title"
+msgstr "Utiliser le titre de la fenêtre"
+
+msgid "Warning - Darkly Settings"
+msgstr "Avertissement – Paramètres Darkly"
+
+msgid "Window Class Name"
+msgstr "Nom de la classe de fenêtre"
+
+msgid "Window Identification"
+msgstr "Identification de la fenêtre"
+
+msgid "Window Property Selection"
+msgstr "Sélection des propriétés de fenêtre"
+
+msgid "Window Title"
+msgstr "Titre de la fenêtre"
+
+msgid "Window corner radus:"
+msgstr "Rayon des coins de la fenêtre :"
+
+msgid "Window-Specific Overrides"
+msgstr "Remplacements spécifiques à la fenêtre"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Huge"
+msgstr "Énorme"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Large"
+msgstr "Grande"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Border"
+msgstr "Sans bordure"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Side Borders"
+msgstr "Sans bordures latérales"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Normal"
+msgstr "Normale"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Oversized"
+msgstr "Surdimensionné"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Tiny"
+msgstr "Minuscule"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Huge"
+msgstr "Très énorme"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Large"
+msgstr "Très grande"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Large"
+msgstr "Grande"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Medium"
+msgstr "Moyenne"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "None"
+msgstr "Aucun"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Small"
+msgstr "Petite"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Very Large"
+msgstr "Très grande"
+
+msgctxt "strength of the shadow (from transparent to opaque)"
+msgid "S&trength:"
+msgstr "Force(&S) :"

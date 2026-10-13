@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "&Matching window property: "
+msgstr "Übereinstimmende Fenster-Eigenschaft(&M):"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Allow resizing maximized windows from window edges"
+msgstr "Größenänderung maximierter Fenster von den Fensterrändern aus erlauben"
+
+msgid "Anima&tions duration:"
+msgstr "Animationsdauer(&T):"
+
+msgid "Animations"
+msgstr "Animationen"
+
+msgid "B&utton size:"
+msgstr "Schaltflächengröße(&U):"
+
+msgid "Border size:"
+msgstr "Rahmengröße:"
+
+msgid "Center"
+msgstr "Mittig"
+
+msgid "Center (Full Width)"
+msgstr "Mittig (volle Breite)"
+
+msgid "Class: "
+msgstr "Klasse:"
+
+msgid "Color:"
+msgstr "Farbe:"
+
+msgid "Decoration Options"
+msgstr "Dekorationsoptionen"
+
+msgid "Detect Window Properties"
+msgstr "Fenstereigenschaften ermitteln"
+
+msgid "Dialog"
+msgstr "Dialog"
+
+msgid "Draw a circle around close button"
+msgstr "Kreis um die Schließen-Schaltfläche zeichnen"
+
+msgid "Draw separator under active window's titlebar"
+msgstr "Trennlinie unter der Titelleiste des aktiven Fensters zeichnen"
+
+msgid "Draw titlebar background gradient"
+msgstr "Hintergrundverlauf der Titelleiste zeichnen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit Exception - Darkly Settings"
+msgstr "Ausnahme bearbeiten – Darkly-Einstellungen"
+
+msgid "Enable animations"
+msgstr "Animationen aktivieren"
+
+msgid "Enable/disable this exception"
+msgstr "Diese Ausnahme aktivieren/deaktivieren"
+
+msgid "Exception Type"
+msgstr "Ausnahmetyp"
+
+msgid "Floating titlebar"
+msgstr "Schwebende Titelleiste"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Hide window title bar"
+msgstr "Titelleiste des Fensters ausblenden"
+
+msgid "Information about Selected Window"
+msgstr "Informationen über das ausgewählte Fenster"
+
+msgid "Keep the titlebar background and text colors identical whether the window is focused or not, so unfocused windows don't appear lighter or more transparent."
+msgstr "Hintergrund- und Textfarbe der Titelleiste bleiben unabhängig davon, ob das Fenster fokussiert ist, identisch, sodass nicht fokussierte Fenster nicht heller oder transparenter erscheinen."
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Make the title bar translucent and blurred, matched to the toolbar opacity so the top of the window is seamless."
+msgstr "Die Titelleiste halbtransparent und unscharf machen, abgestimmt auf die Deckkraft der Symbolleiste, sodass die Fensteroberseite nahtlos wirkt."
+
+msgid "Move Down"
+msgstr "Nach unten"
+
+msgid "Move Up"
+msgstr "Nach oben"
+
+msgid "New Exception - Darkly Settings"
+msgstr "Neue Ausnahme – Darkly-Einstellungen"
+
+msgid "Question - Darkly Settings"
+msgstr "Frage – Darkly-Einstellungen"
+
+msgid "Regular Expression"
+msgstr "Regulärer Ausdruck"
+
+msgid "Regular Expression syntax is incorrect"
+msgstr "Die Syntax des regulären Ausdrucks ist falsch"
+
+msgid "Regular expression &to match: "
+msgstr "Regulärer Ausdruck zum Abgleich(&R):"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Remove selected exception?"
+msgstr "Ausgewählte Ausnahme entfernen?"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Round bottom corners with no borders"
+msgstr "Untere Ecken ohne Rahmen abrunden"
+
+msgid "Shadows"
+msgstr "Schatten"
+
+msgid "Si&ze:"
+msgstr "Größe(&Z):"
+
+msgid "Tiny"
+msgstr "Winzig"
+
+msgid "Tit&le alignment:"
+msgstr "Titelausrichtung(&L):"
+
+msgid "Title: "
+msgstr "Titel:"
+
+msgid "Transparent, blurred title bar"
+msgstr "Transparente, unscharfe Titelleiste"
+
+msgid "Use active titlebar colors for inactive windows"
+msgstr "Farben der aktiven Titelleiste für inaktive Fenster verwenden"
+
+msgid "Use window class (whole application)"
+msgstr "Fensterklasse verwenden (gesamte Anwendung)"
+
+msgid "Use window title"
+msgstr "Fenstertitel verwenden"
+
+msgid "Warning - Darkly Settings"
+msgstr "Warnung – Darkly-Einstellungen"
+
+msgid "Window Class Name"
+msgstr "Fensterklassenname"
+
+msgid "Window Identification"
+msgstr "Fensteridentifikation"
+
+msgid "Window Property Selection"
+msgstr "Auswahl der Fenstereigenschaften"
+
+msgid "Window Title"
+msgstr "Fenstertitel"
+
+msgid "Window corner radus:"
+msgstr "Eckenradius des Fensters:"
+
+msgid "Window-Specific Overrides"
+msgstr "Fensterspezifische Überschreibungen"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Huge"
+msgstr "Riesig"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Large"
+msgstr "Groß"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Border"
+msgstr "Kein Rahmen"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Side Borders"
+msgstr "Keine Seitenrahmen"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Normal"
+msgstr "Normal"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Oversized"
+msgstr "Übergroß"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Tiny"
+msgstr "Winzig"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Huge"
+msgstr "Sehr riesig"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Large"
+msgstr "Sehr groß"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Large"
+msgstr "Groß"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Medium"
+msgstr "Mittel"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "None"
+msgstr "Keine"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Small"
+msgstr "Klein"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Very Large"
+msgstr "Sehr groß"
+
+msgctxt "strength of the shadow (from transparent to opaque)"
+msgid "S&trength:"
+msgstr "Stärke(&S):"

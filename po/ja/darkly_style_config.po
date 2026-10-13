@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "&Top arrow button type:       "
+msgstr "上の矢印ボタンの種類(&T)："
+
+msgid "&View:"
+msgstr "表示(&V)："
+
+msgid "A&nimations duration:"
+msgstr "アニメーションの長さ(&N)："
+
+msgid "All empty areas"
+msgstr "すべての空き領域"
+
+msgid "Always Hide"
+msgstr "常に隠す"
+
+msgid "Always Show"
+msgstr "常に表示"
+
+msgid "Always show slim"
+msgstr "常に細いスクロールバーを表示"
+
+msgid "Animations"
+msgstr "アニメーション"
+
+msgid "Bigger"
+msgstr "より大きい"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "下の矢印ボタンの種類(&Y)："
+
+msgid "Center tabbar tabs"
+msgstr "タブバーのタブを中央に配置"
+
+msgid "Color:"
+msgstr "色："
+
+msgid "Context Menu:"
+msgstr "コンテキストメニュー："
+
+msgid "Corner Radius:"
+msgstr "角の半径："
+
+msgid "Custom tabbar background"
+msgstr "カスタムタブバー背景"
+
+msgid "Darkly Alternative"
+msgstr "Darkly オルタナティブ"
+
+msgid "Darkly Default"
+msgstr "Darkly デフォルト"
+
+msgid "Darkly Settings"
+msgstr "Darkly 設定"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "Dolphin の UrlNavigator の背景を無効化"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Dolphin のサイドバーの透明度。「ドッキング可能なパネルの周囲にフレームを描く」を無効にする必要があります。"
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "メニューとメニューバーのフォーカスを示す細い線を描く"
+
+msgid "Draw focus indicator in lists"
+msgstr "リストにフォーカスインジケータを描く"
+
+msgid "Draw frame around KTextEdit"
+msgstr "KTextEdit の周囲にフレームを描く"
+
+msgid "Draw frame around dockable panels"
+msgstr "ドッキング可能なパネルの周囲にフレームを描く"
+
+msgid "Draw frame around page titles"
+msgstr "ページタイトルの周囲にフレームを描く"
+
+msgid "Draw frame around side panels"
+msgstr "サイドパネルの周囲にフレームを描く"
+
+msgid "Draw highlight on active tab"
+msgstr "アクティブなタブにハイライトを描く"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "選択範囲コントロールに角丸フレームを描く"
+
+msgid "Draw shadow under toolbar"
+msgstr "ツールバーの下にシャドウを描く"
+
+msgid "Draw toolbar item separators"
+msgstr "ツールバー項目の区切り線を描く"
+
+msgid "Draw widget shadow"
+msgstr "ウィジェットのシャドウを描く"
+
+msgid "Enable animations"
+msgstr "アニメーションを有効にする"
+
+msgid "Fancy margins"
+msgstr "大きめの余白"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "チェックボックスとラジオボタンに浮き沈み効果を適用"
+
+msgid "Frames"
+msgstr "フレーム"
+
+msgid "Full outline"
+msgstr "完全な輪郭"
+
+msgid "General"
+msgstr "全般"
+
+msgid "Height:"
+msgstr "高さ："
+
+msgid "High"
+msgstr "高"
+
+msgid "Increase button size"
+msgstr "ボタンのサイズを大きくする"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "タブの閉じるアイコンの明るさを上げる"
+
+msgid "Intensity:"
+msgstr "強度："
+
+msgid "Keyboard accelerators visibility:"
+msgstr "キーボードアクセラレータの表示："
+
+msgid "Low"
+msgstr "低"
+
+msgid "Maximum"
+msgstr "最大"
+
+msgid "Medium"
+msgstr "中"
+
+msgid "Menu item height"
+msgstr "メニュー項目の高さ"
+
+msgid "Menubar:"
+msgstr "メニューバー："
+
+msgid "No Buttons"
+msgstr "ボタンなし"
+
+msgid "No outline"
+msgstr "輪郭なし"
+
+msgid "One Button"
+msgstr "ボタン1つ"
+
+msgid "Opaque"
+msgstr "不透明"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "スクロールバーの間に細い区切り線を描く"
+
+msgid "Scrollable popup menu"
+msgstr "スクロール可能なポップアップメニュー"
+
+msgid "Scrollbars"
+msgstr "スクロールバー"
+
+msgid "Shadow"
+msgstr "シャドウ"
+
+msgid "Si&debar:"
+msgstr "サイドバー(&D)："
+
+msgid "Size:"
+msgstr "サイズ："
+
+msgid "Smaller"
+msgstr "より小さい"
+
+msgid "Strength:"
+msgstr "強さ："
+
+msgid "Tab size:"
+msgstr "タブのサイズ："
+
+msgid "Tabbar background"
+msgstr "タブバーの背景"
+
+msgid "Tabbar:"
+msgstr "タブバー："
+
+msgid "Tabs"
+msgstr "タブ"
+
+msgid "Tabs sometimes inside frame"
+msgstr "タブがフレーム内に入ることがある"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "これらの設定は、メニューのシャドウ輪郭の表示方法を変更します"
+
+msgid "This changes the menubar opacity"
+msgstr "メニューバーの不透明度を変更します"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "Dolphin と Konsole 内のタブバーの不透明度を変更します"
+
+msgid "This changes the toolbar opacity"
+msgstr "ツールバーの不透明度を変更します"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "コンテキストメニューとポップアップメニューの透明度を変更します"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "Dolphin のメインファイルビュー領域の透明度を変更します"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "選択範囲の四角形のフレームを角丸にします"
+
+msgid "Titlebar only"
+msgstr "タイトルバーのみ"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "タイトルバー、メニューバー、ツールバー"
+
+msgid "Toolbar:"
+msgstr "ツールバー："
+
+msgid "Transient scrollbar"
+msgstr "一時的なスクロールバー"
+
+msgid "Transparency"
+msgstr "透明度"
+
+msgid "Transparent"
+msgstr "透明"
+
+msgid "Two Buttons"
+msgstr "ボタン2つ"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "Konsole のタブバーをヘッダー領域と一体化"
+
+msgid "Use brighter close icon"
+msgstr "より明るい閉じるアイコンを使用"
+
+msgid "Use highlight color as selected tab background"
+msgstr "選択されたタブの背景にハイライト色を使用"
+
+msgid "Use the new checkbox style"
+msgstr "新しいチェックボックスのスタイルを使用"
+
+msgid "When Needed"
+msgstr "必要なとき"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "有効にすると Dolphin のサイドバーの透明度が無効になります"
+
+msgid "Width:"
+msgstr "幅："
+
+msgid "Windows' &drag mode:"
+msgstr "ウィンドウのドラッグモード(&W)："
