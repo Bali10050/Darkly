@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "&Top arrow button type:       "
+msgstr "위쪽 화살표 버튼 유형(&T)："
+
+msgid "&View:"
+msgstr "보기(&V)："
+
+msgid "A&nimations duration:"
+msgstr "애니메이션 길이(&N)："
+
+msgid "All empty areas"
+msgstr "모든 빈 영역"
+
+msgid "Always Hide"
+msgstr "항상 숨기기"
+
+msgid "Always Show"
+msgstr "항상 표시"
+
+msgid "Always show slim"
+msgstr "항상 얇은 스크롤바 표시"
+
+msgid "Animations"
+msgstr "애니메이션"
+
+msgid "Bigger"
+msgstr "더 크게"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "아래쪽 화살표 버튼 유형(&Y)："
+
+msgid "Center tabbar tabs"
+msgstr "탭 모음 탭을 가운데에 배치"
+
+msgid "Color:"
+msgstr "색상："
+
+msgid "Context Menu:"
+msgstr "컨텍스트 메뉴："
+
+msgid "Corner Radius:"
+msgstr "모서리 반경："
+
+msgid "Custom tabbar background"
+msgstr "사용자 지정 탭 모음 배경"
+
+msgid "Darkly Alternative"
+msgstr "Darkly 대안"
+
+msgid "Darkly Default"
+msgstr "Darkly 기본값"
+
+msgid "Darkly Settings"
+msgstr "Darkly 설정"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "Dolphin UrlNavigator 배경 비활성화"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Dolphin 사이드바 투명도. “도킹 가능한 패널 주위에 프레임 그리기”를 비활성화해야 합니다."
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "메뉴 및 메뉴 모음의 포커스를 나타내는 가는 선 그리기"
+
+msgid "Draw focus indicator in lists"
+msgstr "목록에 포커스 표시기 그리기"
+
+msgid "Draw frame around KTextEdit"
+msgstr "KTextEdit 주위에 프레임 그리기"
+
+msgid "Draw frame around dockable panels"
+msgstr "도킹 가능한 패널 주위에 프레임 그리기"
+
+msgid "Draw frame around page titles"
+msgstr "페이지 제목 주위에 프레임 그리기"
+
+msgid "Draw frame around side panels"
+msgstr "사이드 패널 주위에 프레임 그리기"
+
+msgid "Draw highlight on active tab"
+msgstr "활성 탭에 하이라이트 그리기"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "선택 영역 컨트롤에 둥근 프레임 그리기"
+
+msgid "Draw shadow under toolbar"
+msgstr "도구 모음 아래에 그림자 그리기"
+
+msgid "Draw toolbar item separators"
+msgstr "도구 모음 항목 구분선 그리기"
+
+msgid "Draw widget shadow"
+msgstr "위젯 그림자 그리기"
+
+msgid "Enable animations"
+msgstr "애니메이션 사용"
+
+msgid "Fancy margins"
+msgstr "넉넉한 여백"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "체크박스와 라디오 버튼에 돌출/함몰 효과 적용"
+
+msgid "Frames"
+msgstr "프레임"
+
+msgid "Full outline"
+msgstr "전체 윤곽선"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Height:"
+msgstr "높이："
+
+msgid "High"
+msgstr "높음"
+
+msgid "Increase button size"
+msgstr "버튼 크기 늘리기"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "탭 닫기 아이콘의 밝기 높이기"
+
+msgid "Intensity:"
+msgstr "세기："
+
+msgid "Keyboard accelerators visibility:"
+msgstr "키보드 가속기 표시："
+
+msgid "Low"
+msgstr "낮음"
+
+msgid "Maximum"
+msgstr "최대"
+
+msgid "Medium"
+msgstr "중간"
+
+msgid "Menu item height"
+msgstr "메뉴 항목 높이"
+
+msgid "Menubar:"
+msgstr "메뉴 모음："
+
+msgid "No Buttons"
+msgstr "버튼 없음"
+
+msgid "No outline"
+msgstr "윤곽선 없음"
+
+msgid "One Button"
+msgstr "버튼 1개"
+
+msgid "Opaque"
+msgstr "불투명"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "스크롤바 사이에 가는 구분선 렌더링"
+
+msgid "Scrollable popup menu"
+msgstr "스크롤 가능한 팝업 메뉴"
+
+msgid "Scrollbars"
+msgstr "스크롤바"
+
+msgid "Shadow"
+msgstr "그림자"
+
+msgid "Si&debar:"
+msgstr "사이드바(&D)："
+
+msgid "Size:"
+msgstr "크기："
+
+msgid "Smaller"
+msgstr "더 작게"
+
+msgid "Strength:"
+msgstr "강도："
+
+msgid "Tab size:"
+msgstr "탭 크기："
+
+msgid "Tabbar background"
+msgstr "탭 모음 배경"
+
+msgid "Tabbar:"
+msgstr "탭 모음："
+
+msgid "Tabs"
+msgstr "탭"
+
+msgid "Tabs sometimes inside frame"
+msgstr "탭이 프레임 안에 있는 경우도 있음"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "이 설정은 메뉴 그림자 윤곽선 표시 방식을 변경합니다"
+
+msgid "This changes the menubar opacity"
+msgstr "메뉴 모음 불투명도를 변경합니다"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "Dolphin 및 Konsole 내 탭 모음의 불투명도를 변경합니다"
+
+msgid "This changes the toolbar opacity"
+msgstr "도구 모음 불투명도를 변경합니다"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "컨텍스트 메뉴와 팝업 메뉴의 투명도를 변경합니다"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "Dolphin 기본 파일 보기 영역의 투명도를 변경합니다"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "선택 영역 사각형 프레임을 둥글게 만듭니다"
+
+msgid "Titlebar only"
+msgstr "제목 표시줄만"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "제목 표시줄, 메뉴 모음, 도구 모음"
+
+msgid "Toolbar:"
+msgstr "도구 모음："
+
+msgid "Transient scrollbar"
+msgstr "임시 스크롤바"
+
+msgid "Transparency"
+msgstr "투명도"
+
+msgid "Transparent"
+msgstr "투명"
+
+msgid "Two Buttons"
+msgstr "버튼 2개"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "Konsole 탭 모음을 헤더 영역과 통합"
+
+msgid "Use brighter close icon"
+msgstr "더 밝은 닫기 아이콘 사용"
+
+msgid "Use highlight color as selected tab background"
+msgstr "선택한 탭 배경에 하이라이트 색상 사용"
+
+msgid "Use the new checkbox style"
+msgstr "새 체크박스 스타일 사용"
+
+msgid "When Needed"
+msgstr "필요할 때"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "사용하도록 설정하면 Dolphin 사이드바 투명도가 비활성화됩니다"
+
+msgid "Width:"
+msgstr "너비："
+
+msgid "Windows' &drag mode:"
+msgstr "창 드래그 모드(&W)："

@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "&Matching window property: "
+msgstr "일치하는 창 속성(&M)："
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Allow resizing maximized windows from window edges"
+msgstr "최대화된 창을 가장자리에서 크기 조정할 수 있게 허용"
+
+msgid "Anima&tions duration:"
+msgstr "애니메이션 길이(&T)："
+
+msgid "Animations"
+msgstr "애니메이션"
+
+msgid "B&utton size:"
+msgstr "버튼 크기(&U)："
+
+msgid "Border size:"
+msgstr "테두리 크기："
+
+msgid "Center"
+msgstr "가운데"
+
+msgid "Center (Full Width)"
+msgstr "가운데 (전체 너비)"
+
+msgid "Class: "
+msgstr "클래스："
+
+msgid "Color:"
+msgstr "색상："
+
+msgid "Decoration Options"
+msgstr "장식 옵션"
+
+msgid "Detect Window Properties"
+msgstr "창 속성 감지"
+
+msgid "Dialog"
+msgstr "대화상자"
+
+msgid "Draw a circle around close button"
+msgstr "닫기 버튼 주위에 원 그리기"
+
+msgid "Draw separator under active window's titlebar"
+msgstr "활성 창의 제목 표시줄 아래에 구분선 그리기"
+
+msgid "Draw titlebar background gradient"
+msgstr "제목 표시줄 배경 그라데이션 그리기"
+
+msgid "Edit"
+msgstr "편집"
+
+msgid "Edit Exception - Darkly Settings"
+msgstr "예외 편집 - Darkly 설정"
+
+msgid "Enable animations"
+msgstr "애니메이션 사용"
+
+msgid "Enable/disable this exception"
+msgstr "이 예외 사용/사용 안 함"
+
+msgid "Exception Type"
+msgstr "예외 유형"
+
+msgid "Floating titlebar"
+msgstr "부동 제목 표시줄"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Hide window title bar"
+msgstr "창 제목 표시줄 숨기기"
+
+msgid "Information about Selected Window"
+msgstr "선택한 창에 대한 정보"
+
+msgid "Keep the titlebar background and text colors identical whether the window is focused or not, so unfocused windows don't appear lighter or more transparent."
+msgstr "창의 포커스 여부와 관계없이 제목 표시줄의 배경색과 텍스트 색상을 동일하게 유지하여, 포커스되지 않은 창이 더 밝거나 더 투명하게 보이지 않도록 합니다."
+
+msgid "Left"
+msgstr "왼쪽"
+
+msgid "Make the title bar translucent and blurred, matched to the toolbar opacity so the top of the window is seamless."
+msgstr "제목 표시줄을 반투명하게 만들고 흐리게 처리하여 도구 모음 불투명도와 일치시키고, 창의 위쪽이 자연스럽게 이어지도록 합니다."
+
+msgid "Move Down"
+msgstr "아래로 이동"
+
+msgid "Move Up"
+msgstr "위로 이동"
+
+msgid "New Exception - Darkly Settings"
+msgstr "새 예외 - Darkly 설정"
+
+msgid "Question - Darkly Settings"
+msgstr "질문 - Darkly 설정"
+
+msgid "Regular Expression"
+msgstr "정규 표현식"
+
+msgid "Regular Expression syntax is incorrect"
+msgstr "정규 표현식 구문이 올바르지 않습니다"
+
+msgid "Regular expression &to match: "
+msgstr "일치시킬 정규 표현식(&R)："
+
+msgid "Remove"
+msgstr "제거"
+
+msgid "Remove selected exception?"
+msgstr "선택한 예외를 제거하시겠습니까?"
+
+msgid "Right"
+msgstr "오른쪽"
+
+msgid "Round bottom corners with no borders"
+msgstr "테두리 없이 아래쪽 모서리를 둥글게 만들기"
+
+msgid "Shadows"
+msgstr "그림자"
+
+msgid "Si&ze:"
+msgstr "크기(&Z)："
+
+msgid "Tiny"
+msgstr "아주 작게"
+
+msgid "Tit&le alignment:"
+msgstr "제목 정렬(&L)："
+
+msgid "Title: "
+msgstr "제목："
+
+msgid "Transparent, blurred title bar"
+msgstr "투명하고 흐릿한 제목 표시줄"
+
+msgid "Use active titlebar colors for inactive windows"
+msgstr "비활성 창에 활성 제목 표시줄 색상 사용"
+
+msgid "Use window class (whole application)"
+msgstr "창 클래스 사용(전체 애플리케이션)"
+
+msgid "Use window title"
+msgstr "창 제목 사용"
+
+msgid "Warning - Darkly Settings"
+msgstr "경고 - Darkly 설정"
+
+msgid "Window Class Name"
+msgstr "창 클래스 이름"
+
+msgid "Window Identification"
+msgstr "창 식별"
+
+msgid "Window Property Selection"
+msgstr "창 속성 선택"
+
+msgid "Window Title"
+msgstr "창 제목"
+
+msgid "Window corner radus:"
+msgstr "창 모서리 반경："
+
+msgid "Window-Specific Overrides"
+msgstr "창별 재정의"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Huge"
+msgstr "거대함"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Large"
+msgstr "큼"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Border"
+msgstr "테두리 없음"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "No Side Borders"
+msgstr "측면 테두리 없음"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Normal"
+msgstr "표준"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Oversized"
+msgstr "과대"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Tiny"
+msgstr "아주 작게"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Huge"
+msgstr "매우 거대함"
+
+msgctxt "@item:inlistbox Border size:"
+msgid "Very Large"
+msgstr "매우 큼"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Large"
+msgstr "큼"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Medium"
+msgstr "중간"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "None"
+msgstr "없음"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Small"
+msgstr "작게"
+
+msgctxt "@item:inlistbox Button size:"
+msgid "Very Large"
+msgstr "매우 큼"
+
+msgctxt "strength of the shadow (from transparent to opaque)"
+msgid "S&trength:"
+msgstr "강도(&S)："

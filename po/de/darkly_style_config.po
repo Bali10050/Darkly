@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+msgid "&Top arrow button type:       "
+msgstr "Typ des oberen Pfeilknopfs(&T):"
+
+msgid "&View:"
+msgstr "Ansicht(&V):"
+
+msgid "A&nimations duration:"
+msgstr "Animationsdauer(&N):"
+
+msgid "All empty areas"
+msgstr "Alle leeren Bereiche"
+
+msgid "Always Hide"
+msgstr "Immer ausblenden"
+
+msgid "Always Show"
+msgstr "Immer anzeigen"
+
+msgid "Always show slim"
+msgstr "Immer schmale Leiste anzeigen"
+
+msgid "Animations"
+msgstr "Animationen"
+
+msgid "Bigger"
+msgstr "Größer"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "Typ des unteren Pfeilknopfs(&Y):"
+
+msgid "Center tabbar tabs"
+msgstr "Tabs der Tab-Leiste zentrieren"
+
+msgid "Color:"
+msgstr "Farbe:"
+
+msgid "Context Menu:"
+msgstr "Kontextmenü:"
+
+msgid "Corner Radius:"
+msgstr "Eckenradius:"
+
+msgid "Custom tabbar background"
+msgstr "Benutzerdefinierter Hintergrund der Tab-Leiste"
+
+msgid "Darkly Alternative"
+msgstr "Darkly Alternative"
+
+msgid "Darkly Default"
+msgstr "Darkly Standard"
+
+msgid "Darkly Settings"
+msgstr "Darkly-Einstellungen"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "Dolphin-UrlNavigator-Hintergrund deaktivieren"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Transparenz der Dolphin-Seitenleiste. Erfordert, dass „Rahmen um andockbare Bedienfelder zeichnen“ deaktiviert ist."
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "Eine dünne Linie zur Anzeige des Fokus in Menüs und Menüleisten zeichnen"
+
+msgid "Draw focus indicator in lists"
+msgstr "Fokusindikator in Listen zeichnen"
+
+msgid "Draw frame around KTextEdit"
+msgstr "Rahmen um KTextEdit zeichnen"
+
+msgid "Draw frame around dockable panels"
+msgstr "Rahmen um andockbare Bedienfelder zeichnen"
+
+msgid "Draw frame around page titles"
+msgstr "Rahmen um Seitentitel zeichnen"
+
+msgid "Draw frame around side panels"
+msgstr "Rahmen um Seitenleisten zeichnen"
+
+msgid "Draw highlight on active tab"
+msgstr "Hervorhebung auf aktiver Registerkarte zeichnen"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "Abgerundeten Rahmen um das Auswahlrechteck zeichnen"
+
+msgid "Draw shadow under toolbar"
+msgstr "Schatten unter der Symbolleiste zeichnen"
+
+msgid "Draw toolbar item separators"
+msgstr "Trennlinien zwischen Symbolleisten-Elementen zeichnen"
+
+msgid "Draw widget shadow"
+msgstr "Widget-Schatten zeichnen"
+
+msgid "Enable animations"
+msgstr "Animationen aktivieren"
+
+msgid "Fancy margins"
+msgstr "Größere Ränder"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "Schwebenden und versenkten Effekt bei Kontrollkästchen und Optionsfeldern verwenden"
+
+msgid "Frames"
+msgstr "Rahmen"
+
+msgid "Full outline"
+msgstr "Vollständige Umrandung"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Height:"
+msgstr "Höhe:"
+
+msgid "High"
+msgstr "Hoch"
+
+msgid "Increase button size"
+msgstr "Schaltflächengröße erhöhen"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "Helligkeit der Schließen-Symbole von Registerkarten erhöhen"
+
+msgid "Intensity:"
+msgstr "Intensität:"
+
+msgid "Keyboard accelerators visibility:"
+msgstr "Sichtbarkeit der Tastaturkürzel:"
+
+msgid "Low"
+msgstr "Niedrig"
+
+msgid "Maximum"
+msgstr "Maximum"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Menu item height"
+msgstr "Höhe der Menüpunkte"
+
+msgid "Menubar:"
+msgstr "Menüleiste:"
+
+msgid "No Buttons"
+msgstr "Keine Schaltflächen"
+
+msgid "No outline"
+msgstr "Keine Umrandung"
+
+msgid "One Button"
+msgstr "Eine Schaltfläche"
+
+msgid "Opaque"
+msgstr "Undurchsichtig"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "Dünne Trennlinie zwischen den Bildlaufleisten zeichnen"
+
+msgid "Scrollable popup menu"
+msgstr "Scrollbares Popup-Menü"
+
+msgid "Scrollbars"
+msgstr "Bildlaufleisten"
+
+msgid "Shadow"
+msgstr "Schatten"
+
+msgid "Si&debar:"
+msgstr "Seitenleiste(&D):"
+
+msgid "Size:"
+msgstr "Größe:"
+
+msgid "Smaller"
+msgstr "Kleiner"
+
+msgid "Strength:"
+msgstr "Stärke:"
+
+msgid "Tab size:"
+msgstr "Registerkartengröße:"
+
+msgid "Tabbar background"
+msgstr "Hintergrund der Tab-Leiste"
+
+msgid "Tabbar:"
+msgstr "Tab-Leiste:"
+
+msgid "Tabs"
+msgstr "Registerkarten"
+
+msgid "Tabs sometimes inside frame"
+msgstr "Registerkarten manchmal innerhalb des Rahmens"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "Diese Einstellungen ändern, wie Schattenumrisse von Menüs angezeigt werden"
+
+msgid "This changes the menubar opacity"
+msgstr "Ändert die Deckkraft der Menüleiste"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "Ändert die Deckkraft der Tab-Leiste in Dolphin & Konsole"
+
+msgid "This changes the toolbar opacity"
+msgstr "Ändert die Deckkraft der Symbolleiste"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "Ändert die Transparenz von Kontextmenüs und Popup-Menüs"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "Ändert die Transparenz des Hauptdateiansicht-Bereichs von Dolphin"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "Macht den Rahmen des Auswahlrechtecks abgerundet"
+
+msgid "Titlebar only"
+msgstr "Nur Titelleiste"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "Titelleiste, Menüleiste und Symbolleisten"
+
+msgid "Toolbar:"
+msgstr "Symbolleiste:"
+
+msgid "Transient scrollbar"
+msgstr "Transiente Bildlaufleiste"
+
+msgid "Transparency"
+msgstr "Transparenz"
+
+msgid "Transparent"
+msgstr "Transparent"
+
+msgid "Two Buttons"
+msgstr "Zwei Schaltflächen"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "Tab-Leiste von Konsole mit dem Kopfbereich vereinheitlichen"
+
+msgid "Use brighter close icon"
+msgstr "Helleres Schließen-Symbol verwenden"
+
+msgid "Use highlight color as selected tab background"
+msgstr "Hervorhebungsfarbe als Hintergrund der ausgewählten Registerkarte verwenden"
+
+msgid "Use the new checkbox style"
+msgstr "Neuen Stil für Kontrollkästchen verwenden"
+
+msgid "When Needed"
+msgstr "Bei Bedarf"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "Wenn aktiviert, wird die Transparenz der Dolphin-Seitenleiste deaktiviert"
+
+msgid "Width:"
+msgstr "Breite:"
+
+msgid "Windows' &drag mode:"
+msgstr "Fenster-Ziehmodus(&W):"

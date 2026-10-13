@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: darkly\n"
+"Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
+"POT-Creation-Date: 2026-10-07 08:35+0000\n"
+"PO-Revision-Date: 2026-10-10 10:00+0800\n"
+"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+
+msgid "&Top arrow button type:       "
+msgstr "上方箭頭按鈕類型(&T)："
+
+msgid "&View:"
+msgstr "檢視(&V)："
+
+msgid "A&nimations duration:"
+msgstr "動畫時間(&N)："
+
+msgid "All empty areas"
+msgstr "所有空白區域"
+
+msgid "Always Hide"
+msgstr "永遠隱藏"
+
+msgid "Always Show"
+msgstr "永遠顯示"
+
+msgid "Always show slim"
+msgstr "永遠顯示細捲軸"
+
+msgid "Animations"
+msgstr "動畫"
+
+msgid "Bigger"
+msgstr "較大"
+
+msgid "Bottom arrow button t&ype:"
+msgstr "下方箭頭按鈕類型(&Y)："
+
+msgid "Center tabbar tabs"
+msgstr "將分頁列的索引標籤置中"
+
+msgid "Color:"
+msgstr "顏色："
+
+msgid "Context Menu:"
+msgstr "內容功能表："
+
+msgid "Corner Radius:"
+msgstr "圓角半徑："
+
+msgid "Custom tabbar background"
+msgstr "自訂分頁列背景"
+
+msgid "Darkly Alternative"
+msgstr "Darkly 替代"
+
+msgid "Darkly Default"
+msgstr "Darkly 預設"
+
+msgid "Darkly Settings"
+msgstr "Darkly 設定"
+
+msgid "Disable Dolphin UrlNavigator Background"
+msgstr "停用 Dolphin 網址導覽器背景"
+
+msgid "Dolphin sidebar transparency. Requires \"Draw frame around dockable panels\" to be disabled."
+msgstr "Dolphin 側邊欄透明度。需要停用「為可停靠面板繪製外框」。"
+
+msgid "Draw a thin line to indicate focus in menus and menubars"
+msgstr "繪製細線以指示功能表和功能表列的焦點"
+
+msgid "Draw focus indicator in lists"
+msgstr "在清單中繪製焦點指示器"
+
+msgid "Draw frame around KTextEdit"
+msgstr "為 KTextEdit 繪製外框"
+
+msgid "Draw frame around dockable panels"
+msgstr "為可停靠面板繪製外框"
+
+msgid "Draw frame around page titles"
+msgstr "為頁面標題繪製外框"
+
+msgid "Draw frame around side panels"
+msgstr "為側邊面板繪製外框"
+
+msgid "Draw highlight on active tab"
+msgstr "在作用中索引標籤上繪製醒目提示"
+
+msgid "Draw rounded frame on rubber band control"
+msgstr "為選取範圍控制項繪製圓角外框"
+
+msgid "Draw shadow under toolbar"
+msgstr "在工具列下方繪製陰影"
+
+msgid "Draw toolbar item separators"
+msgstr "繪製工具列項目分隔線"
+
+msgid "Draw widget shadow"
+msgstr "繪製小工具陰影"
+
+msgid "Enable animations"
+msgstr "啟用動畫"
+
+msgid "Fancy margins"
+msgstr "加大邊距"
+
+msgid "Float and sunken effect on checkboxes and radio buttons"
+msgstr "核取方塊和選項按鈕的浮起與凹陷效果"
+
+msgid "Frames"
+msgstr "外框"
+
+msgid "Full outline"
+msgstr "完整輪廓"
+
+msgid "General"
+msgstr "一般"
+
+msgid "Height:"
+msgstr "高度："
+
+msgid "High"
+msgstr "高"
+
+msgid "Increase button size"
+msgstr "增大按鈕尺寸"
+
+msgid "Increases the brightness of tab close icons"
+msgstr "提高索引標籤關閉圖示的亮度"
+
+msgid "Intensity:"
+msgstr "強度："
+
+msgid "Keyboard accelerators visibility:"
+msgstr "鍵盤快速鍵可見度："
+
+msgid "Low"
+msgstr "低"
+
+msgid "Maximum"
+msgstr "最大"
+
+msgid "Medium"
+msgstr "中"
+
+msgid "Menu item height"
+msgstr "功能表項目高度"
+
+msgid "Menubar:"
+msgstr "功能表列："
+
+msgid "No Buttons"
+msgstr "無按鈕"
+
+msgid "No outline"
+msgstr "無輪廓"
+
+msgid "One Button"
+msgstr "一個按鈕"
+
+msgid "Opaque"
+msgstr "不透明"
+
+msgid "Render a thin separator between the scrollbar"
+msgstr "在捲軸之間繪製細分隔線"
+
+msgid "Scrollable popup menu"
+msgstr "可捲動快顯功能表"
+
+msgid "Scrollbars"
+msgstr "捲軸"
+
+msgid "Shadow"
+msgstr "陰影"
+
+msgid "Si&debar:"
+msgstr "側邊欄(&D)："
+
+msgid "Size:"
+msgstr "大小："
+
+msgid "Smaller"
+msgstr "較小"
+
+msgid "Strength:"
+msgstr "強度："
+
+msgid "Tab size:"
+msgstr "索引標籤大小："
+
+msgid "Tabbar background"
+msgstr "分頁列背景"
+
+msgid "Tabbar:"
+msgstr "分頁列："
+
+msgid "Tabs"
+msgstr "索引標籤"
+
+msgid "Tabs sometimes inside frame"
+msgstr "索引標籤有時位於外框內"
+
+msgid "These settings change how menu shadow outlines are displayed"
+msgstr "這些設定會變更功能表陰影輪廓的顯示方式"
+
+msgid "This changes the menubar opacity"
+msgstr "變更功能表列的不透明度"
+
+msgid "This changes the tabbar opacity inside Dolphin & Konsole"
+msgstr "變更 Dolphin 和 Konsole 中分頁列的不透明度"
+
+msgid "This changes the toolbar opacity"
+msgstr "變更工具列的不透明度"
+
+msgid "This changes the transparency of context menus and popup menus"
+msgstr "變更內容功能表和快顯功能表的透明度"
+
+msgid "This changes the transparency of the Dolphin main file view area"
+msgstr "變更 Dolphin 主檔案檢視區域的透明度"
+
+msgid "This makes the selection rectangle frame rounded"
+msgstr "使選取矩形外框變圓角"
+
+msgid "Titlebar only"
+msgstr "僅標題列"
+
+msgid "Titlebar, menubar and toolbars"
+msgstr "標題列、功能表列和工具列"
+
+msgid "Toolbar:"
+msgstr "工具列："
+
+msgid "Transient scrollbar"
+msgstr "暫時捲軸"
+
+msgid "Transparency"
+msgstr "透明度"
+
+msgid "Transparent"
+msgstr "透明"
+
+msgid "Two Buttons"
+msgstr "兩個按鈕"
+
+msgid "Unify konsole tab bar with header area"
+msgstr "將 Konsole 分頁列與標頭區域整合"
+
+msgid "Use brighter close icon"
+msgstr "使用更亮的關閉圖示"
+
+msgid "Use highlight color as selected tab background"
+msgstr "使用醒目提示色彩作為所選索引標籤的背景"
+
+msgid "Use the new checkbox style"
+msgstr "使用新的核取方塊樣式"
+
+msgid "When Needed"
+msgstr "需要時"
+
+msgid "When enabled, disables Dolphin sidebar transparency"
+msgstr "啟用後將停用 Dolphin 側邊欄透明度"
+
+msgid "Width:"
+msgstr "寬度："
+
+msgid "Windows' &drag mode:"
+msgstr "窗口拖动模式(&W)："
