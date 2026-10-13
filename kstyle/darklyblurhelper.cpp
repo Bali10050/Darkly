@@ -357,9 +357,20 @@ QRegion BlurHelper::blurSettingsDialogRegion(QWidget *widget) const
 {
     QRegion region;
 
-    // settings only change it for konsole or dolphin about window
-    if ((widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog
-        && (widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog"))) {
+    const bool isDialog = (widget->windowFlags() & Qt::WindowType_Mask) == Qt::Dialog;
+    const bool isAboutDialog = widget->inherits("KAboutApplicationDialog") || widget->inherits("KDEPrivate::KAboutKdeDialog");
+
+    if (!isDialog)
+        return region;
+
+    // Dolphin's settings and properties dialogs use translucent window colors,
+    // but they are not KAboutApplicationDialog instances. Request blur for the
+    // dialog's full client area; opaque pixels remain visually unaffected.
+    if (_isDolphin && !isAboutDialog)
+        return roundedRegion(widget->rect(), StyleConfigData::cornerRadius(), false, false, true, true);
+
+    // About dialogs have a separately translucent tab area.
+    if (isAboutDialog) {
         QList<QWidget *> widgets = widget->findChildren<QWidget *>();
         if (widgets.length() > 0) {
             for (auto w : widgets) {
