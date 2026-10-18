@@ -331,7 +331,7 @@ if (m_internalSettings->floatingTitlebar()){
     auto c = window();
     auto s = settings();
 
-    borderRadiusOnContent(1);
+    setBorderRadiusOnContent(1);
 
     const qreal shrinkAmount = !isMaximized() ? 4 : 0; // shrink decoration height by 5px
 
