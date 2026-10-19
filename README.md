@@ -10,13 +10,6 @@
 
 Forked from the ***lightly*** theme, this style brings a fresh and unique look to your applications
 
-***
-
-## Help needed!
-
-If you know how the blur effect works, and you like this project, please consider helping me with this: 
-
-https://invent.kde.org/plasma/kwin/-/merge_requests/9032
 
 ***
 
