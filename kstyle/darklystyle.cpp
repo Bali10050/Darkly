@@ -2411,6 +2411,9 @@ void Style::loadConfiguration()
 {
     StyleConfigData::self()->load();
 
+    // the tools area follows the window decoration's inactive titlebar colours
+    _matchInactiveTitleBar = StyleConfigData::self()->sharedConfig()->group(QStringLiteral("Windeco")).readEntry("MatchInactiveTitleBar", false);
+
     // Migration: convert deprecated TransparentDolphinView checkbox to DolphinViewOpacity slider
     if (StyleConfigData::transparentDolphinView() && StyleConfigData::dolphinViewOpacity() == 100) {
         StyleConfigData::setDolphinViewOpacity(0);
@@ -5745,7 +5748,8 @@ bool Style::drawMenuBarEmptyAreaControl(const QStyleOption *option, QPainter *pa
     QColor background(palette.color(QPalette::Window));
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((windowActive || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes menubar background opacity
     if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
@@ -5818,7 +5822,8 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
     QColor background(palette.color(QPalette::Window));
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((windowActive || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes menubar background opacity
     if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
@@ -6239,7 +6244,8 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
     QColor backgroundColor = palette.color(QPalette::Window);
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((widget->isActiveWindow() || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes toolbar background opacity
 
