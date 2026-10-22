@@ -59,3 +59,16 @@ ecm_add_test(
     TEST_NAME
         styleconfig_test${QT_MAJOR_VERSION}
 )
+
+# Test for OpaqueInactiveWindows (opaque translucent areas while the window is inactive)
+ecm_add_test(
+    opaqueinactivewindows_test.cpp
+    ${test_config_SRCS}
+    LINK_LIBRARIES
+        Qt${QT_MAJOR_VERSION}::Test
+        Qt${QT_MAJOR_VERSION}::Widgets
+        KF${QT_MAJOR_VERSION}::ConfigCore
+        KF${QT_MAJOR_VERSION}::ConfigGui
+    TEST_NAME
+        opaqueinactivewindows_test${QT_MAJOR_VERSION}
+)

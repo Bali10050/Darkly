@@ -23,6 +23,7 @@
 #include "config-darkly.h"
 #include "darkly.h"
 #include "darklyanimationdata.h"
+#include "darklyopacity.h"
 #include "darklystyleconfigdata.h"
 
 #include "darklyshadowhelper.h"
@@ -435,8 +436,8 @@ public:
                         QIcon::Mode mode = QIcon::Normal,
                         QIcon::State state = QIcon::Off);
 
-    // MenuBar, ToolBar, TabBar background color opacity
-    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType) const;
+    // MenuBar, ToolBar, TabBar background color opacity; widget is the bar being painted
+    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType, const QWidget *widget = nullptr) const;
 
 protected:
     //* return rounded path in a given rect, with only selected corners rounded, and for a given radius

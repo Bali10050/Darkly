@@ -1958,8 +1958,14 @@ bool Helper::shouldDrawToolsArea(const QWidget *widget) const
 }
 
 //______________________________________________________________________________________
-QColor Helper::transparentBarBgColor(QColor bgColor, QPainter *painter, const QRect &rect, BarType barType) const
+QColor Helper::transparentBarBgColor(QColor bgColor, QPainter *painter, const QRect &rect, BarType barType, const QWidget *widget) const
 {
+    if (effectiveOpacity(0, widget) == 100) {
+        // inactive window with OpaqueInactiveWindows
+        bgColor.setAlphaF(1.0);
+        return bgColor;
+    }
+
     switch (barType) {
     case BarType::MenuBar: {
         if (StyleConfigData::menuBarOpacity() == 100) {
