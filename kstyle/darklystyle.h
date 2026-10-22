@@ -621,6 +621,9 @@ private:
 
     // blur is required for toolbar, menubar, tabbar if opaque
     bool _isBarsOpaque = false;
+
+    //* the window decoration keeps active titlebar colours in inactive windows
+    bool _matchInactiveTitleBar = false;
 };
 
 //_________________________________________________________________________

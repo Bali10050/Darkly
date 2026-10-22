@@ -90,6 +90,8 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabBarOpacity, SIGNAL(valueChanged(int)), _tabBarOpacitySpinBox, SLOT(setValue(int)));
     connect(_tabBarOpacitySpinBox, SIGNAL(valueChanged(int)), _tabBarOpacity, SLOT(setValue(int)));
 
+    connect(_opaqueInactiveWindows, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+
     connect(_kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
@@ -154,6 +156,7 @@ void StyleConfig::save()
     StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
     StyleConfigData::setToolBarOpacity(_toolBarOpacity->value());
     StyleConfigData::setTabBarOpacity(_tabBarOpacity->value());
+    StyleConfigData::setOpaqueInactiveWindows(_opaqueInactiveWindows->isChecked());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
     StyleConfigData::setWidgetToolBarShadow(_widgetToolBarShadow->isChecked());
@@ -267,6 +270,8 @@ void StyleConfig::updateChanged()
     } else if (_tabBarOpacity->value() != StyleConfigData::tabBarOpacity()) {
         modified = true;
         _tabBarOpacitySpinBox->setValue(_tabBarOpacity->value());
+    } else if (_opaqueInactiveWindows->isChecked() != StyleConfigData::opaqueInactiveWindows()) {
+        modified = true;
     } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
         modified = true;
     else if (_tabBarDrawCenteredTabs->isChecked() != StyleConfigData::tabBarDrawCenteredTabs())
@@ -392,6 +397,7 @@ void StyleConfig::load()
     _toolBarOpacitySpinBox->setValue(StyleConfigData::toolBarOpacity());
     _tabBarOpacity->setValue(StyleConfigData::tabBarOpacity());
     _tabBarOpacitySpinBox->setValue(StyleConfigData::tabBarOpacity());
+    _opaqueInactiveWindows->setChecked(StyleConfigData::opaqueInactiveWindows());
     _buttonHeight->setValue(StyleConfigData::buttonHeight());
     _buttonWidth->setValue(StyleConfigData::buttonWidth());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());

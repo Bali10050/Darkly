@@ -1721,6 +1721,12 @@ bool Style::eventFilter(QObject *object, QEvent *event)
                 return eventFilterDialogButtonBox(dialogButtonBox, event);
             }
         }
+        // OpaqueInactiveWindows: translucent areas follow the window's active state. Qt only
+        // repaints on (de)activation when the active and inactive palettes differ, so force it.
+        if ((event->type() == QEvent::WindowActivate || event->type() == QEvent::WindowDeactivate) && widget->isWindow()
+            && StyleConfigData::opaqueInactiveWindows() && _translucentWidgets.contains(widget)) {
+            widget->update();
+        }
         // paint background
         if (widget && event->type() == QEvent::Paint) {
             if (widget->isWindow() && !_isKonsole && widget->testAttribute(Qt::WA_StyledBackground) && widget->testAttribute(Qt::WA_TranslucentBackground)) {
@@ -1919,7 +1925,7 @@ bool Style::eventFilterScrollArea(QWidget *widget, QEvent *event)
             _helper->renderTransparentArea(&painter, rect);
 
             QColor backgroundColor = viewport->palette().color(viewport->backgroundRole());
-            backgroundColor.setAlphaF(StyleConfigData::dolphinViewOpacity() / 100.0);
+            backgroundColor.setAlphaF(effectiveOpacity(StyleConfigData::dolphinViewOpacity(), scrollArea) / 100.0);
             painter.fillRect(rect, backgroundColor);
             break;
         }
@@ -2162,7 +2168,7 @@ bool Style::eventFilterDockWidget(QDockWidget *dockWidget, QEvent *event)
 
                 // draw background
                 QColor backgroundColor = palette.color(QPalette::Window);
-                backgroundColor.setAlphaF(StyleConfigData::dolphinSidebarOpacity() / 100.0);
+                backgroundColor.setAlphaF(effectiveOpacity(StyleConfigData::dolphinSidebarOpacity(), dockWidget) / 100.0);
                 painter.setBrush(backgroundColor);
 
                 bool darkTheme = _helper->isDarkTheme(palette);
@@ -2404,6 +2410,9 @@ QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QSt
 void Style::loadConfiguration()
 {
     StyleConfigData::self()->load();
+
+    // the tools area follows the window decoration's inactive titlebar colours
+    _matchInactiveTitleBar = StyleConfigData::self()->sharedConfig()->group(QStringLiteral("Windeco")).readEntry("MatchInactiveTitleBar", false);
 
     // Migration: convert deprecated TransparentDolphinView checkbox to DolphinViewOpacity slider
     if (StyleConfigData::transparentDolphinView() && StyleConfigData::dolphinViewOpacity() == 100) {
@@ -4158,7 +4167,7 @@ bool Style::drawFramePrimitive(const QStyleOption *option, QPainter *painter, co
             if (StyleConfigData::dolphinSidebarOpacity() < 100 && _isDolphin) {
                 _helper->renderTransparentArea(painter, rect);
 
-                background.setAlphaF(StyleConfigData::dolphinSidebarOpacity() / 100.0);
+                background.setAlphaF(effectiveOpacity(StyleConfigData::dolphinSidebarOpacity(), widget) / 100.0);
             }
 
             painter->fillRect(rect, background);
@@ -4412,7 +4421,7 @@ bool Style::drawFrameTabWidgetPrimitive(const QStyleOption *option, QPainter *pa
     if (_isDolphin && StyleConfigData::dolphinViewOpacity() < 100 && widget && _translucentWidgets.contains(widget->window())) {
         _helper->renderTransparentArea(painter, option->rect);
         QColor backgroundColor = option->palette.color(QPalette::Window);
-        backgroundColor.setAlphaF(StyleConfigData::dolphinViewOpacity() / 100.0);
+        backgroundColor.setAlphaF(effectiveOpacity(StyleConfigData::dolphinViewOpacity(), widget) / 100.0);
         painter->fillRect(option->rect, backgroundColor);
         return true;
     }
@@ -4730,7 +4739,7 @@ bool Style::drawTabBarPanelButtonToolPrimitive(const QStyleOption *option, QPain
         if ((StyleConfigData::tabBarOpacity() < 100) && !_isOpaque) {
             // override the tab background color
             QColor tabBgColor = widget->palette().color(QPalette::Window);
-            tabBgColor = _helper->transparentBarBgColor(tabBgColor, painter, rect, BarType::TabBar);
+            tabBgColor = _helper->transparentBarBgColor(tabBgColor, painter, rect, BarType::TabBar, widget);
             painter->setBrush(tabBgColor);
         } else {
             painter->setBrush(color);
@@ -5739,11 +5748,12 @@ bool Style::drawMenuBarEmptyAreaControl(const QStyleOption *option, QPainter *pa
     QColor background(palette.color(QPalette::Window));
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((windowActive || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes menubar background opacity
     if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
-        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar);
+        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar, widget);
         painter->fillRect(rect, opacityBackground);
     }
 
@@ -5812,11 +5822,12 @@ bool Style::drawMenuBarItemControl(const QStyleOption *option, QPainter *painter
     QColor background(palette.color(QPalette::Window));
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((windowActive || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes menubar background opacity
     if (StyleConfigData::menuBarOpacity() < 100 && !_isOpaque) {
-        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar);
+        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::MenuBar, widget);
         painter->fillRect(rect, opacityBackground);
     }
 
@@ -6233,19 +6244,21 @@ bool Style::drawToolBarBackgroundControl(const QStyleOption *option, QPainter *p
     QColor backgroundColor = palette.color(QPalette::Window);
 
     // menubar and toolbar background should match for consistency
-    QColor opacityBackground(_toolsAreaManager->palette().color(QPalette::Window));
+    QColor opacityBackground(
+        _toolsAreaManager->palette().color((widget->isActiveWindow() || _matchInactiveTitleBar) ? QPalette::Active : QPalette::Inactive, QPalette::Window));
 
     // changes toolbar background opacity
 
     if (StyleConfigData::toolBarOpacity() < 100 && !_isOpaque) {
-        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::ToolBar);
+        opacityBackground = _helper->transparentBarBgColor(opacityBackground, painter, rect, BarType::ToolBar, widget);
         painter->fillRect(rect, opacityBackground);
     }
 
     // painter->fillRect(rect, backgroundColor);
 
     if (sideToolbarDolphin && _isDolphin) {
-        backgroundColor.setAlphaF(StyleConfigData::dolphinSidebarOpacity() / 100.0 - 0.15);
+        const int sidebarOpacity = effectiveOpacity(StyleConfigData::dolphinSidebarOpacity(), widget);
+        backgroundColor.setAlphaF(sidebarOpacity < 100 ? sidebarOpacity / 100.0 - 0.15 : 1.0);
         painter->fillRect(rect, backgroundColor);
 
         bool darkTheme(_helper->isDarkTheme(palette));
