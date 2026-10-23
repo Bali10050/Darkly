@@ -4278,10 +4278,20 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
         if (isVisible) {
             QLineEdit* dolphinLineEdit = widget->findChild<QLineEdit *>();
             if (dolphinLineEdit->isVisible()) {
-                _helper->renderLineEdit(painter, rect.adjusted(0, -2, 0, 2), background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+                _helper->renderLineEdit(painter,
+                                        rect.adjusted(0, -2, 0, 2),
+                                        palette,
+                                        background,
+                                        outline,
+                                        hasFocus,
+                                        mouseOver,
+                                        enabled,
+                                        windowActive,
+                                        mode,
+                                        opacity);
             }
         } else {
-            _helper->renderLineEdit(painter, rect, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
+            _helper->renderLineEdit(painter, rect, palette, background, outline, hasFocus, mouseOver, enabled, windowActive, mode, opacity);
         }
     }
 
@@ -6939,42 +6949,23 @@ bool Style::drawHeaderSectionControl(const QStyleOption *option, QPainter *paint
         painter->drawRect(rect);
     }
 
-    // outline
-    painter->setBrush(Qt::NoBrush);
-    painter->setPen(_helper->alphaColor(palette.color(QPalette::WindowText), 0.1));
+    // outline and separators
+    const QRectF bottomLine(rect.left(), rect.bottom(), rect.width(), 1);
+    const QRectF sideLine(reverseLayout ? rect.left() : rect.right(), rect.top(), 1, rect.height());
+    const Qt::Edges sideAnchor = reverseLayout ? Qt::Edges() : Qt::Edges(Qt::RightEdge);
 
     if (isCorner) {
-        if (reverseLayout)
-            painter->drawPoint(rect.bottomLeft());
-        else
-            painter->drawPoint(rect.bottomRight());
+        _helper->renderOutlineLine(painter, QRectF(sideLine.left(), rect.bottom(), 1, 1), palette, sideAnchor | Qt::BottomEdge);
 
     } else if (horizontal) {
-        painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+        _helper->renderOutlineLine(painter, bottomLine, palette, Qt::BottomEdge);
+
+        if (headerOption->section != 0 || isFirst)
+            _helper->renderOutlineLine(painter, sideLine, palette, sideAnchor, Qt::BottomEdge);
 
     } else {
-        if (reverseLayout)
-            painter->drawLine(rect.topLeft(), rect.bottomLeft());
-        else
-            painter->drawLine(rect.topRight(), rect.bottomRight());
-    }
-
-    // separators
-    painter->setPen(_helper->alphaColor(palette.color(QPalette::WindowText), 0.2));
-
-    if (horizontal) {
-        if (headerOption->section != 0 || isFirst) {
-            if (reverseLayout)
-                painter->drawLine(rect.topLeft(), rect.bottomLeft() - QPoint(0, 1));
-            else
-                painter->drawLine(rect.topRight(), rect.bottomRight() - QPoint(0, 1));
-        }
-
-    } else {
-        if (reverseLayout)
-            painter->drawLine(rect.bottomLeft() + QPoint(1, 0), rect.bottomRight());
-        else
-            painter->drawLine(rect.bottomLeft(), rect.bottomRight() - QPoint(1, 0));
+        _helper->renderOutlineLine(painter, sideLine, palette, sideAnchor);
+        _helper->renderOutlineLine(painter, bottomLine, palette, Qt::BottomEdge, reverseLayout ? Qt::LeftEdge : Qt::RightEdge);
     }
 
     return true;
@@ -6997,17 +6988,14 @@ bool Style::drawHeaderEmptyAreaControl(const QStyleOption *option, QPainter *pai
     painter->drawRect(rect);
 
     // outline
-    painter->setBrush(Qt::NoBrush);
-    painter->setPen(_helper->alphaColor(palette.color(QPalette::ButtonText), 0.1));
-
     if (horizontal) {
-        painter->drawLine(rect.bottomLeft(), rect.bottomRight());
+        _helper->renderOutlineLine(painter, QRectF(rect.left(), rect.bottom(), rect.width(), 1), palette, Qt::BottomEdge);
 
     } else {
-        if (reverseLayout)
-            painter->drawLine(rect.topLeft(), rect.bottomLeft());
-        else
-            painter->drawLine(rect.topRight(), rect.bottomRight());
+        _helper->renderOutlineLine(painter,
+                                   QRectF(reverseLayout ? rect.left() : rect.right(), rect.top(), 1, rect.height()),
+                                   palette,
+                                   reverseLayout ? Qt::Edges() : Qt::Edges(Qt::RightEdge));
     }
 
     return true;
@@ -7530,6 +7518,9 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
                 _helper->renderTabBarTab(painter, _isLibreoffice ? rect.adjusted(0, 0, 0, -2) : rect, _isLibreoffice ? palette.color(QPalette::Highlight) : color, corners);
             }
 
+            if (StyleConfigData::fullOutline() && _helper->isDarkTheme(palette) && !(unifiedTabAndHeader && color.alphaF() < 1))
+                _helper->topHighlight(painter, rect, corners, _helper->frameRadius(PenWidth::NoPen, -1));
+
             // highlight
             if (StyleConfigData::tabDrawHighlight()) {
                 constexpr int hh = 2; // highlight height
@@ -7569,9 +7560,13 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
             // Don't lighten the highlight color
             if (!StyleConfigData::tabUseHighlightColor()) {
                 if (StyleConfigData::documentModeTabs())
-                painter->setBrush(QColor(255, 255, 255, 20));
+                    painter->setBrush(QColor(255, 255, 255, 30));
+
                 painter->drawRoundedRect(backgroundRect, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius());
             }
+
+            if (StyleConfigData::fullOutline() && _helper->isDarkTheme(palette))
+                _helper->topHighlight(painter, backgroundRect, StyleConfigData::cornerRadius());
         }
 
         painter->setClipRegion(oldRegion);
