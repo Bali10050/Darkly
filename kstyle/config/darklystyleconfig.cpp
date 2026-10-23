@@ -62,6 +62,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_mnemonicsMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_animationsEnabled, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_lineEditFocusAnimation, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarAddLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarSubLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_windowDragMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
@@ -149,6 +150,7 @@ void StyleConfig::save()
     StyleConfigData::setAnimationsEnabled(_animationsEnabled->isChecked());
     StyleConfigData::setTabBarDrawCenteredTabs(_tabBarDrawCenteredTabs->isChecked());
     StyleConfigData::setAnimationsDuration(_animationsDuration->value());
+    StyleConfigData::setLineEditFocusAnimation(_lineEditFocusAnimation->currentIndex());
     StyleConfigData::setWindowDragMode(_windowDragMode->currentIndex());
     StyleConfigData::setMenuOpacity(_menuOpacity->value());
     StyleConfigData::setDolphinSidebarOpacity(_sidebarOpacity->value());
@@ -245,6 +247,8 @@ void StyleConfig::updateChanged()
     else if (_animationsEnabled->isChecked() != StyleConfigData::animationsEnabled())
         modified = true;
     else if (_animationsDuration->value() != StyleConfigData::animationsDuration())
+        modified = true;
+    else if (_lineEditFocusAnimation->currentIndex() != StyleConfigData::lineEditFocusAnimation())
         modified = true;
     else if (_windowDragMode->currentIndex() != StyleConfigData::windowDragMode())
         modified = true;
@@ -373,6 +377,7 @@ void StyleConfig::load()
     _scrollBarSubLineButtons->setCurrentIndex(StyleConfigData::scrollBarSubLineButtons());
     _animationsEnabled->setChecked(StyleConfigData::animationsEnabled());
     _animationsDuration->setValue(StyleConfigData::animationsDuration());
+    _lineEditFocusAnimation->setCurrentIndex(StyleConfigData::lineEditFocusAnimation());
     _windowDragMode->setCurrentIndex(StyleConfigData::windowDragMode());
     _menuOpacity->setValue(StyleConfigData::menuOpacity());
     _menuOpacitySpinBox->setValue(StyleConfigData::menuOpacity());
