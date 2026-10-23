@@ -917,6 +917,28 @@ void Helper::renderLineEdit(QPainter *painter,
                             const AnimationMode mode,
                             const qreal opacity) const
 {
+    switch (StyleConfigData::lineEditFocusAnimation()) {
+    case StyleConfigData::LFA_WIPE:
+        renderLineEditWipe(painter, rect, background, outline, hasFocus, enabled, mode, opacity);
+        break;
+
+    case StyleConfigData::LFA_FADE:
+    default:
+        renderLineEditFade(painter, rect, background, outline, hasFocus, enabled, mode, opacity);
+        break;
+    }
+}
+
+//______________________________________________________________________________
+void Helper::renderLineEditFade(QPainter *painter,
+                                const QRect &rect,
+                                const QColor &background,
+                                const QColor &outline,
+                                const bool hasFocus,
+                                const bool enabled,
+                                const AnimationMode mode,
+                                const qreal opacity) const
+{
     painter->setRenderHint(QPainter::Antialiasing);
 
     const QRect baseRect(rect.adjusted(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth));
@@ -956,6 +978,121 @@ void Helper::renderLineEdit(QPainter *painter,
         painter->setBrush(background);
     else
         painter->setBrush(Qt::NoBrush);
+
+    // render
+    painter->drawRoundedRect(frameRect, radius, radius);
+}
+
+//______________________________________________________________________________
+void Helper::renderLineEditWipeLayer(QPainter *painter,
+                                     const QRect &rect,
+                                     const QRectF &frameRect,
+                                     const QColor &outline,
+                                     const qreal radius,
+                                     const qreal progress,
+                                     const qreal layerOpacity,
+                                     const int outlineGrow) const
+{
+    // work in the pixmaps' local coordinates, at the device pixel ratio of the target
+    const qreal ratio(painter->device()->devicePixelRatioF());
+    const QSize pixmapSize((QSizeF(rect.size()) * ratio).toSize());
+    const QRect localRect(QPoint(0, 0), rect.size());
+    const QRectF localFrameRect(frameRect.translated(-rect.topLeft()));
+    const qreal wipeRadius((localFrameRect.width() + static_cast<qreal>(Metrics::Frame_FrameWidth)) * progress);
+
+    QPixmap mask(pixmapSize);
+    mask.setDevicePixelRatio(ratio);
+    mask.fill(Qt::transparent);
+
+    QPainter pmask(&mask);
+    pmask.setRenderHint(QPainter::Antialiasing);
+    pmask.fillRect(localRect, Qt::black);
+    pmask.setPen(Qt::NoPen);
+    pmask.setBrush(Qt::black);
+    pmask.setCompositionMode(QPainter::CompositionMode_SourceOut);
+    pmask.drawEllipse(QPointF(localFrameRect.x(), localFrameRect.y() + localFrameRect.height() / 2), wipeRadius, wipeRadius);
+    pmask.end();
+
+    QPixmap pixmap(pixmapSize);
+    pixmap.setDevicePixelRatio(ratio);
+    pixmap.fill(Qt::transparent);
+
+    QPainter p(&pixmap);
+    p.setOpacity(layerOpacity);
+    p.setRenderHint(QPainter::Antialiasing);
+    p.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    p.setPen(Qt::NoPen);
+    renderBoxShadow(&p, localFrameRect, 0, 1, 6, radius);
+    p.setBrush(alphaColor(outline, 0.6));
+    p.drawRoundedRect(localFrameRect.adjusted(-outlineGrow, -outlineGrow, outlineGrow, outlineGrow), radius + 1, radius + 1);
+
+    p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+    p.drawPixmap(QPoint(0, 0), mask);
+    p.end();
+
+    painter->drawPixmap(rect.topLeft(), pixmap);
+}
+
+//______________________________________________________________________________
+void Helper::renderLineEditWipe(QPainter *painter,
+                                const QRect &rect,
+                                const QColor &background,
+                                const QColor &outline,
+                                const bool hasFocus,
+                                const bool enabled,
+                                const AnimationMode mode,
+                                const qreal opacity) const
+{
+    painter->setRenderHint(QPainter::Antialiasing);
+
+    QRectF frameRect(rect.adjusted(Metrics::Frame_FrameWidth, Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth, -Metrics::Frame_FrameWidth));
+    qreal radius(frameRadius(PenWidth::NoPen, -1));
+
+    // the focused look is wiped in (or out) from the left edge by a growing circular mask
+    const bool animated(mode == AnimationFocus && opacity > 0 && opacity < 1);
+
+    painter->setPen(Qt::NoPen);
+    if (enabled) {
+        if (hasFocus) {
+            frameRect.adjust(1, 1, -1, -1);
+
+            if (animated) {
+                renderLineEditWipeLayer(painter, rect, frameRect, outline, radius, opacity, 0.3 + 0.7 * opacity, 2);
+            }
+
+            // focus animation done
+            else {
+                renderBoxShadow(painter, frameRect, 0, 1, 7, radius);
+                painter->setBrush(alphaColor(outline, 0.6));
+                painter->drawRoundedRect(frameRect.adjusted(-2, -2, 2, 2), radius + 1, radius + 1);
+            }
+        }
+
+        // normal state
+        else {
+            if (animated) {
+                renderLineEditWipeLayer(painter, rect, frameRect, outline, radius, opacity, 1, 1);
+
+                // unfocused line edit shadow effect
+                renderBoxShadow(painter, frameRect, 0, 1, 5, radius);
+                renderOutline(painter, frameRect, radius, 6 * (1 - opacity));
+                painter->setPen(Qt::NoPen);
+            }
+
+            else {
+                renderBoxShadow(painter, frameRect, 0, 1, 5, radius);
+            }
+        }
+    }
+
+    // set brush
+    if (background.isValid())
+        painter->setBrush(background);
+    else
+        painter->setBrush(Qt::NoBrush);
+
+    if (hasFocus)
+        radius--;
 
     // render
     painter->drawRoundedRect(frameRect, radius, radius);

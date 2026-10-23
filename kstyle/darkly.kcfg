@@ -108,6 +108,15 @@
       <default>250</default>
     </entry>
 
+    <!-- line edit focus animation style -->
+    <entry name="LineEditFocusAnimation" type="Enum">
+      <choices>
+        <choice name="LFA_FADE" />
+        <choice name="LFA_WIPE" />
+      </choices>
+      <default>LFA_FADE</default>
+    </entry>
+
     <!-- transition flags -->
     <entry name="StackedWidgetTransitionsEnabled" type="Bool">
       <default>false</default>
@@ -187,6 +196,7 @@
     <entry name="TabBarAltStyle" type="Bool">
       <default>false</default>
     </entry>
+
     <entry name="DocumentModeTabs" type="Bool">
       <default>false</default>
     </entry>

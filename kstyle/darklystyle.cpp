@@ -4254,7 +4254,11 @@ bool Style::drawFrameLineEditPrimitive(const QStyleOption *option, QPainter *pai
         const bool enabled(state & State_Enabled);
         const bool hasFocus(enabled && (state & State_HasFocus));
 
-        _animations->inputWidgetEngine().updateState(widget, AnimationFocus, hasFocus);
+        // the wipe animation runs at a longer duration than the fade
+        const AnimationParameters focusParameters(StyleConfigData::lineEditFocusAnimation() == StyleConfigData::LFA_WIPE ? AnimationLongDuration
+                                                                                                                         : AnimationDefaut);
+
+        _animations->inputWidgetEngine().updateState(widget, AnimationFocus, hasFocus, focusParameters);
 
         // retrieve animation mode and opacity
         AnimationMode mode(_animations->inputWidgetEngine().frameAnimationMode(widget));

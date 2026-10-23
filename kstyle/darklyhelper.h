@@ -434,6 +434,34 @@ protected:
     //* return rounded path in a given rect, with only selected corners rounded, and for a given radius
     QPainterPath roundedPath(const QRectF &, Corners, qreal) const;
 
+    //* line edit, one renderer per focus animation style
+    void renderLineEditFade(QPainter *,
+                            const QRect &,
+                            const QColor &background,
+                            const QColor &outline,
+                            const bool hasFocus,
+                            const bool enabled,
+                            const AnimationMode mode,
+                            const qreal opacity) const;
+
+    void renderLineEditWipe(QPainter *,
+                            const QRect &,
+                            const QColor &background,
+                            const QColor &outline,
+                            const bool hasFocus,
+                            const bool enabled,
+                            const AnimationMode mode,
+                            const qreal opacity) const;
+
+    void renderLineEditWipeLayer(QPainter *,
+                                 const QRect &rect,
+                                 const QRectF &frameRect,
+                                 const QColor &outline,
+                                 const qreal radius,
+                                 const qreal progress,
+                                 const qreal layerOpacity,
+                                 const int outlineGrow) const;
+
 private:
     //* configuration
     KSharedConfig::Ptr _config;
