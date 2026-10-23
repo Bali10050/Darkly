@@ -679,34 +679,132 @@ void Helper::renderEllipseShadow(QPainter *painter,
 }
 
 //______________________________________________________________________________
-void Helper::topHighlight(QPainter *painter, const QRectF &rect, const int radius, const QColor &color) const
+void Helper::topHighlight(QPainter *painter, const QRectF &rect, const qreal radius, const QColor &color) const
 {
-    if (!StyleConfigData::noOutline())
+    topHighlight(painter, rect, AllCorners, radius, color);
+}
+
+namespace
+{
+// grid for snapping outline geometry to whole device pixels. this lets thin lines
+// maintain consistent thickness and brightness at fractional scale factors
+struct DevicePixelGrid {
+    QTransform toDevice;
+    QTransform toLogical;
+    qreal scale = 1;
+    int thickness = 1;
+    qreal alphaFactor = 1;
+
+    explicit DevicePixelGrid(const QPainter *painter)
     {
-    QPixmap pixmap = QPixmap(rect.width(), rect.height());
-    pixmap.fill(Qt::transparent);
-    QPainter p(&pixmap);
+        const QTransform transform = painter->deviceTransform();
+        if (transform.type() <= QTransform::TxScale && transform.m11() > 0 && transform.m22() > 0 && transform.isInvertible()) {
+            toDevice = transform;
+            toLogical = transform.inverted();
+            scale = transform.m11();
+        }
 
-    p.setRenderHint(QPainter::Antialiasing);
+        thickness = qMax(1, qRound(scale));
+        alphaFactor = scale / thickness;
+    }
 
-    p.setPen(Qt::NoPen);
-    p.setBrush(color);
-    p.drawRoundedRect(QRect(0, 0, rect.width(), rect.height()), radius, radius);
-
-    p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    p.setBrush(Qt::black);
-
-    if (StyleConfigData::fullOutline())
+    QColor adjusted(QColor color) const
     {
-    p.drawRoundedRect(QRect(1, 1, rect.width() - 2, rect.height() - 2), radius, radius);
-    painter->drawPixmap(QRect(rect.x(), rect.y(), rect.width(), rect.height()), pixmap);
+        color.setAlphaF(qMin(1.0, color.alphaF() * alphaFactor));
+        return color;
     }
-    else
-    {
-    p.drawRoundedRect(QRect(0, 1, rect.width(), rect.height()), radius, radius);
-    painter->drawPixmap(QRect(rect.x(), rect.y(), rect.width(), rect.height()), pixmap);
+};
+}
+
+//______________________________________________________________________________
+void Helper::topHighlight(QPainter *painter, const QRectF &rect, Corners corners, const qreal radius, const QColor &color) const
+{
+    if (StyleConfigData::noOutline())
+        return;
+
+    const DevicePixelGrid grid(painter);
+
+    // snap the outer edges to device pixels
+    const QRectF deviceRect = grid.toDevice.mapRect(rect);
+    const QRectF outerRect(QPointF(qRound(deviceRect.left()), qRound(deviceRect.top())), QPointF(qRound(deviceRect.right()), qRound(deviceRect.bottom())));
+
+    if (outerRect.isEmpty())
+        return;
+
+    const qreal deviceRadius = radius * grid.scale;
+    const qreal t = grid.thickness;
+
+    QPainterPath path = roundedPath(outerRect, corners, deviceRadius);
+
+    if (StyleConfigData::fullOutline()) {
+        const QRectF innerRect = outerRect.adjusted(t, t, -t, -t);
+        if (innerRect.width() > 0 && innerRect.height() > 0)
+            path.addPath(roundedPath(innerRect, corners, qMax(deviceRadius - t, 0.0)));
+
+        path.setFillRule(Qt::OddEvenFill);
+    } else {
+        path = path.subtracted(roundedPath(outerRect.translated(0, t), corners, deviceRadius));
     }
+
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing, true);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(grid.adjusted(color));
+    painter->drawPath(grid.toLogical.map(path));
+    painter->restore();
+}
+
+//______________________________________________________________________________
+void Helper::renderOutlineLine(QPainter *painter, const QRectF &rect, const QPalette &palette, Qt::Edges anchoredEdges, Qt::Edges trimmedEdges) const
+{
+    if (rect.isEmpty())
+        return;
+
+    const DevicePixelGrid grid(painter);
+    const QColor color = grid.adjusted(isDarkTheme(palette) ? QColor(255, 255, 255, 30) : QColor(0, 0, 0, 30));
+
+    // snap to device pixels. dimensions of one logical pixel become exactly `thickness` device pixels,
+    // growing inward from the anchored edge so that the line stays within its own item
+    const QRectF deviceRect = grid.toDevice.mapRect(rect);
+    qreal x0 = qRound(deviceRect.left());
+    qreal y0 = qRound(deviceRect.top());
+    qreal x1 = qRound(deviceRect.right());
+    qreal y1 = qRound(deviceRect.bottom());
+
+    if (rect.width() <= 1) {
+        if (anchoredEdges & Qt::RightEdge)
+            x0 = x1 - grid.thickness;
+        else
+            x1 = x0 + grid.thickness;
     }
+
+    if (rect.height() <= 1) {
+        if (anchoredEdges & Qt::BottomEdge)
+            y0 = y1 - grid.thickness;
+        else
+            y1 = y0 + grid.thickness;
+    }
+
+    if (trimmedEdges & Qt::LeftEdge)
+        x0 += grid.thickness;
+    if (trimmedEdges & Qt::RightEdge)
+        x1 -= grid.thickness;
+    if (trimmedEdges & Qt::TopEdge)
+        y0 += grid.thickness;
+    if (trimmedEdges & Qt::BottomEdge)
+        y1 -= grid.thickness;
+
+    if (x1 <= x0 || y1 <= y0)
+        return;
+
+    const QRectF snapped(QPointF(x0, y0), QPointF(qMax(x1, x0 + 1), qMax(y1, y0 + 1)));
+
+    painter->save();
+    painter->setRenderHint(QPainter::Antialiasing, false);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(color);
+    painter->drawRect(grid.toLogical.mapRect(snapped));
+    painter->restore();
 }
 
 //______________________________________________________________________________
@@ -758,7 +856,7 @@ void Helper::renderButtonFrame(QPainter *painter,
     painter->drawRoundedRect(frameRect, radius, radius);
 
     if (isDarkTheme(palette) && enabled)
-        topHighlight(painter, frameRect, StyleConfigData::cornerRadius());
+        topHighlight(painter, frameRect, radius);
 
     // pressed animation
     if (mode == AnimationPressed) {
@@ -912,6 +1010,7 @@ void Helper::renderSeparator(QPainter *painter, const QRect &rect, const QColor 
 //______________________________________________________________________________
 void Helper::renderLineEdit(QPainter *painter,
                             const QRect &rect,
+                            const QPalette &palette,
                             const QColor &background,
                             const QColor &outline,
                             const bool hasFocus,
@@ -1049,6 +1148,9 @@ void Helper::renderLineEdit(QPainter *painter,
 
     // render
     painter->drawRoundedRect(frameRect, radius, radius);
+
+    if (enabled && StyleConfigData::fullOutline() && isDarkTheme(palette))
+        topHighlight(painter, frameRect, radius);
 }
 
 //______________________________________________________________________________

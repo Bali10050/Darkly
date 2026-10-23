@@ -248,7 +248,9 @@ public:
                              const int outlineStrength = 0) const;
 
     //* top outline highlight in dark themes
-    void topHighlight(QPainter *, const QRectF &, const int radius, const QColor &color = QColor(255, 255, 255, 20)) const;
+    void topHighlight(QPainter *, const QRectF &, const qreal radius, const QColor &color = QColor(255, 255, 255, 30)) const;
+    void topHighlight(QPainter *, const QRectF &, Corners, const qreal radius, const QColor &color = QColor(255, 255, 255, 30)) const;
+    void renderOutlineLine(QPainter *, const QRectF &, const QPalette &, Qt::Edges anchoredEdges = Qt::Edges(), Qt::Edges trimmedEdges = Qt::Edges()) const;
 
     //* button frame
     void renderButtonFrame(QPainter *,
@@ -281,6 +283,7 @@ public:
     //* line edit
     void renderLineEdit(QPainter *,
                         const QRect &,
+                        const QPalette &,
                         const QColor &background,
                         const QColor &outline,
                         const bool hasFocus,
