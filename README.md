@@ -22,6 +22,11 @@ Other than that we maintain a style for **Plasma window decorations** and a **co
 Most changes are optional, if you don't like them, you can turn them off in the settings.
 
 ***
+## New reddit community
+
+https://www.reddit.com/r/darklyStyle/
+
+***
 
 ### GTK style
 
