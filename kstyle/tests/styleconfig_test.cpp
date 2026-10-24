@@ -33,6 +33,7 @@ private Q_SLOTS:
     void testSliderSpinBoxSync();
     void testOpacityAlphaConversion();
     void testTransparencyConditionCheck();
+    void testLineEditFocusAnimation();
 };
 
 void StyleConfigTest::initTestCase()
@@ -169,6 +170,18 @@ void StyleConfigTest::testTransparencyConditionCheck()
     // Back to 100 should not be transparent
     Darkly::StyleConfigData::setDolphinViewOpacity(100);
     QVERIFY(!isTransparent());
+}
+
+void StyleConfigTest::testLineEditFocusAnimation()
+{
+    // Fade is the default, wipe is available as an option
+    QCOMPARE(Darkly::StyleConfigData::lineEditFocusAnimation(), int(Darkly::StyleConfigData::LFA_FADE));
+
+    Darkly::StyleConfigData::setLineEditFocusAnimation(Darkly::StyleConfigData::LFA_WIPE);
+    QCOMPARE(Darkly::StyleConfigData::lineEditFocusAnimation(), int(Darkly::StyleConfigData::LFA_WIPE));
+
+    Darkly::StyleConfigData::setLineEditFocusAnimation(Darkly::StyleConfigData::LFA_FADE);
+    QCOMPARE(Darkly::StyleConfigData::lineEditFocusAnimation(), int(Darkly::StyleConfigData::LFA_FADE));
 }
 
 QTEST_MAIN(StyleConfigTest)
