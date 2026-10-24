@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>670</width>
-    <height>553</height>
+    <height>588</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -999,20 +999,39 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="_fullOutline">
+          <widget class="QRadioButton" name="_topHighlight">
            <property name="text">
-            <string>Full outline</string>
+            <string>Highlight on top</string>
            </property>
-           <property name="toolTip">
-            <string>Draw a light outline around buttons, inputs, and the selected tab</string>
+           <property name="checked">
+            <bool>true</bool>
            </property>
+           <attribute name="buttonGroup">
+            <string notr="true">buttonGroup</string>
+           </attribute>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="_noOutline">
+          <widget class="QRadioButton" name="_fullOutline">
+           <property name="toolTip">
+            <string>Draw a light outline around buttons, inputs, and the selected tab</string>
+           </property>
+           <property name="text">
+            <string>Full outline</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">buttonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="_noOutline">
            <property name="text">
             <string>No outline</string>
            </property>
+           <attribute name="buttonGroup">
+            <string notr="true">buttonGroup</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -1887,12 +1906,32 @@
    <signal>toggled(bool)</signal>
    <receiver>_lineEditFocusAnimationLabel</receiver>
    <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
   </connection>
   <connection>
    <sender>_animationsEnabled</sender>
    <signal>toggled(bool)</signal>
    <receiver>_lineEditFocusAnimation</receiver>
    <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>20</x>
+     <y>20</y>
+    </hint>
+   </hints>
   </connection>
   <connection>
    <sender>_animationsEnabled</sender>
@@ -1911,4 +1950,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>
