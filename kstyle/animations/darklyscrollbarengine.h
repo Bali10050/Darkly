@@ -105,19 +105,6 @@ public:
     }
 
     //@}
-
-    //* transient update
-    void transientUpdate(const QObject *object);
-
-    //* transient opacity
-    qreal transientOpacity(const QObject *object);
-
-    //* set need pre-expand
-    void setNeedPreExpand(QWidget *widget, bool near);
-
-    //* is need pre-expand
-    bool isNeedPreExpand(const QObject *object);
-
 };
 
 }
