@@ -28,6 +28,9 @@
 #include <QDBusMessage>
 #include <QFontMetrics>
 #include <QLabel>
+#include <QProcess>
+#include <QStandardPaths>
+#include <QVersionNumber>
 #include <KLocalizedString>
 
 extern "C" {
@@ -45,6 +48,28 @@ StyleConfig::StyleConfig(QWidget *parent)
     : QWidget(parent)
 {
     setupUi(this);
+
+    // Hide translucent Dolphin selection option if running on Dolphin older than 26.08
+    bool showDolphinSelectionOption = false;
+    const QString dolphinPath = QStandardPaths::findExecutable(QStringLiteral("dolphin"));
+    if (!dolphinPath.isEmpty()) {
+        QProcess process;
+        process.start(dolphinPath, {QStringLiteral("--version")});
+        if (process.waitForFinished(1000)) {
+            const QString output = QString::fromUtf8(process.readAllStandardOutput());
+            const QStringList tokens = output.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+            for (const QString &token : tokens) {
+                const QVersionNumber ver = QVersionNumber::fromString(token.trimmed());
+                if (!ver.isNull()) {
+                    if (ver >= QVersionNumber(26, 8, 0)) {
+                        showDolphinSelectionOption = true;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    _newDolphinSelectionStyle->setVisible(showDolphinSelectionOption);
 
     // load setup from configData
     load();
@@ -111,6 +136,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabUseHighlightColor, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabUseBrighterCloseIcon, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_disableDolphinUrlNavigatorBackground, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_newDolphinSelectionStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabsHeight, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
 
     connect(_buttonHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
@@ -173,6 +199,7 @@ void StyleConfig::save()
     StyleConfigData::setTabUseHighlightColor(_tabUseHighlightColor->isChecked());
     StyleConfigData::setTabUseBrighterCloseIcon(_tabUseBrighterCloseIcon->isChecked());
     StyleConfigData::setDisableDolphinUrlNavigatorBackground(_disableDolphinUrlNavigatorBackground->isChecked());
+    StyleConfigData::setNewDolphinSelectionStyle(_newDolphinSelectionStyle->isChecked());
     StyleConfigData::setTabsHeight(_tabsHeight->value());
     StyleConfigData::setButtonHeight(_buttonHeight->value());
     StyleConfigData::setButtonWidth(_buttonWidth->value());
@@ -305,6 +332,8 @@ void StyleConfig::updateChanged()
     else if (_tabUseBrighterCloseIcon->isChecked() != StyleConfigData::tabUseBrighterCloseIcon())
         modified = true;
     else if (_disableDolphinUrlNavigatorBackground->isChecked() != StyleConfigData::disableDolphinUrlNavigatorBackground())
+        modified = true;
+    else if (_newDolphinSelectionStyle->isChecked() != StyleConfigData::newDolphinSelectionStyle())
         modified = true;
     else if (_tabsHeight->value() != StyleConfigData::tabsHeight())
         modified = true;
@@ -457,6 +486,7 @@ void StyleConfig::load()
     _tabUseHighlightColor->setChecked(StyleConfigData::tabUseHighlightColor());
     _tabUseBrighterCloseIcon->setChecked(StyleConfigData::tabUseBrighterCloseIcon());
     _disableDolphinUrlNavigatorBackground->setChecked(StyleConfigData::disableDolphinUrlNavigatorBackground());
+    _newDolphinSelectionStyle->setChecked(StyleConfigData::newDolphinSelectionStyle());
     _versionNumber->setText(DARKLY_VERSION_STRING);
     _tabsHeight->setValue(StyleConfigData::tabsHeight());
 }

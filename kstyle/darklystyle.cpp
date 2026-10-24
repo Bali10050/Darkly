@@ -226,6 +226,34 @@ Style::~Style()
     delete _helper;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+namespace {
+template<typename Tag, typename Tag::type M>
+struct Rob {
+    friend typename Tag::type get(Tag) { return M; }
+};
+
+struct QStyle_setName {
+    typedef void (QStyle::*type)(const QString &);
+    friend type get(QStyle_setName);
+};
+
+template struct Rob<QStyle_setName, &QStyle::setName>;
+}
+#endif
+
+void Style::updateDolphinSelectionStyle()
+{
+    const QString name = (_isDolphin && StyleConfigData::newDolphinSelectionStyle())
+        ? QStringLiteral("breeze")
+        : QStringLiteral("darkly");
+    setObjectName(name);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    auto setNameFunc = get(QStyle_setName());
+    (this->*setNameFunc)(name);
+#endif
+}
+
 //______________________________________________________________
 void Style::polish(QApplication *app)
 {
@@ -244,6 +272,8 @@ void Style::polish(QApplication *app)
     else if (appName == "plasma" || appName.startsWith("plasma-") || appName == "plasmashell" // Plasma5
              || appName == "kded4") // this is for the infamous appmenu
         _isPlasma = true;
+
+    updateDolphinSelectionStyle();
 
     if (StyleConfigData::opaqueApps().contains(appName, Qt::CaseInsensitive) || StyleConfigData::forceOpaque().contains(appName, Qt::CaseInsensitive))
         _isOpaque = true;
@@ -669,6 +699,11 @@ void Style::polishScrollArea(QAbstractScrollArea *scrollArea)
     if (scrollArea->viewport() && scrollArea->inherits("KItemListContainer") && scrollArea->frameShape() == QFrame::NoFrame) {
         scrollArea->viewport()->setBackgroundRole(QPalette::Window);
         scrollArea->viewport()->setForegroundRole(QPalette::WindowText);
+    }
+
+    if (scrollArea->inherits("KItemListContainer")) {
+        _isDolphin = true;
+        updateDolphinSelectionStyle();
     }
 
     // Dolphin main view transparency
@@ -2410,6 +2445,8 @@ QIcon Style::standardIconImplementation(StandardPixmap standardPixmap, const QSt
 void Style::loadConfiguration()
 {
     StyleConfigData::self()->load();
+
+    updateDolphinSelectionStyle();
 
     // the tools area follows the window decoration's inactive titlebar colours
     _matchInactiveTitleBar = StyleConfigData::self()->sharedConfig()->group(QStringLiteral("Windeco")).readEntry("MatchInactiveTitleBar", false);

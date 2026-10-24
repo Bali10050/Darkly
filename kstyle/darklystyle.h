@@ -531,6 +531,8 @@ private:
 
     qreal scrollBarTransientAnimationOpacity(const QStyleOption *option, const QWidget *widget) const;
 
+    void updateDolphinSelectionStyle();
+
     //*@name scrollbar button types (for addLine and subLine )
     //@{
     ScrollBarButtonType _addLineButtons = SingleButton;
