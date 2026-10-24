@@ -529,6 +529,8 @@ private:
     //* get widget parent
     QWidget *getParent(const QWidget *widget, int level) const;
 
+    void updateDolphinSelectionStyle();
+
     //*@name scrollbar button types (for addLine and subLine )
     //@{
     ScrollBarButtonType _addLineButtons = SingleButton;
