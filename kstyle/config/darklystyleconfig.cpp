@@ -87,6 +87,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_mnemonicsMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_animationsEnabled, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_lineEditFocusAnimation, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarAddLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarSubLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_windowDragMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
@@ -148,12 +149,6 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_documentModeTabs, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_fullOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_noOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
-    connect(_scrollBarTransient, &QAbstractButton::toggled, this, [this](bool checked) {
-        _scrollBarTransientAlwaysShowSlim->setEnabled(checked);
-        StyleConfig::updateChanged();
-    });
-    connect(_scrollBarTransientAlwaysShowSlim, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
-
 }
 
 //__________________________________________________________________
@@ -175,6 +170,7 @@ void StyleConfig::save()
     StyleConfigData::setAnimationsEnabled(_animationsEnabled->isChecked());
     StyleConfigData::setTabBarDrawCenteredTabs(_tabBarDrawCenteredTabs->isChecked());
     StyleConfigData::setAnimationsDuration(_animationsDuration->value());
+    StyleConfigData::setLineEditFocusAnimation(_lineEditFocusAnimation->currentIndex());
     StyleConfigData::setWindowDragMode(_windowDragMode->currentIndex());
     StyleConfigData::setMenuOpacity(_menuOpacity->value());
     StyleConfigData::setDolphinSidebarOpacity(_sidebarOpacity->value());
@@ -210,8 +206,6 @@ void StyleConfig::save()
     StyleConfigData::setDocumentModeTabs(_documentModeTabs->isChecked());
     StyleConfigData::setFullOutline(_fullOutline->isChecked());
     StyleConfigData::setNoOutline(_noOutline->isChecked());
-    StyleConfigData::setScrollBarTransient(_scrollBarTransient->isChecked());
-    StyleConfigData::setScrollBarTransientAlwaysShowSlim(_scrollBarTransientAlwaysShowSlim->isChecked());
 
     StyleConfigData::self()->save();
 
@@ -272,6 +266,8 @@ void StyleConfig::updateChanged()
     else if (_animationsEnabled->isChecked() != StyleConfigData::animationsEnabled())
         modified = true;
     else if (_animationsDuration->value() != StyleConfigData::animationsDuration())
+        modified = true;
+    else if (_lineEditFocusAnimation->currentIndex() != StyleConfigData::lineEditFocusAnimation())
         modified = true;
     else if (_windowDragMode->currentIndex() != StyleConfigData::windowDragMode())
         modified = true;
@@ -351,10 +347,6 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_noOutline->isChecked() != StyleConfigData::noOutline())
         modified = true;
-    else if (_scrollBarTransient->isChecked() != StyleConfigData::scrollBarTransient())
-        modified = true;
-    else if (_scrollBarTransientAlwaysShowSlim->isChecked() != StyleConfigData::scrollBarTransientAlwaysShowSlim())
-        modified = true;
 
 
     if (_shadowSize->currentIndex() == 0) {
@@ -402,6 +394,7 @@ void StyleConfig::load()
     _scrollBarSubLineButtons->setCurrentIndex(StyleConfigData::scrollBarSubLineButtons());
     _animationsEnabled->setChecked(StyleConfigData::animationsEnabled());
     _animationsDuration->setValue(StyleConfigData::animationsDuration());
+    _lineEditFocusAnimation->setCurrentIndex(StyleConfigData::lineEditFocusAnimation());
     _windowDragMode->setCurrentIndex(StyleConfigData::windowDragMode());
     _menuOpacity->setValue(StyleConfigData::menuOpacity());
     _menuOpacitySpinBox->setValue(StyleConfigData::menuOpacity());
@@ -439,8 +432,6 @@ void StyleConfig::load()
     _documentModeTabs->setChecked(StyleConfigData::documentModeTabs());
     _fullOutline->setChecked(StyleConfigData::fullOutline());
     _noOutline->setChecked(StyleConfigData::noOutline());
-    _scrollBarTransient->setChecked(StyleConfigData::scrollBarTransient());
-    _scrollBarTransientAlwaysShowSlim->setChecked(StyleConfigData::scrollBarTransientAlwaysShowSlim());
 
     if (!_widgetDrawShadow->isChecked()) {
         _widgetToolBarShadow->setEnabled(false);
