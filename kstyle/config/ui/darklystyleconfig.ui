@@ -996,6 +996,9 @@
            <property name="text">
             <string>Full outline</string>
            </property>
+           <property name="toolTip">
+            <string>Draw a light outline around buttons, inputs, and the selected tab</string>
+           </property>
           </widget>
          </item>
          <item>
