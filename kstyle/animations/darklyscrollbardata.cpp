@@ -22,34 +22,11 @@
 #include <QHoverEvent>
 #include <QScrollBar>
 #include <QStyleOptionSlider>
-#include <QTimer>
 
 Q_GUI_EXPORT QStyleOptionSlider qt_qscrollbarStyleOption(QScrollBar *);
 
 namespace Darkly
 {
-
-static const int s_transientTimerInterval = 2000;
-
-inline static QList<QScrollBar *> scrollAreaScrollBars(QObject *target)
-{
-    QList<QScrollBar *> scrollBars;
-    auto scrollBarContainer = target->parent();
-    QAbstractScrollArea *scrollArea = nullptr;
-    if (scrollBarContainer) {
-        scrollArea = qobject_cast<QAbstractScrollArea *>(scrollBarContainer->parent());
-    }
-    if (scrollArea) {
-        if (scrollArea->verticalScrollBarPolicy() != Qt::ScrollBarAlwaysOff && scrollArea->verticalScrollBar()) {
-            scrollBars << scrollArea->verticalScrollBar();
-        }
-        if (scrollArea->horizontalScrollBarPolicy() != Qt::ScrollBarAlwaysOff && scrollArea->horizontalScrollBar()) {
-            scrollBars << scrollArea->horizontalScrollBar();
-        }
-    }
-    return scrollBars;
-}
-
 
 //______________________________________________
 ScrollBarData::ScrollBarData(QObject *parent, QWidget *target, int duration)
@@ -61,10 +38,6 @@ ScrollBarData::ScrollBarData(QObject *parent, QWidget *target, int duration)
     _addLineData._animation = new Animation(duration, this);
     _subLineData._animation = new Animation(duration, this);
     _grooveData._animation = new Animation(duration, this);
-    _transientAnimationShowDuration = duration;
-    _transientAnimationHideDuration = 1000;
-    _transientAnimation = new Animation(duration, this);
-
 
     connect(addLineAnimation().data(), &QAbstractAnimation::finished, this, &ScrollBarData::clearAddLineRect);
     connect(subLineAnimation().data(), &QAbstractAnimation::finished, this, &ScrollBarData::clearSubLineRect);
@@ -73,53 +46,6 @@ ScrollBarData::ScrollBarData(QObject *parent, QWidget *target, int duration)
     setupAnimation(addLineAnimation(), "addLineOpacity");
     setupAnimation(subLineAnimation(), "subLineOpacity");
     setupAnimation(grooveAnimation(), "grooveOpacity");
-    setupAnimation(_transientAnimation, "transientOpacity");
-
-    _transientTimer = new QTimer(this);
-    _transientTimer->setSingleShot(true);
-    _transientTimer->setInterval(duration + s_transientTimerInterval);
-    connect(_transientTimer, &QTimer::timeout, this, [this]() {
-        const auto scrollBars = scrollAreaScrollBars(this->target());
-
-        // Don't hide scrollbar, if at least of one is active
-        for (auto &scrollBar : scrollBars) {
-            QStyleOptionSlider opt(qt_qscrollbarStyleOption(scrollBar));
-            if (opt.state & QStyle::State_MouseOver) {
-                _transientTimer->start();
-                return;
-            }
-        }
-
-        _transientAnimation->setDirection(Animation::Backward);
-        if (!_transientAnimation->isRunning()) {
-            _transientAnimation->setDuration(_transientAnimationHideDuration);
-            _transientAnimation->start();
-        }
-    });
-
-    const auto scrollBars = scrollAreaScrollBars(target);
-    for (auto &scrollBar : scrollBars) {
-        connect(scrollBar, &QScrollBar::actionTriggered, this, [this]() {
-            transientUpdate();
-        });
-    }
-}
-
-//______________________________________________
-inline static void updateScrollBarGeometry(QObject *object)
-{
-    auto scrollBar = qobject_cast<QScrollBar *>(object);
-    if (!scrollBar) {
-        return;
-    }
-
-    QStyleOptionSlider opt(qt_qscrollbarStyleOption(scrollBar));
-    if (!scrollBar->style()->styleHint(QStyle::SH_ScrollBar_Transient, &opt, scrollBar)) {
-        return;
-    }
-
-    scrollBar->updateGeometry();
-
 }
 
 //______________________________________________
@@ -132,7 +58,6 @@ bool ScrollBarData::eventFilter(QObject *object, QEvent *event)
     // check event type
     switch (event->type()) {
     case QEvent::HoverEnter:
-        updateScrollBarGeometry(object);
         setGrooveHovered(true);
         grooveAnimation().data()->setDirection(Animation::Forward);
         if (!grooveAnimation().data()->isRunning())
@@ -144,7 +69,6 @@ bool ScrollBarData::eventFilter(QObject *object, QEvent *event)
         break;
 
     case QEvent::HoverLeave:
-        updateScrollBarGeometry(object);
         setGrooveHovered(false);
         grooveAnimation().data()->setDirection(Animation::Backward);
         if (!grooveAnimation().data()->isRunning())
@@ -195,37 +119,6 @@ qreal ScrollBarData::opacity(QStyle::SubControl subcontrol) const
     case QStyle::SC_ScrollBarGroove:
         return grooveOpacity();
     }
-}
-//______________________________________________
-void ScrollBarData::setDuration(int duration)
-{
-    WidgetStateData::setDuration(duration);
-    addLineAnimation().data()->setDuration(duration);
-    subLineAnimation().data()->setDuration(duration);
-    grooveAnimation().data()->setDuration(duration);
-    _transientAnimation->setDuration(duration);
-    _transientTimer->setInterval(duration + s_transientTimerInterval);
-}
-
-//______________________________________________
-void ScrollBarData::transientUpdate()
-{
-    auto scrollBar = static_cast<QScrollBar *>(target().data());
-    if (!scrollBar) {
-        return;
-    }
-
-    QStyleOptionSlider opt(qt_qscrollbarStyleOption(scrollBar));
-    if (!scrollBar->style()->styleHint(QStyle::SH_ScrollBar_Transient, &opt, scrollBar)) {
-        return;
-    }
-
-    _transientAnimation->setDirection(Animation::Forward);
-    if (!_transientAnimation->isRunning() && !_transientTimer->isActive()) {
-        _transientAnimation->setDuration(_transientAnimationShowDuration);
-        _transientAnimation->start();
-    }
-    _transientTimer->start();
 }
 
 //______________________________________________

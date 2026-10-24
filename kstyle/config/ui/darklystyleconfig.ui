@@ -764,13 +764,6 @@
        <property name="spacing">
         <number>13</number>
        </property>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="_scrollBarTransient">
-         <property name="text">
-          <string>Transient scrollbar</string>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <property name="leftMargin">
@@ -857,7 +850,7 @@
          </property>
         </spacer>
        </item>
-       <item row="4" column="0">
+       <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_15">
          <item>
           <widget class="QLabel" name="_animationsDurationLabel">
@@ -911,13 +904,6 @@
           </spacer>
          </item>
         </layout>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="_scrollBarTransientAlwaysShowSlim">
-         <property name="text">
-          <string>Always show slim</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

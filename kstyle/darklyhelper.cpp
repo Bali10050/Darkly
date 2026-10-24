@@ -1640,7 +1640,7 @@ void Helper::renderProgressBarBusyContents(QPainter *painter,
 }
 
 //______________________________________________________________________________
-void Helper::renderScrollBarHandle(QPainter *painter, const QRectF &rect, const QColor &fg, QColor bg) const
+void Helper::renderScrollBarHandle(QPainter *painter, const QRectF &rect, const QColor &color) const
 {
     // setup painter
     painter->setRenderHint(QPainter::Antialiasing, true);
@@ -1649,14 +1649,11 @@ void Helper::renderScrollBarHandle(QPainter *painter, const QRectF &rect, const 
     const qreal radius(0.5 * std::min({baseRect.width(), baseRect.height()}));
 
     // content
-    painter->setPen(Qt::NoPen);
-    if (bg.isValid()) {
-        painter->setBrush(KColorUtils::overlayColors(bg, alphaColor(fg, 0.5)));
-    } else {
-        painter->setBrush(fg);
+    if (color.isValid()) {
+        painter->setPen(Qt::NoPen);
+        painter->setBrush(color);
+        painter->drawRoundedRect(baseRect, radius, radius);
     }
-    painter->drawRoundedRect(baseRect, radius, radius);
-
 }
 
 //______________________________________________________________________________
