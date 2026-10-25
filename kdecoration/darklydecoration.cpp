@@ -188,9 +188,11 @@ QColor Decoration::titleBarColor() const
     }
 
     if (m_internalSettings->blurTransparentTitleBar()) {
-        const int opacity = KSharedConfig::openConfig(QStringLiteral("darklyrc"))
-                                ->group(QStringLiteral("Style"))
-                                .readEntry("ToolBarOpacity", 100);
+        const KConfigGroup style = KSharedConfig::openConfig(QStringLiteral("darklyrc"))->group(QStringLiteral("Style"));
+        int opacity = style.readEntry("ToolBarOpacity", 100);
+        // the style paints the toolbar opaque in inactive windows with OpaqueInactiveWindows
+        if (!c->isActive() && style.readEntry("OpaqueInactiveWindows", false))
+            opacity = 100;
         color.setAlpha(qRound(qBound(0, opacity, 100) * 255.0 / 100));
     }
 

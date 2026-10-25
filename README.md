@@ -10,13 +10,6 @@
 
 Forked from the ***lightly*** theme, this style brings a fresh and unique look to your applications
 
-***
-
-## Help needed!
-
-If you know how the blur effect works, and you like this project, please consider helping me with this: 
-
-https://invent.kde.org/plasma/kwin/-/merge_requests/9032
 
 ***
 
@@ -27,6 +20,11 @@ The main goal is to provide a style for **Qt applications**.
 Other than that we maintain a style for **Plasma window decorations** and a **color scheme**.
 
 Most changes are optional, if you don't like them, you can turn them off in the settings.
+
+***
+## New reddit community
+
+https://www.reddit.com/r/darklyStyle/
 
 ***
 

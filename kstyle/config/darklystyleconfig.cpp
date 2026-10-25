@@ -28,6 +28,9 @@
 #include <QDBusMessage>
 #include <QFontMetrics>
 #include <QLabel>
+#include <QProcess>
+#include <QStandardPaths>
+#include <QVersionNumber>
 #include <KLocalizedString>
 
 extern "C" {
@@ -46,6 +49,28 @@ StyleConfig::StyleConfig(QWidget *parent)
 {
     setupUi(this);
 
+    // Hide translucent Dolphin selection option if running on Dolphin older than 26.08
+    bool showDolphinSelectionOption = false;
+    const QString dolphinPath = QStandardPaths::findExecutable(QStringLiteral("dolphin"));
+    if (!dolphinPath.isEmpty()) {
+        QProcess process;
+        process.start(dolphinPath, {QStringLiteral("--version")});
+        if (process.waitForFinished(1000)) {
+            const QString output = QString::fromUtf8(process.readAllStandardOutput());
+            const QStringList tokens = output.split(QLatin1Char(' '), Qt::SkipEmptyParts);
+            for (const QString &token : tokens) {
+                const QVersionNumber ver = QVersionNumber::fromString(token.trimmed());
+                if (!ver.isNull()) {
+                    if (ver >= QVersionNumber(26, 8, 0)) {
+                        showDolphinSelectionOption = true;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    _newDolphinSelectionStyle->setVisible(showDolphinSelectionOption);
+
     // load setup from configData
     load();
 
@@ -62,6 +87,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_mnemonicsMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_animationsEnabled, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_animationsDuration, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
+    connect(_lineEditFocusAnimation, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarAddLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_scrollBarSubLineButtons, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
     connect(_windowDragMode, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
@@ -90,6 +116,8 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabBarOpacity, SIGNAL(valueChanged(int)), _tabBarOpacitySpinBox, SLOT(setValue(int)));
     connect(_tabBarOpacitySpinBox, SIGNAL(valueChanged(int)), _tabBarOpacity, SLOT(setValue(int)));
 
+    connect(_opaqueInactiveWindows, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+
     connect(_kTextEditDrawFrame, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
 
     connect(_widgetDrawShadow, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
@@ -109,6 +137,7 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_tabUseHighlightColor, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabUseBrighterCloseIcon, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_disableDolphinUrlNavigatorBackground, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
+    connect(_newDolphinSelectionStyle, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_tabsHeight, &QAbstractSlider::valueChanged, this, &StyleConfig::updateChanged);
 
     connect(_buttonHeight, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
@@ -120,12 +149,6 @@ StyleConfig::StyleConfig(QWidget *parent)
     connect(_documentModeTabs, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_fullOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
     connect(_noOutline, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
-    connect(_scrollBarTransient, &QAbstractButton::toggled, this, [this](bool checked) {
-        _scrollBarTransientAlwaysShowSlim->setEnabled(checked);
-        StyleConfig::updateChanged();
-    });
-    connect(_scrollBarTransientAlwaysShowSlim, &QAbstractButton::toggled, this, &StyleConfig::updateChanged);
-
 }
 
 //__________________________________________________________________
@@ -147,6 +170,7 @@ void StyleConfig::save()
     StyleConfigData::setAnimationsEnabled(_animationsEnabled->isChecked());
     StyleConfigData::setTabBarDrawCenteredTabs(_tabBarDrawCenteredTabs->isChecked());
     StyleConfigData::setAnimationsDuration(_animationsDuration->value());
+    StyleConfigData::setLineEditFocusAnimation(_lineEditFocusAnimation->currentIndex());
     StyleConfigData::setWindowDragMode(_windowDragMode->currentIndex());
     StyleConfigData::setMenuOpacity(_menuOpacity->value());
     StyleConfigData::setDolphinSidebarOpacity(_sidebarOpacity->value());
@@ -154,6 +178,7 @@ void StyleConfig::save()
     StyleConfigData::setMenuBarOpacity(_menuBarOpacity->value());
     StyleConfigData::setToolBarOpacity(_toolBarOpacity->value());
     StyleConfigData::setTabBarOpacity(_tabBarOpacity->value());
+    StyleConfigData::setOpaqueInactiveWindows(_opaqueInactiveWindows->isChecked());
     StyleConfigData::setKTextEditDrawFrame(_kTextEditDrawFrame->isChecked());
     StyleConfigData::setWidgetDrawShadow(_widgetDrawShadow->isChecked());
     StyleConfigData::setWidgetToolBarShadow(_widgetToolBarShadow->isChecked());
@@ -170,6 +195,7 @@ void StyleConfig::save()
     StyleConfigData::setTabUseHighlightColor(_tabUseHighlightColor->isChecked());
     StyleConfigData::setTabUseBrighterCloseIcon(_tabUseBrighterCloseIcon->isChecked());
     StyleConfigData::setDisableDolphinUrlNavigatorBackground(_disableDolphinUrlNavigatorBackground->isChecked());
+    StyleConfigData::setNewDolphinSelectionStyle(_newDolphinSelectionStyle->isChecked());
     StyleConfigData::setTabsHeight(_tabsHeight->value());
     StyleConfigData::setButtonHeight(_buttonHeight->value());
     StyleConfigData::setButtonWidth(_buttonWidth->value());
@@ -180,8 +206,6 @@ void StyleConfig::save()
     StyleConfigData::setDocumentModeTabs(_documentModeTabs->isChecked());
     StyleConfigData::setFullOutline(_fullOutline->isChecked());
     StyleConfigData::setNoOutline(_noOutline->isChecked());
-    StyleConfigData::setScrollBarTransient(_scrollBarTransient->isChecked());
-    StyleConfigData::setScrollBarTransientAlwaysShowSlim(_scrollBarTransientAlwaysShowSlim->isChecked());
 
     StyleConfigData::self()->save();
 
@@ -243,6 +267,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_animationsDuration->value() != StyleConfigData::animationsDuration())
         modified = true;
+    else if (_lineEditFocusAnimation->currentIndex() != StyleConfigData::lineEditFocusAnimation())
+        modified = true;
     else if (_windowDragMode->currentIndex() != StyleConfigData::windowDragMode())
         modified = true;
     else if (_menuOpacity->value() != StyleConfigData::menuOpacity()) {
@@ -267,6 +293,8 @@ void StyleConfig::updateChanged()
     } else if (_tabBarOpacity->value() != StyleConfigData::tabBarOpacity()) {
         modified = true;
         _tabBarOpacitySpinBox->setValue(_tabBarOpacity->value());
+    } else if (_opaqueInactiveWindows->isChecked() != StyleConfigData::opaqueInactiveWindows()) {
+        modified = true;
     } else if (_kTextEditDrawFrame->isChecked() != StyleConfigData::kTextEditDrawFrame())
         modified = true;
     else if (_tabBarDrawCenteredTabs->isChecked() != StyleConfigData::tabBarDrawCenteredTabs())
@@ -301,6 +329,8 @@ void StyleConfig::updateChanged()
         modified = true;
     else if (_disableDolphinUrlNavigatorBackground->isChecked() != StyleConfigData::disableDolphinUrlNavigatorBackground())
         modified = true;
+    else if (_newDolphinSelectionStyle->isChecked() != StyleConfigData::newDolphinSelectionStyle())
+        modified = true;
     else if (_tabsHeight->value() != StyleConfigData::tabsHeight())
         modified = true;
     else if (_menuItemHeight->value() != StyleConfigData::menuItemHeight())
@@ -316,10 +346,6 @@ void StyleConfig::updateChanged()
     else if (_fullOutline->isChecked() != StyleConfigData::fullOutline())
         modified = true;
     else if (_noOutline->isChecked() != StyleConfigData::noOutline())
-        modified = true;
-    else if (_scrollBarTransient->isChecked() != StyleConfigData::scrollBarTransient())
-        modified = true;
-    else if (_scrollBarTransientAlwaysShowSlim->isChecked() != StyleConfigData::scrollBarTransientAlwaysShowSlim())
         modified = true;
 
 
@@ -368,6 +394,7 @@ void StyleConfig::load()
     _scrollBarSubLineButtons->setCurrentIndex(StyleConfigData::scrollBarSubLineButtons());
     _animationsEnabled->setChecked(StyleConfigData::animationsEnabled());
     _animationsDuration->setValue(StyleConfigData::animationsDuration());
+    _lineEditFocusAnimation->setCurrentIndex(StyleConfigData::lineEditFocusAnimation());
     _windowDragMode->setCurrentIndex(StyleConfigData::windowDragMode());
     _menuOpacity->setValue(StyleConfigData::menuOpacity());
     _menuOpacitySpinBox->setValue(StyleConfigData::menuOpacity());
@@ -392,6 +419,7 @@ void StyleConfig::load()
     _toolBarOpacitySpinBox->setValue(StyleConfigData::toolBarOpacity());
     _tabBarOpacity->setValue(StyleConfigData::tabBarOpacity());
     _tabBarOpacitySpinBox->setValue(StyleConfigData::tabBarOpacity());
+    _opaqueInactiveWindows->setChecked(StyleConfigData::opaqueInactiveWindows());
     _buttonHeight->setValue(StyleConfigData::buttonHeight());
     _buttonWidth->setValue(StyleConfigData::buttonWidth());
     _kTextEditDrawFrame->setChecked(StyleConfigData::kTextEditDrawFrame());
@@ -404,8 +432,6 @@ void StyleConfig::load()
     _documentModeTabs->setChecked(StyleConfigData::documentModeTabs());
     _fullOutline->setChecked(StyleConfigData::fullOutline());
     _noOutline->setChecked(StyleConfigData::noOutline());
-    _scrollBarTransient->setChecked(StyleConfigData::scrollBarTransient());
-    _scrollBarTransientAlwaysShowSlim->setChecked(StyleConfigData::scrollBarTransientAlwaysShowSlim());
 
     if (!_widgetDrawShadow->isChecked()) {
         _widgetToolBarShadow->setEnabled(false);
@@ -451,6 +477,7 @@ void StyleConfig::load()
     _tabUseHighlightColor->setChecked(StyleConfigData::tabUseHighlightColor());
     _tabUseBrighterCloseIcon->setChecked(StyleConfigData::tabUseBrighterCloseIcon());
     _disableDolphinUrlNavigatorBackground->setChecked(StyleConfigData::disableDolphinUrlNavigatorBackground());
+    _newDolphinSelectionStyle->setChecked(StyleConfigData::newDolphinSelectionStyle());
     _versionNumber->setText(DARKLY_VERSION_STRING);
     _tabsHeight->setValue(StyleConfigData::tabsHeight());
 }

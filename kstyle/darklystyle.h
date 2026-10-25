@@ -529,18 +529,12 @@ private:
     //* get widget parent
     QWidget *getParent(const QWidget *widget, int level) const;
 
-    qreal scrollBarTransientAnimationOpacity(const QStyleOption *option, const QWidget *widget) const;
+    void updateDolphinSelectionStyle();
 
     //*@name scrollbar button types (for addLine and subLine )
     //@{
     ScrollBarButtonType _addLineButtons = SingleButton;
     ScrollBarButtonType _subLineButtons = SingleButton;
-    //@}
-
-    //*@name scrollbar transient
-    //@{
-    bool _transientScrollBar = false;
-    bool _transientScrollBarAlwaysShowSlim = false;
     //@}
 
     //* helper
@@ -621,6 +615,9 @@ private:
 
     // blur is required for toolbar, menubar, tabbar if opaque
     bool _isBarsOpaque = false;
+
+    //* the window decoration keeps active titlebar colours in inactive windows
+    bool _matchInactiveTitleBar = false;
 };
 
 //_________________________________________________________________________

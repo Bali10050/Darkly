@@ -23,6 +23,7 @@
 #include "config-darkly.h"
 #include "darkly.h"
 #include "darklyanimationdata.h"
+#include "darklyopacity.h"
 #include "darklystyleconfigdata.h"
 
 #include "darklyshadowhelper.h"
@@ -198,7 +199,7 @@ public:
     void renderFocusLine(QPainter *, const QRect &, const QColor &) const;
 
     //* generic frame
-    void renderFrame(QPainter *, const QRect &, const QColor &color, const bool windowActive, const bool enabled = true) const;
+    void renderFrame(QPainter *, const QRect &, const QColor &color, const bool enabled = true) const;
 
     //* side panel frame
     void renderSidePanelFrame(QPainter *, const QRect &, const QColor &outline, Side) const;
@@ -215,9 +216,7 @@ public:
                          const int xOffset,
                          const int yOffset,
                          const int size,
-                         const QColor &color,
                          const int cornerRadius,
-                         const bool active,
                          TileSet::Tiles = TileSet::Ring) const;
 
     void renderBoxShadow(QPainter *painter,
@@ -225,13 +224,11 @@ public:
                          const int xOffset,
                          const int yOffset,
                          const int size,
-                         const QColor &color,
                          const int cornerRadius,
-                         const bool active,
                          TileSet::Tiles tiles = TileSet::Ring) const
     {
         QRect copy = QRect(rect.x(), rect.y(), rect.width(), rect.height());
-        renderBoxShadow(painter, copy, xOffset, yOffset, size, color, cornerRadius, active, tiles);
+        renderBoxShadow(painter, copy, xOffset, yOffset, size, cornerRadius, tiles);
     }
 
     //* shadow for ellipses
@@ -247,7 +244,9 @@ public:
                              const int outlineStrength = 0) const;
 
     //* top outline highlight in dark themes
-    void topHighlight(QPainter *, const QRectF &, const int radius, const QColor &color = QColor(255, 255, 255, 20)) const;
+    void topHighlight(QPainter *, const QRectF &, const qreal radius, const QColor &color = QColor(255, 255, 255, 30)) const;
+    void topHighlight(QPainter *, const QRectF &, Corners, const qreal radius, const QColor &color = QColor(255, 255, 255, 30)) const;
+    void renderOutlineLine(QPainter *, const QRectF &, const QPalette &, Qt::Edges anchoredEdges = Qt::Edges(), Qt::Edges trimmedEdges = Qt::Edges()) const;
 
     //* button frame
     void renderButtonFrame(QPainter *,
@@ -258,7 +257,6 @@ public:
                            const bool sunken,
                            const bool mouseOver,
                            const bool enabled,
-                           const bool windowActive,
                            const AnimationMode mode = AnimationNone,
                            const qreal opacity = AnimationData::OpacityInvalid) const;
 
@@ -269,7 +267,7 @@ public:
     void renderToolBoxFrame(QPainter *, const QRect &, int tabWidth, const QColor &color) const;
 
     //* tab widget frame
-    void renderTabWidgetFrame(QPainter *, const QRect &, const QColor &color, Corners corners, const bool windowActive) const;
+    void renderTabWidgetFrame(QPainter *, const QRect &, const QColor &color, Corners corners) const;
 
     //* selection frame
     void renderSelection(QPainter *, const QRect &, const QColor &, Corners) const;
@@ -280,12 +278,11 @@ public:
     //* line edit
     void renderLineEdit(QPainter *,
                         const QRect &,
+                        const QPalette &,
                         const QColor &background,
                         const QColor &outline,
                         const bool hasFocus,
-                        const bool mouseOver,
                         const bool enabled,
-                        const bool windowActive,
                         const AnimationMode mode,
                         const qreal opacity) const;
 
@@ -300,7 +297,6 @@ public:
                         bool sunken,
                         const bool mouseOver,
                         CheckBoxState state,
-                        const bool windowActive,
                         qreal animation = AnimationData::OpacityInvalid) const;
 
     //* radio button
@@ -350,7 +346,7 @@ public:
     }
 
     //* scrollbar handle
-    void renderScrollBarHandle(QPainter *, const QRectF &, const QColor &fg, QColor bg = QColor()) const;
+    void renderScrollBarHandle(QPainter *, const QRectF &, const QColor &) const;
 
     //* toolbar handle
     void renderToolBarHandle(QPainter *painter, const QRect &rect, const QColor &color) const
@@ -435,12 +431,42 @@ public:
                         QIcon::Mode mode = QIcon::Normal,
                         QIcon::State state = QIcon::Off);
 
-    // MenuBar, ToolBar, TabBar background color opacity
-    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType) const;
+    // MenuBar, ToolBar, TabBar background color opacity; widget is the bar being painted
+    QColor transparentBarBgColor(QColor, QPainter *, const QRect &, BarType, const QWidget *widget = nullptr) const;
 
 protected:
     //* return rounded path in a given rect, with only selected corners rounded, and for a given radius
     QPainterPath roundedPath(const QRectF &, Corners, qreal) const;
+
+    //* line edit, one renderer per focus animation style
+    void renderLineEditFade(QPainter *,
+                            const QRect &,
+                            const QPalette &,
+                            const QColor &background,
+                            const QColor &outline,
+                            const bool hasFocus,
+                            const bool enabled,
+                            const AnimationMode mode,
+                            const qreal opacity) const;
+
+    void renderLineEditWipe(QPainter *,
+                            const QRect &,
+                            const QPalette &,
+                            const QColor &background,
+                            const QColor &outline,
+                            const bool hasFocus,
+                            const bool enabled,
+                            const AnimationMode mode,
+                            const qreal opacity) const;
+
+    void renderLineEditWipeLayer(QPainter *,
+                                 const QRect &rect,
+                                 const QRectF &frameRect,
+                                 const QColor &outline,
+                                 const qreal radius,
+                                 const qreal progress,
+                                 const qreal layerOpacity,
+                                 const int outlineGrow) const;
 
 private:
     //* configuration
