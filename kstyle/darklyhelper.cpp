@@ -1070,8 +1070,9 @@ void Helper::renderLineEditFade(QPainter *painter,
     }
 
     // the frame shrinks by one pixel when focused
-    const QRectF frameRect(QRectF(baseRect).adjusted(focus, focus, -focus, -focus));
-    const qreal radius(baseRadius - focus);
+    const qreal shrink(hasFocus ? 1 : 0);
+    const QRectF frameRect(QRectF(baseRect).adjusted(shrink, shrink, -shrink, -shrink));
+    const qreal radius(baseRadius - shrink);
 
     // set brush
     if (background.isValid())
@@ -1082,8 +1083,13 @@ void Helper::renderLineEditFade(QPainter *painter,
     // render
     painter->drawRoundedRect(frameRect, radius, radius);
 
-    if (enabled && StyleConfigData::fullOutline() && isDarkTheme(palette))
+    // fade out the regular outline when the focus highlight is showing
+    if (enabled && focus < 1 && StyleConfigData::fullOutline() && isDarkTheme(palette)) {
+        painter->save();
+        painter->setOpacity(painter->opacity() * (1 - focus));
         topHighlight(painter, frameRect, radius);
+        painter->restore();
+    }
 }
 
 //______________________________________________________________________________
@@ -1201,8 +1207,15 @@ void Helper::renderLineEditWipe(QPainter *painter,
     // render
     painter->drawRoundedRect(frameRect, radius, radius);
 
-    if (enabled && StyleConfigData::fullOutline() && isDarkTheme(palette))
+    // fade out the regular outline when the focus highlight is showing
+    if (enabled && (!hasFocus || animated) && StyleConfigData::fullOutline() && isDarkTheme(palette)) {
+        painter->save();
+        if (animated)
+            painter->setOpacity(painter->opacity() * (1 - opacity));
+
         topHighlight(painter, frameRect, radius);
+        painter->restore();
+    }
 }
 
 //______________________________________________________________________________
