@@ -955,7 +955,7 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
     }
 
     // same as highlight, but now a shadow
-    if (m_internalSettings->floatingTitlebar() && (!isMaximized() || s->isAlphaChannelSupported())) {
+    if (m_internalSettings->floatingTitlebar() && !isMaximized() && s->isAlphaChannelSupported()) {
         const QRect r(QPoint(0, 0), m_titleRect.size());
 
         QPixmap pix(r.size());
