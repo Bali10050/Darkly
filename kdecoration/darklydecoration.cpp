@@ -1186,4 +1186,5 @@ void Decoration::updateScale()
 } // namespace
 
 #include "darklydecoration.moc"
+#include "darklydecoration.moc"
 
