@@ -44,6 +44,7 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QVariantAnimation>
+#include <QBitmap>
 
 #if DARKLY_HAVE_X11
 #include <QX11Info>
@@ -289,40 +290,51 @@ bool Decoration::init()
     return true;
 }
 
+static QRegion regionFromPath(const QPainterPath &path)
+{
+    const QRect bounds = path.boundingRect().toAlignedRect();
+    if (bounds.isEmpty()) {
+        return QRegion();
+    }
+
+    QBitmap mask(bounds.size());
+    mask.fill(Qt::color0);
+
+    QPainter p(&mask);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::color1);
+    p.translate(-bounds.topLeft());
+    p.drawPath(path);
+    p.end();
+
+    return QRegion(mask).translated(bounds.topLeft());
+}
+
 //________________________________________________________________
 void Decoration::updateBlur()
 {
     auto c = window();
-    const QColor tbColor = this->titleBarColor();
-    if (tbColor.alpha() == 255) {
-        this->setOpaque(c->isMaximized());
-    } else {
-        this->setOpaque(false);
+    const bool tbOpaque = titleBarColor().alpha() == 255;
+    setOpaque(tbOpaque && c->isMaximized());
+
+    if (tbOpaque) {
+        setBlurRegion(QRegion());
+        return;
     }
 
+    calculateWindowAndTitleBarShapes(true);
+
     if (m_internalSettings->floatingTitlebar()) {
-        // Recalculate window shapes
-        calculateWindowAndTitleBarShapes(true);
+        const QSize size = c->size().toSize();
+        const int blurHeight = qMin(size.height(),
+                                    buttonSize() + (Metrics::TitleBar_TopMargin * 2) + 8);
+        const qreal radius = c->isMaximized() ? 0.0 : m_scaledCornerRadius;
 
-        // Get window rectangle as integers
-        QRect windowRect(QPoint(0, 0), c->size().toSize());
-
-        // Height of the blur region
-        const int blurHeight = (buttonSize() + (Metrics::TitleBar_TopMargin * 2) + 8);
-
-        // Corner radius
-        const qreal blurRadius = c->isMaximized() ? 0.0 : m_scaledCornerRadius;
-
-        // Create a rounded rectangle path for the top strip
         QPainterPath path;
-        path.addRoundedRect(QRectF(0, 0, windowRect.width(), blurHeight), blurRadius, blurRadius);
-
-        // Convert path to QRegion and set as blur region
-        QRegion blurRegion(path.toFillPolygon().toPolygon());
-        this->setBlurRegion(blurRegion);
+        path.addRoundedRect(QRectF(0, 0, size.width(), blurHeight), radius, radius);
+        setBlurRegion(regionFromPath(path));
     } else {
-        calculateWindowAndTitleBarShapes(true);
-        this->setBlurRegion(QRegion(m_windowPath->toFillPolygon().toPolygon()));
+        setBlurRegion(regionFromPath(*m_windowPath));
     }
 }
 
@@ -940,6 +952,27 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
 
             painter->drawPixmap(copy, pix);
         }
+    }
+
+    // same as highlight, but now a shadow
+    if (m_internalSettings->floatingTitlebar() && (!isMaximized() || s->isAlphaChannelSupported())) {
+        const QRect r(QPoint(0, 0), m_titleRect.size());
+
+        QPixmap pix(r.size());
+        pix.fill(Qt::transparent);
+
+        QPainter p(&pix);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setPen(Qt::NoPen);
+        p.setBrush(QColor(0, 0, 0, 25));
+        p.drawRoundedRect(r, m_scaledCornerRadius, m_scaledCornerRadius);
+
+        p.setBrush(Qt::black);
+        p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+        p.drawRoundedRect(r.adjusted(0, -3, 0, -1), m_scaledCornerRadius, m_scaledCornerRadius);
+        p.end();
+
+        painter->drawPixmap(m_titleRect.topLeft(), pix);
     }
 
     painter->restore();
