@@ -954,6 +954,27 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         }
     }
 
+    // same as highlight, but now a shadow
+    if (m_internalSettings->floatingTitlebar() && (!isMaximized() || s->isAlphaChannelSupported())) {
+        const QRect r(QPoint(0, 0), m_titleRect.size());
+
+        QPixmap pix(r.size());
+        pix.fill(Qt::transparent);
+
+        QPainter p(&pix);
+        p.setRenderHint(QPainter::Antialiasing);
+        p.setPen(Qt::NoPen);
+        p.setBrush(QColor(0, 0, 0, 20));
+        p.drawRoundedRect(r, m_scaledCornerRadius, m_scaledCornerRadius);
+
+        p.setBrush(Qt::black);
+        p.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+        p.drawRoundedRect(r.adjusted(0, -3, 0, -1), m_scaledCornerRadius, m_scaledCornerRadius);
+        p.end();
+
+        painter->drawPixmap(m_titleRect.topLeft(), pix);
+    }
+
     painter->restore();
 
 if (m_internalSettings->floatingTitlebar()){
