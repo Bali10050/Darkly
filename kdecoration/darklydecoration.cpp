@@ -317,12 +317,12 @@ void Decoration::updateBlur()
     const bool tbOpaque = titleBarColor().alpha() == 255;
     setOpaque(tbOpaque && c->isMaximized());
 
+    calculateWindowAndTitleBarShapes(true);
+
     if (tbOpaque) {
         setBlurRegion(QRegion());
         return;
     }
-
-    calculateWindowAndTitleBarShapes(true);
 
     if (m_internalSettings->floatingTitlebar()) {
         const QSize size = c->size().toSize();
