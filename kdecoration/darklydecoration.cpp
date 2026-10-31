@@ -964,7 +964,7 @@ void Decoration::paintTitleBar(QPainter *painter, const QRectF &repaintRegion)
         QPainter p(&pix);
         p.setRenderHint(QPainter::Antialiasing);
         p.setPen(Qt::NoPen);
-        p.setBrush(QColor(0, 0, 0, 20));
+        p.setBrush(QColor(0, 0, 0, 25));
         p.drawRoundedRect(r, m_scaledCornerRadius, m_scaledCornerRadius);
 
         p.setBrush(Qt::black);
