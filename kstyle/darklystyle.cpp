@@ -817,6 +817,9 @@ int Style::pixelMetric(PixelMetric metric, const QStyleOption *option, const QWi
             return 0;
         }
 
+        if (_isDolphin && widget && widget->inherits("KItemListContainer"))
+            return 0;
+
         if (qobject_cast<const QMenu *>(widget))
             return StyleConfigData::cornerRadius() > 1 ? 4 : 0;
         if (qobject_cast<const QLineEdit *>(widget))
