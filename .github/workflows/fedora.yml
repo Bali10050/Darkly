@@ -10,17 +10,10 @@ on:
       version:
         required: true
         type: string
-      containers:
-        required: true
-        type: string
 jobs:
   build:
-    strategy:
-      max-parallel: 2
-      matrix:
-        image: ${{ fromJson(inputs.containers) }}
     runs-on: ubuntu-24.04
-    container: ${{ matrix.image }}
+    container: fedora:latest
     steps:
       - uses: actions/cache/restore@v5.0.5
         id: cache
@@ -58,7 +51,7 @@ jobs:
           artifact=$GITHUB_WORKSPACE/Darkly-${{ inputs.version }}/packages/darkly-${{ inputs.version }}.x86_64.rpm
           source /etc/os-release
           echo "Version ID = $VERSION_ID"
-          publish_filename=darkly-${{ inputs.version }}.fc$VERSION_ID.x86_64.rpm
+          publish_filename=darkly-${{ inputs.version }}.x86_64.rpm
           echo "Moving file to $GITHUB_WORKSPACE/$publish_filename"
           mv $artifact $GITHUB_WORKSPACE/$publish_filename
           echo "ARTIFACT=$publish_filename" >> "$GITHUB_ENV"
