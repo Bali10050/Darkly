@@ -276,10 +276,11 @@ void WindowManager::registerQuickItem(QQuickItem *item)
         return;
 
     if (auto window = item->window()) {
-        auto contentItem = window->contentItem();
-        contentItem->setAcceptedMouseButtons(Qt::LeftButton);
-        contentItem->removeEventFilter(this);
-        contentItem->installEventFilter(this);
+        if (auto contentItem = window->contentItem()) {
+            contentItem->setAcceptedMouseButtons(Qt::LeftButton);
+            contentItem->removeEventFilter(this);
+            contentItem->installEventFilter(this);
+        }
     }
 }
 #endif

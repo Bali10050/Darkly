@@ -36,6 +36,12 @@ If you want **a matching style for your gtk applications**, I recommend checking
 
 ***
 
+### Firefox theme
+
+<https://github.com/Bali10050/darkly-firefox>
+
+***
+
 ## Installation
 
 ## Automatic
