@@ -7206,44 +7206,40 @@ bool Style::drawTabBarTabShapeControl(const QStyleOption *option, QPainter *pain
         case QTabBar::TriangularWest:
 
             side = SideLeft;
-            if (selected) {
+            if (selected)
                 corners = CornerTopLeft | CornerTopRight | CornerBottomLeft | CornerBottomRight;
 
-            } else {
-                rect.adjust(4, 4, -4, -4);
-                if (isFirst)
-                    corners |= CornerTopLeft | CornerTopRight;
-                if (isLast)
-                    corners |= CornerBottomLeft | CornerBottomRight;
-                if (isRightOfSelected)
-                    rect.adjust(0, -StyleConfigData::cornerRadius(), 0, 0);
-                if (isLeftOfSelected)
-                    rect.adjust(0, 0, 0, StyleConfigData::cornerRadius());
-                else if (!isLast)
-                    rect.adjust(0, 0, 0, overlap);
-            }
+            shadowRect = QRect(rect.topRight() + QPoint(1, 0), QSize(shadowSize, rect.height()));
+            if (isFirst)
+                backgroundCorners |= CornerTopLeft | CornerTopRight;
+            else
+                shadowRect.adjust(0, -shadowSize, 0, 0);
+            if (isLast)
+                backgroundCorners |= CornerBottomLeft | CornerBottomRight;
+            if (isLeftOfSelected)
+                shadowRect.adjust(0, 0, 0, shadowSize);
+
+            backgroundRect = rect;
+            rect.adjust(4, 4, -4, -4);
             break;
 
         case QTabBar::RoundedEast:
         case QTabBar::TriangularEast:
 
             side = SideRight;
-            if (selected) {
+            if (selected)
                 corners = CornerTopLeft | CornerTopRight | CornerBottomLeft | CornerBottomRight;
 
-            } else {
-                rect.adjust(4, 4, -4, -4);
-                if (isFirst)
-                    corners |= CornerTopRight | CornerTopLeft;
-                if (isLast)
-                    corners |= CornerBottomRight | CornerBottomLeft;
-                if (isRightOfSelected)
-                    rect.adjust(0, -StyleConfigData::cornerRadius(), -StyleConfigData::cornerRadius(), 0);
-                if (isLeftOfSelected)
-                    rect.adjust(0, -StyleConfigData::cornerRadius(), 0, StyleConfigData::cornerRadius());
-                else if (!isLast)
-                    rect.adjust(0, 0, 0, overlap);
-            }
+            shadowRect = QRect(rect.topLeft() - QPoint(shadowSize + 1, 0), QSize(shadowSize, rect.height()));
+            if (isFirst)
+                backgroundCorners |= CornerTopLeft | CornerTopRight;
+            else
+                shadowRect.adjust(0, -shadowSize, 0, 0);
+            if (isLast)
+                backgroundCorners |= CornerBottomLeft | CornerBottomRight;
+
+            backgroundRect = rect;
+            rect.adjust(4, 4, -4, -4);
             break;
 
         default:
