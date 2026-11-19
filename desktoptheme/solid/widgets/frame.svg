@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="45"
+   height="27"
+   viewBox="0 0 45 27.000001"
+   version="1.1"
+   id="svg17788"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   sodipodi:docname="frame.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview17790"
+     pagecolor="#d1d1d1"
+     bordercolor="#6b6b6b"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     shape-rendering="crispEdges"
+     inkscape:zoom="23.969781"
+     inkscape:cx="34.063723"
+     inkscape:cy="7.3842976"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="2560"
+     inkscape:window-height="1362"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2960"
+       originx="-186"
+       originy="-289"
+       spacingy="1"
+       spacingx="1"
+       units="px"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <style
+       id="current-color-scheme"
+       type="text/css" />
+  </defs>
+  <defs
+     id="defs17785" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-186,-289)">
+    <rect
+       class="ColorScheme-ButtonBackground"
+       style="fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round"
+       id="plain-center"
+       width="15"
+       height="15"
+       x="210"
+       y="295" />
+    <rect
+       y="298"
+       x="194"
+       height="4.0000005"
+       width="1"
+       id="plain-hint-top-margin"
+       style="fill:#008080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999993" />
+    <rect
+       style="fill:#008080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999993"
+       id="plain-hint-bottom-margin"
+       width="1"
+       height="3.9999995"
+       x="194"
+       y="303" />
+    <rect
+       style="fill:#008080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999997"
+       id="plain-hint-left-margin"
+       width="8"
+       height="1"
+       x="186"
+       y="302" />
+    <rect
+       y="302"
+       x="195"
+       height="1"
+       width="8"
+       id="plain-hint-right-margin"
+       style="fill:#008080;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999997" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-top"
+       id="plain-bottom"
+       transform="matrix(1,0,0,-1,0,605)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-top"
+       id="plain-right"
+       transform="rotate(90,217.5,302.5)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-top"
+       id="plain-left"
+       transform="rotate(-90,217.5,302.5)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-topright"
+       id="plain-topleft"
+       transform="matrix(-1,0,0,1,435,0)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-topright"
+       id="plain-bottomright"
+       transform="matrix(1,0,0,-1,0,605)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#plain-topright"
+       id="plain-bottomleft"
+       transform="rotate(180,217.5,302.5)" />
+    <g
+       id="plain-top"
+       transform="translate(0,-1)">
+      <rect
+         class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke:none;stroke-width:0.387298;stroke-linecap:round"
+         id="rect7656"
+         width="15"
+         height="3"
+         x="210"
+         y="293" />
+      <rect
+         style="opacity:0;fill:#cc5e3d;fill-opacity:1;stroke:none;stroke-width:0.499998;stroke-linecap:round"
+         id="rect7650"
+         width="15"
+         height="1"
+         x="210"
+         y="290" />
+    </g>
+    <g
+       id="plain-topright">
+      <path
+         style="opacity:0;fill:#cc5e3d;fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
+         id="path7736"
+         sodipodi:type="arc"
+         sodipodi:cx="225"
+         sodipodi:cy="-295"
+         sodipodi:rx="6"
+         sodipodi:ry="6"
+         sodipodi:start="0"
+         sodipodi:end="1.5707963"
+         sodipodi:arc-type="slice"
+         d="m 231,-295 a 6,6 0 0 1 -6,6 v -6 z"
+         transform="scale(1,-1)" />
+      <path
+         class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke-width:0.6;stroke-linecap:round;stroke-linejoin:round"
+         id="path1"
+         sodipodi:type="arc"
+         sodipodi:cx="225"
+         sodipodi:cy="-295"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         sodipodi:start="0"
+         sodipodi:end="1.5707963"
+         sodipodi:arc-type="slice"
+         d="m 228,-295 a 3,3 0 0 1 -3,3 v -3 z"
+         transform="scale(1,-1)" />
+    </g>
+  </g>
+</svg>

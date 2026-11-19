@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="26"
+   height="17"
+   viewBox="0 0 26 17"
+   version="1.1"
+   id="svg17788"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+   sodipodi:docname="bar_meter_horizontal.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview17790"
+     pagecolor="#d1d1d1"
+     bordercolor="#6b6b6b"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="true"
+     shape-rendering="crispEdges"
+     inkscape:zoom="38.057741"
+     inkscape:cx="13.177345"
+     inkscape:cy="13.821104"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="2560"
+     inkscape:window-height="1362"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid6647"
+       originx="-381"
+       originy="-558"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <style
+       id="current-color-scheme"
+       type="text/css" />
+  </defs>
+  <defs
+     id="defs17785" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-381,-558)">
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-top"
+       id="bar-inactive-bottom"
+       transform="matrix(1,0,0,-1,0,1141)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-topright"
+       id="bar-inactive-topleft"
+       class="ColorScheme-ButtonBackground"
+       style="fill:currentColor"
+       transform="matrix(-1,0,0,1,774,0)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-topright"
+       id="bar-inactive-bottomright"
+       transform="matrix(1,0,0,-1,0,1141)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-topright"
+       id="bar-inactive-bottomleft"
+       transform="rotate(180,387,570.5)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-center"
+       id="bar-inactive-right"
+       transform="matrix(0.75,0,0,1,100.25,0)"
+       class="ColorScheme-ButtonBackground"
+       style="fill:currentColor;stroke-width:2" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-inactive-center"
+       id="bar-inactive-left"
+       transform="matrix(0.75,0,0,1,93.25,0)"
+       class="ColorScheme-ButtonBackground"
+       style="fill:currentColor;stroke-width:2" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-top"
+       id="bar-active-bottom"
+       transform="matrix(1,0,0,-1,0,1141)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-center"
+       id="bar-active-left"
+       transform="matrix(0.66666667,0,0,1,130,0)"
+       style="stroke-width:1.22474" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-center"
+       id="bar-active-right"
+       transform="translate(4)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-topright"
+       id="bar-active-topleft"
+       transform="matrix(-1,0,0,1,802,0)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-topright"
+       id="bar-active-bottomright"
+       transform="matrix(1,0,0,-1,0,1141)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#bar-active-topright"
+       id="bar-active-bottomleft"
+       transform="rotate(180,401,570.5)" />
+    <rect
+       class="ColorScheme-ButtonBackground"
+       style="fill:currentColor;fill-opacity:1;stroke-width:0.999999;stroke-linecap:round;stroke-linejoin:round"
+       id="bar-inactive-center"
+       width="4"
+       height="1"
+       x="385"
+       y="570" />
+    <rect
+       class="ColorScheme-ButtonBackground"
+       style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
+       id="bar-active-center"
+       width="3"
+       height="1"
+       x="399"
+       y="570" />
+    <rect
+       id="hint-bar-size"
+       height="6"
+       style="fill:#2f4c2f;fill-opacity:1;stroke-width:0.999997"
+       width="6"
+       x="390"
+       y="558" />
+    <g
+       id="bar-inactive-top"
+       inkscape:label="">
+      <rect
+         class="ColorScheme-ButtonBackground"
+         style="fill:currentColor;fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:0.3"
+         id="dfgsfds"
+         width="3"
+         height="3"
+         x="385"
+         y="566"
+         inkscape:label="" />
+      <rect
+         class="ColorScheme-Text"
+         style="fill:currentColor;fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:0.1"
+         id="rect1"
+         width="3"
+         height="3"
+         x="385"
+         y="566" />
+    </g>
+    <g
+       id="bar-inactive-topright"
+       inkscape:label="bar-inactive-topright">
+      <path
+         class="ColorScheme-ButtonBackground"
+         style="opacity:0.3;fill:currentColor;fill-opacity:1;stroke-width:1.49999;stroke-linecap:round;stroke-linejoin:round"
+         id="dsfdsfdsd"
+         sodipodi:type="arc"
+         sodipodi:cx="389"
+         sodipodi:cy="569"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         sodipodi:start="4.712389"
+         sodipodi:end="0"
+         sodipodi:arc-type="slice"
+         d="m 389,566 a 3,3 0 0 1 3,3 h -3 z"
+         inkscape:label="dsfdgfs" />
+      <path
+         class="ColorScheme-Text"
+         style="opacity:0.1;fill:currentColor;fill-opacity:1;stroke-width:1.49999;stroke-linecap:round;stroke-linejoin:round"
+         id="path1"
+         sodipodi:type="arc"
+         sodipodi:cx="389"
+         sodipodi:cy="569"
+         sodipodi:rx="3"
+         sodipodi:ry="3"
+         sodipodi:start="4.712389"
+         sodipodi:end="0"
+         sodipodi:arc-type="slice"
+         d="m 389,566 a 3,3 0 0 1 3,3 h -3 z"
+         inkscape:label="dsfdgfs" />
+    </g>
+    <rect
+       class="ColorScheme-Highlight"
+       style="fill:currentColor;fill-opacity:1;stroke-width:1;stroke-linecap:round;stroke-linejoin:round"
+       id="bar-active-top"
+       width="3"
+       height="3"
+       x="399"
+       y="566" />
+    <path
+       class="ColorScheme-Highlight"
+       style="opacity:1;fill:currentColor;fill-opacity:1;stroke-width:1.49999;stroke-linecap:round;stroke-linejoin:round"
+       id="bar-active-topright"
+       sodipodi:type="arc"
+       sodipodi:cx="403"
+       sodipodi:cy="569"
+       sodipodi:rx="3"
+       sodipodi:ry="3"
+       sodipodi:start="4.712389"
+       sodipodi:end="0"
+       sodipodi:arc-type="slice"
+       d="m 403,566 a 3,3 0 0 1 3,3 h -3 z" />
+  </g>
+</svg>

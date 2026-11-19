@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="257"
+   height="161"
+   version="1.0"
+   id="svg154"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3">
+    <style
+       id="current-color-scheme"
+       type="text/css">
+    </style>
+  </defs>
+  <rect
+     id="hint-tile-center"
+     x="49.93"
+     y="-90.32"
+     width="40"
+     height="40"
+     fill="#008000"
+     opacity=".875" />
+  <g
+     id="normal-topleft"
+     transform="translate(-193,65)"
+     style="opacity:0">
+    <path
+       id="rect1039"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-top"
+     transform="translate(-193,65)"
+     style="opacity:0">
+    <rect
+       id="rect1388"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-center"
+     transform="translate(-193,65)"
+     style="opacity:0">
+    <rect
+       id="rect1514"
+       width="32"
+       height="32"
+       x="140"
+       y="-5"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-bottom"
+     transform="translate(-193,103)"
+     style="opacity:0">
+    <rect
+       id="rect1618"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-topright"
+     transform="rotate(90,27,-53)"
+     style="opacity:0">
+    <path
+       id="path1622"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-bottomleft"
+     transform="matrix(1,0,0,-1,-193,87)"
+     style="opacity:0">
+    <path
+       id="path1626"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-bottomright"
+     transform="matrix(0,-1,-1,0,-26,232)"
+     style="opacity:0">
+    <path
+       id="path1630"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-left"
+     transform="rotate(90,8,-72)"
+     style="opacity:0">
+    <rect
+       id="rect1634"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="normal-right"
+     transform="rotate(90,27,-53)"
+     style="opacity:0">
+    <rect
+       id="rect1638"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-topleft"
+     transform="translate(-91.000017,65)"
+     style="opacity:1">
+    <path
+       id="rect1039-3"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       style="opacity:0.1" />
+  </g>
+  <g
+     id="selected-top"
+     transform="translate(-91.000017,65)"
+     style="opacity:0.1">
+    <rect
+       id="rect1388-6"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-center"
+     transform="matrix(1,0,0,0.87499974,-91.000017,64.374995)"
+     style="opacity:0.1">
+    <rect
+       id="rect1514-7"
+       width="32"
+       height="32"
+       x="140"
+       y="-5"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-bottom"
+     transform="translate(-91.000017,99.00002)"
+     style="opacity:0.1">
+    <rect
+       id="rect1618-5"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-topright"
+     transform="rotate(90,77.999989,-2.0000105)"
+     style="opacity:0.1">
+    <path
+       id="path1622-3"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-bottomleft"
+     transform="matrix(1,0,0,-1,-91.000017,83)"
+     style="opacity:1">
+    <path
+       id="path1626-5"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       style="opacity:0.1" />
+  </g>
+  <g
+     id="selected-bottomright"
+     transform="matrix(0,-1,-1,0,75.999979,228.00002)"
+     style="opacity:0.1">
+    <path
+       id="path1630-6"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected-left">
+    <rect
+       id="rect1634-2"
+       width="27.999996"
+       height="6"
+       x="59.999996"
+       y="-49"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       style="opacity:0.1;stroke-width:0.935411"
+       transform="rotate(90)" />
+  </g>
+  <g
+     id="selected-right"
+     transform="matrix(0,0.87499974,-1,0,75.999978,-62.499965)"
+     style="opacity:0.1">
+    <rect
+       id="rect1638-9"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-topleft"
+     transform="translate(-30,65)"
+     style="opacity:0.1">
+    <path
+       id="rect1039-1"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-top"
+     transform="translate(-30,65)"
+     style="opacity:0.1">
+    <rect
+       id="rect1388-2"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-center"
+     transform="matrix(1,0,0,0.87499974,-30,64.374995)"
+     style="opacity:0.1">
+    <rect
+       id="rect1514-70"
+       width="32"
+       height="32"
+       x="140"
+       y="-5"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-bottom"
+     transform="translate(-30,99.00002)"
+     style="opacity:0.1">
+    <rect
+       id="rect1618-9"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-topright"
+     transform="rotate(90,108.5,28.499999)"
+     style="opacity:0.1">
+    <path
+       id="path1622-36"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-bottomleft"
+     transform="matrix(1,0,0,-1,-30,83)"
+     style="opacity:0.1">
+    <path
+       id="path1626-0"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-bottomright"
+     transform="matrix(0,-1,-1,0,136.99999,228.00002)"
+     style="opacity:0.1">
+    <path
+       id="path1630-62"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-left"
+     transform="matrix(0,0.87499974,-1,0,98.999982,-62.499965)"
+     style="opacity:0.1">
+    <rect
+       id="rect1634-6"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="hover-right"
+     transform="matrix(0,0.87499974,-1,0,137,-62.499965)"
+     style="opacity:0.1">
+    <rect
+       id="rect1638-1"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-topleft"
+     transform="translate(33.999983,65)"
+     style="opacity:0.15">
+    <path
+       id="rect1039-8"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-top"
+     transform="translate(33.999983,65)"
+     style="opacity:0.15">
+    <rect
+       id="rect1388-7"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-center"
+     transform="matrix(1,0,0,0.87499974,33.999983,64.374995)"
+     style="opacity:0.15">
+    <rect
+       id="rect1514-9"
+       width="32"
+       height="32"
+       x="140"
+       y="-5"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-bottom"
+     transform="translate(33.999983,99.00002)"
+     style="opacity:0.15">
+    <rect
+       id="rect1618-2"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-topright"
+     transform="rotate(90,140.49999,60.499988)"
+     style="opacity:0.15">
+    <path
+       id="path1622-0"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-bottomleft"
+     transform="matrix(1,0,0,-1,33.999983,83)"
+     style="opacity:0.15">
+    <path
+       id="path1626-2"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-bottomright"
+     transform="matrix(0,-1,-1,0,200.99998,228.00002)"
+     style="opacity:0.15">
+    <path
+       id="path1630-3"
+       d="m 140,-11 c -3.324,0 -6,2.676 -6,6 h 6 z"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-right"
+     transform="matrix(0,0.87499974,-1,0,200.99998,-62.499971)"
+     style="opacity:0.15">
+    <rect
+       id="rect1638-5"
+       width="32"
+       height="6"
+       x="140"
+       y="-11"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor" />
+  </g>
+  <g
+     id="selected+hover-left">
+    <rect
+       id="rect1634-7"
+       width="27.999992"
+       height="6"
+       x="60"
+       y="-173.99995"
+       rx="0"
+       ry="0"
+       class="ColorScheme-Text"
+       fill="currentColor"
+       transform="rotate(90)"
+       style="opacity:0.15;stroke-width:0.935414" />
+  </g>
+</svg>
