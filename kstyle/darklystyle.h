@@ -251,6 +251,14 @@ private:
 
     bool drawFramePrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
     bool drawFrameLineEditPrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
+    bool drawPanelLineEditPrimitive(const QStyleOption *, QPainter *, const QWidget *widget) const
+    {
+        // #396 This may need removing after KDE Frameworks 6.33 is released
+        if (_isDolphin && widget->inherits("DolphinUrlNavigator")) {
+            return true;
+        }
+        return true;
+    }
     bool drawFrameFocusRectPrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
     bool drawFrameMenuPrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
     bool drawFrameGroupBoxPrimitive(const QStyleOption *, QPainter *, const QWidget *) const;
