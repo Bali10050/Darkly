@@ -56,6 +56,7 @@ ConfigWidget::ConfigWidget(QObject *parent, const KPluginMetaData &data, const Q
     connect(m_ui.floatingTitlebar, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.blurTransparentTitleBar, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
     connect(m_ui.matchInactiveTitleBar, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+    connect(m_ui.trafficLights, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
 
     // track animations changes
     connect(m_ui.animationsEnabled, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
@@ -96,6 +97,7 @@ void ConfigWidget::load()
     m_ui.floatingTitlebar->setChecked(m_internalSettings->floatingTitlebar());
     m_ui.blurTransparentTitleBar->setChecked(m_internalSettings->blurTransparentTitleBar());
     m_ui.matchInactiveTitleBar->setChecked(m_internalSettings->matchInactiveTitleBar());
+    m_ui.trafficLights->setChecked(m_internalSettings->trafficLights());
 
     // load shadows
     if (m_internalSettings->shadowSize() <= InternalSettings::ShadowVeryLarge)
@@ -134,6 +136,7 @@ void ConfigWidget::save()
     m_internalSettings->setFloatingTitlebar(m_ui.floatingTitlebar->isChecked());
     m_internalSettings->setBlurTransparentTitleBar(m_ui.blurTransparentTitleBar->isChecked());
     m_internalSettings->setMatchInactiveTitleBar(m_ui.matchInactiveTitleBar->isChecked());
+    m_internalSettings->setTrafficLights(m_ui.trafficLights->isChecked());
 
     m_internalSettings->setShadowSize(m_ui.shadowSize->currentIndex());
     m_internalSettings->setShadowStrength(qRound(qreal(m_ui.shadowStrength->value() * 255) / 100));
@@ -184,6 +187,7 @@ void ConfigWidget::defaults()
     m_ui.floatingTitlebar->setChecked(m_internalSettings->floatingTitlebar());
     m_ui.blurTransparentTitleBar->setChecked(m_internalSettings->blurTransparentTitleBar());
     m_ui.matchInactiveTitleBar->setChecked(m_internalSettings->matchInactiveTitleBar());
+    m_ui.trafficLights->setChecked(m_internalSettings->trafficLights());
 
     m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
     m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength() * 100) / 255));
@@ -221,6 +225,8 @@ void ConfigWidget::updateChanged()
     else if (m_ui.blurTransparentTitleBar->isChecked() != m_internalSettings->blurTransparentTitleBar())
         modified = true;
     else if (m_ui.matchInactiveTitleBar->isChecked() != m_internalSettings->matchInactiveTitleBar())
+        modified = true;
+    else if (m_ui.trafficLights->isChecked() != m_internalSettings->trafficLights())
         modified = true;
 
     // animations
