@@ -108,6 +108,10 @@
         <default>false</default>
     </entry>
 
+    <entry name="TrafficLights" type = "Bool">
+      <default>false</default>
+    </entry>
+
     <!-- size grip -->
     <entry name="DrawBackgroundGradient" type = "Bool">
         <default>false</default>

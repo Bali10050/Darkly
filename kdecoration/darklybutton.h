@@ -153,6 +153,7 @@ private:
 
     //* draw button icon
     void drawIcon(QPainter *) const;
+    void drawTrafficLight(QPainter *) const;
 
     //*@name colors
     //@{

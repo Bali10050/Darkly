@@ -20,6 +20,7 @@
  */
 #include "darklybutton.h"
 
+#include <KColorScheme>
 #include <KColorUtils>
 #include <KDecoration3/DecoratedWindow>
 #include <KIconLoader>
@@ -171,6 +172,11 @@ void Button::drawIcon(QPainter *painter) const
     if ( (c && c->isMaximized()) && d->internalSettings()->floatingTitlebar() )  painter->translate(1, 2);
     else painter->translate(1, 1);
 
+    if ((type() == DecorationButtonType::Close || type() == DecorationButtonType::Maximize || type() == DecorationButtonType::Minimize) && d->internalSettings()->trafficLights()){
+        drawTrafficLight(painter);
+        return;
+    }
+
     // render background
     const QColor backgroundColor(this->backgroundColor());
     if (backgroundColor.isValid()) {
@@ -318,6 +324,89 @@ void Button::drawIcon(QPainter *painter) const
         default:
             break;
         }
+    }
+}
+
+//__________________________________________________________________
+void Button::drawTrafficLight(QPainter *painter) const
+{
+    const KColorScheme window(QPalette::Active, KColorScheme::Window);
+
+    QColor circle;
+    switch (type()) {
+    case DecorationButtonType::Close:
+        circle = window.foreground(KColorScheme::NegativeText).color();
+        break;
+    case DecorationButtonType::Maximize:
+        circle = window.foreground(KColorScheme::PositiveText).color();
+        break;
+    default:
+        circle = window.foreground(KColorScheme::NeutralText).color();
+        break;
+    }
+
+    if (!isEnabled() || !decoration()->window()->isActive()) {
+        circle = KColorScheme(QPalette::Active, KColorScheme::Button).background(KColorScheme::NormalBackground).color();
+    } else if (isPressed()) {
+        circle = KColorUtils::mix(circle, Qt::black, 0.3);
+    }
+
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(circle);
+    painter->drawEllipse(QRectF(0, 0, 18, 18));
+
+    qreal glyphOpacity = 0;
+    if (!isEnabled()) {
+        glyphOpacity = 0;
+    } else if (isPressed()) {
+        glyphOpacity = 1;
+    } else if (m_animation->state() == QAbstractAnimation::Running) {
+        glyphOpacity = m_opacity;
+    } else if (isHovered()) {
+        glyphOpacity = 1;
+    }
+    if (glyphOpacity <= 0)
+        return;
+
+    QColor glyph = window.background(KColorScheme::NormalBackground).color();
+    glyph.setAlphaF(glyph.alphaF() * glyphOpacity);
+
+    QPen pen(glyph);
+    pen.setCapStyle(Qt::RoundCap);
+    pen.setJoinStyle(Qt::RoundJoin);
+    painter->setBrush(Qt::NoBrush);
+
+    switch (type()) {
+    case DecorationButtonType::Close:
+        pen.setWidthF(2.68);
+        painter->setPen(pen);
+        painter->drawLine(QPointF(5.21, 5.21), QPointF(12.79, 12.79));
+        painter->drawLine(QPointF(12.79, 5.21), QPointF(5.21, 12.79));
+        break;
+
+    case DecorationButtonType::Minimize:
+        pen.setWidthF(2.57);
+        painter->setPen(pen);
+        painter->drawLine(QPointF(5.15, 9), QPointF(12.85, 9));
+        break;
+
+    case DecorationButtonType::Maximize: {
+        pen.setWidthF(1.6);
+        painter->setPen(pen);
+        // Maximized windows get the restore glyph: corners point inward instead of outward
+        const qreal corner = isChecked() ? 1.6 : 4.2;
+        const qreal arm = isChecked() ? 2.8 : -2.6;
+        for (const qreal sx : {-1.0, 1.0}) {
+            for (const qreal sy : {-1.0, 1.0}) {
+                const QPointF p(9 + sx * corner, 9 + sy * corner);
+                painter->drawPolyline(QVector<QPointF>{QPointF(p.x() + sx * arm, p.y()), p, QPointF(p.x(), p.y() + sy * arm)});
+            }
+        }
+        break;
+    }
+
+    default:
+        break;
     }
 }
 
