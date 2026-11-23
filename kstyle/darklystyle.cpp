@@ -57,6 +57,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QPainter>
+#include <QPointer>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QScrollBar>
@@ -371,6 +372,119 @@ private:
 };
 
 //______________________________________________________________
+class FloatingStatusBarShadow : public QWidget {
+public:
+    static constexpr int Margin = 12;
+
+    FloatingStatusBarShadow(QWidget* parent, const Helper& helper)
+    : QWidget(parent)
+    , m_helper(helper)
+    {
+        setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
+
+protected:
+    void paintEvent(QPaintEvent*) override {
+        QPainter painter(this);
+        m_helper.renderBoxShadow(&painter, rect().adjusted(Margin, Margin, -Margin, -Margin), 0, 1, 5, StyleConfigData::cornerRadius());
+    }
+
+private:
+    const Helper& m_helper;
+};
+
+//______________________________________________________________
+class FloatingStatusBar : public QObject {
+public:
+    static constexpr int GapLeft = 6;
+    static constexpr int GapBottom = 6;
+
+    static FloatingStatusBar* find(QWidget* bar) {
+        return static_cast<FloatingStatusBar*>(bar->findChild<QObject*>(QStringLiteral("_darkly_floating_statusbar"), Qt::FindDirectChildrenOnly));
+    }
+
+    FloatingStatusBar(QWidget* bar, const Helper& helper)
+    : QObject(bar)
+    , m_bar(bar)
+    , m_helper(helper)
+    {
+        setObjectName(QStringLiteral("_darkly_floating_statusbar"));
+        bar->installEventFilter(this);
+    }
+
+    ~FloatingStatusBar() override {
+        delete m_shadow;
+    }
+
+protected:
+    bool eventFilter(QObject*, QEvent* event) override {
+        switch (event->type()) {
+        case QEvent::Paint:
+            if (!isCompact())
+                break;
+            if (hasText()) {
+                QPainter painter(m_bar);
+                m_helper.renderMenuFrame(&painter, m_bar->rect(), m_bar->palette().color(QPalette::Window), QColor(), true);
+            }
+            return true;
+        case QEvent::Move:
+            if (!m_adjusting && isCompact()) {
+                m_adjusting = true;
+                m_bar->move(m_bar->pos() + QPoint(GapLeft, -GapBottom));
+                m_adjusting = false;
+            }
+            updateShadow();
+            break;
+        case QEvent::Resize:
+        case QEvent::Show:
+        case QEvent::Hide:
+            updateShadow();
+            break;
+        default:
+            break;
+        }
+        return false;
+    }
+
+private:
+    bool isCompact() const {
+        const QWidget* parent = m_bar->parentWidget();
+        return parent && (!parent->layout() || parent->layout()->indexOf(m_bar) < 0);
+    }
+
+    bool hasText() const {
+        const auto labels = m_bar->findChildren<QLabel*>();
+        for (const QLabel* label : labels) {
+            if (label->inherits("KSqueezedTextLabel"))
+                return !label->text().isEmpty();
+        }
+        return false;
+    }
+
+    void updateShadow() {
+        QWidget* parent = m_bar->parentWidget();
+        if (!parent || !m_bar->isVisible() || !isCompact() || !hasText()) {
+            if (m_shadow)
+                m_shadow->hide();
+            return;
+        }
+
+        if (!m_shadow)
+            m_shadow = new FloatingStatusBarShadow(parent, m_helper);
+
+        const int margin = FloatingStatusBarShadow::Margin;
+        m_shadow->setGeometry(m_bar->geometry().adjusted(-margin, -margin, margin, margin));
+        m_shadow->stackUnder(m_bar);
+        m_shadow->show();
+    }
+
+    QWidget* m_bar;
+    const Helper& m_helper;
+    QPointer<FloatingStatusBarShadow> m_shadow;
+    bool m_adjusting = false;
+};
+
+//______________________________________________________________
 void Style::polish(QWidget *widget)
 {
     if (!widget)
@@ -437,6 +551,9 @@ void Style::polish(QWidget *widget)
             parent = parent->parentWidget();
         }
     }
+
+    if (widget->inherits("DolphinStatusBar") && !FloatingStatusBar::find(widget))
+        new FloatingStatusBar(widget, *_helper);
 
     // enforce translucency for drag and drop window
     if (widget->testAttribute(Qt::WA_X11NetWmWindowTypeDND) && _helper->compositingActive()) {
@@ -785,6 +902,9 @@ void Style::unpolish(QWidget *widget)
     _splitterFactory->unregisterWidget(widget);
     _blurHelper->unregisterWidget(widget);
     _toolsAreaManager->unregisterWidget(widget);
+
+    if (widget->inherits("DolphinStatusBar"))
+        delete FloatingStatusBar::find(widget);
 
     // remove event filter
     if (qobject_cast<QAbstractScrollArea *>(widget) || qobject_cast<QDockWidget *>(widget) || qobject_cast<QMdiSubWindow *>(widget)
