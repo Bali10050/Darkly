@@ -60,6 +60,7 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QScopedValueRollback>
 #include <QScrollBar>
 #include <QSplitterHandle>
 #include <QStackedLayout>
@@ -2081,6 +2082,10 @@ bool Style::eventFilterScrollArea(QWidget *widget, QEvent *event)
     case QEvent::MouseButtonPress:
     case QEvent::MouseButtonRelease:
     case QEvent::MouseMove: {
+        static bool forwarding = false;
+        if (forwarding)
+            break;
+
         // case event
         QMouseEvent *mouseEvent(static_cast<QMouseEvent *>(event));
 
@@ -2127,7 +2132,12 @@ bool Style::eventFilterScrollArea(QWidget *widget, QEvent *event)
                              mouseEvent->buttons(),
                              mouseEvent->modifiers());
 
-            QCoreApplication::sendEvent(scrollBar, &copy);
+            {
+                QScopedValueRollback<bool> guard(forwarding, true);
+                QCoreApplication::sendEvent(scrollBar, &copy);
+            }
+            if (!copy.isAccepted())
+                break;
             event->setAccepted(true);
             return true;
         }
