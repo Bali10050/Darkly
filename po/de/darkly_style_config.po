@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
 "POT-Creation-Date: 2026-10-07 08:35+0000\n"
 "PO-Revision-Date: 2026-10-10 10:00+0800\n"
-"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Last-Translator: KairikiFedora <13278297951@sina.cn>\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,6 @@ msgstr "Immer ausblenden"
 msgid "Always Show"
 msgstr "Immer anzeigen"
 
-msgid "Always show slim"
-msgstr "Immer schmale Leiste anzeigen"
 
 msgid "Animations"
 msgstr "Animationen"
@@ -238,8 +236,6 @@ msgstr "Titelleiste, Menüleiste und Symbolleisten"
 msgid "Toolbar:"
 msgstr "Symbolleiste:"
 
-msgid "Transient scrollbar"
-msgstr "Transiente Bildlaufleiste"
 
 msgid "Transparency"
 msgstr "Transparenz"
@@ -273,3 +269,47 @@ msgstr "Breite:"
 
 msgid "Windows' &drag mode:"
 msgstr "Fenster-Ziehmodus(&W):"
+
+msgid "Draw a light outline around buttons, inputs, and the selected tab"
+msgstr "Eine helle Kontur um Schaltflächen, Eingabefelder und die ausgewählte Registerkarte zeichnen"
+
+msgid "Fade"
+msgstr "Überblenden"
+
+msgid "Highlight on top"
+msgstr "Hervorhebung oben"
+
+msgid "Opaque when the window is inactive"
+msgstr "Undurchsichtig, wenn das Fenster inaktiv ist"
+
+msgid "Paint the translucent areas above fully opaque while their window is not focused"
+msgstr "Die obigen halbdurchsichtigen Bereiche vollständig undurchsichtig zeichnen, während ihr Fenster nicht fokussiert ist"
+
+msgid "Text field focus animation:"
+msgstr "Fokusanimation für Texteingabefelder:"
+
+msgid "Use Dolphin's new selection style (less saturated)"
+msgstr "Dolphins neuen Auswahlstil verwenden (weniger gesättigt)"
+
+msgid "Wipe"
+msgstr "Wischen"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "None"
+msgstr "Kein"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Small"
+msgstr "Klein"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Medium"
+msgstr "Mittel"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Large"
+msgstr "Groß"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Very Large"
+msgstr "Sehr groß"

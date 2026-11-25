@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
 "POT-Creation-Date: 2026-10-07 08:35+0000\n"
 "PO-Revision-Date: 2026-10-10 10:00+0800\n"
-"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Last-Translator: KairikiFedora <13278297951@sina.cn>\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,6 @@ msgstr "始终隐藏"
 msgid "Always Show"
 msgstr "始终显示"
 
-msgid "Always show slim"
-msgstr "始终显示细滚动条"
 
 msgid "Animations"
 msgstr "动画"
@@ -238,8 +236,6 @@ msgstr "标题栏、菜单栏和工具栏"
 msgid "Toolbar:"
 msgstr "工具栏："
 
-msgid "Transient scrollbar"
-msgstr "临时滚动条"
 
 msgid "Transparency"
 msgstr "透明度"
@@ -273,3 +269,47 @@ msgstr "宽度："
 
 msgid "Windows' &drag mode:"
 msgstr "窗口拖动模式(&W)："
+
+msgid "Draw a light outline around buttons, inputs, and the selected tab"
+msgstr "在按钮、输入框和选中的标签页周围绘制浅色轮廓"
+
+msgid "Fade"
+msgstr "淡入淡出"
+
+msgid "Highlight on top"
+msgstr "顶部高亮"
+
+msgid "Opaque when the window is inactive"
+msgstr "窗口处于非活动状态时不透明"
+
+msgid "Paint the translucent areas above fully opaque while their window is not focused"
+msgstr "窗口未获得焦点时，将上述半透明区域绘制为完全不透明"
+
+msgid "Text field focus animation:"
+msgstr "文本框焦点动画："
+
+msgid "Use Dolphin's new selection style (less saturated)"
+msgstr "使用 Dolphin 的新选中样式（饱和度较低）"
+
+msgid "Wipe"
+msgstr "擦除"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "None"
+msgstr "无"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Small"
+msgstr "小"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Medium"
+msgstr "中"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Very Large"
+msgstr "非常大"

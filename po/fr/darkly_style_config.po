@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
 "POT-Creation-Date: 2026-10-07 08:35+0000\n"
 "PO-Revision-Date: 2026-10-10 10:00+0800\n"
-"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Last-Translator: KairikiFedora <13278297951@sina.cn>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,6 @@ msgstr "Toujours masquer"
 msgid "Always Show"
 msgstr "Toujours afficher"
 
-msgid "Always show slim"
-msgstr "Toujours afficher une barre fine"
 
 msgid "Animations"
 msgstr "Animations"
@@ -238,8 +236,6 @@ msgstr "Barre de titre, barre de menus et barres d’outils"
 msgid "Toolbar:"
 msgstr "Barre d’outils :"
 
-msgid "Transient scrollbar"
-msgstr "Barre de défilement transitoire"
 
 msgid "Transparency"
 msgstr "Transparence"
@@ -273,3 +269,47 @@ msgstr "Largeur :"
 
 msgid "Windows' &drag mode:"
 msgstr "Mode de glissement des fenêtres(&W) :"
+
+msgid "Draw a light outline around buttons, inputs, and the selected tab"
+msgstr "Dessiner un contour clair autour des boutons, des champs de saisie et de l’onglet sélectionné"
+
+msgid "Fade"
+msgstr "Fondu"
+
+msgid "Highlight on top"
+msgstr "Surlignage en haut"
+
+msgid "Opaque when the window is inactive"
+msgstr "Opaque lorsque la fenêtre est inactive"
+
+msgid "Paint the translucent areas above fully opaque while their window is not focused"
+msgstr "Peindre les zones translucides ci-dessus en totalement opaque lorsque leur fenêtre n’est pas active"
+
+msgid "Text field focus animation:"
+msgstr "Animation du focus des champs de texte :"
+
+msgid "Use Dolphin's new selection style (less saturated)"
+msgstr "Utiliser le nouveau style de sélection de Dolphin (moins saturé)"
+
+msgid "Wipe"
+msgstr "Balayage"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "None"
+msgstr "Aucune"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Small"
+msgstr "Petite"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Medium"
+msgstr "Moyenne"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Large"
+msgstr "Grande"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Very Large"
+msgstr "Très grande"
