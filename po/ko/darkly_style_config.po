@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
 "POT-Creation-Date: 2026-10-07 08:35+0000\n"
 "PO-Revision-Date: 2026-10-10 10:00+0800\n"
-"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Last-Translator: KairikiFedora <13278297951@sina.cn>\n"
 "Language-Team: Korean\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,6 @@ msgstr "항상 숨기기"
 msgid "Always Show"
 msgstr "항상 표시"
 
-msgid "Always show slim"
-msgstr "항상 얇은 스크롤바 표시"
 
 msgid "Animations"
 msgstr "애니메이션"
@@ -238,8 +236,6 @@ msgstr "제목 표시줄, 메뉴 모음, 도구 모음"
 msgid "Toolbar:"
 msgstr "도구 모음："
 
-msgid "Transient scrollbar"
-msgstr "임시 스크롤바"
 
 msgid "Transparency"
 msgstr "투명도"
@@ -273,3 +269,47 @@ msgstr "너비："
 
 msgid "Windows' &drag mode:"
 msgstr "창 드래그 모드(&W)："
+
+msgid "Draw a light outline around buttons, inputs, and the selected tab"
+msgstr "버튼, 입력 필드, 선택한 탭 주위에 밝은 윤곽선 그리기"
+
+msgid "Fade"
+msgstr "페이드"
+
+msgid "Highlight on top"
+msgstr "상단 강조 표시"
+
+msgid "Opaque when the window is inactive"
+msgstr "창이 비활성 상태일 때 불투명하게"
+
+msgid "Paint the translucent areas above fully opaque while their window is not focused"
+msgstr "창에 포커스가 없는 동안 위의 반투명 영역을 완전히 불투명하게 그리기"
+
+msgid "Text field focus animation:"
+msgstr "텍스트 필드 포커스 애니메이션:"
+
+msgid "Use Dolphin's new selection style (less saturated)"
+msgstr "Dolphin의 새 선택 스타일 사용 (채도 낮음)"
+
+msgid "Wipe"
+msgstr "와이프"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "None"
+msgstr "없음"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Small"
+msgstr "작게"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Medium"
+msgstr "보통"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Large"
+msgstr "크게"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Very Large"
+msgstr "매우 크게"

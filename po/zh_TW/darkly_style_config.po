@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/Bali10050/Darkly/issues\n"
 "POT-Creation-Date: 2026-10-07 08:35+0000\n"
 "PO-Revision-Date: 2026-10-10 10:00+0800\n"
-"Last-Translator: Evernight Vista Team <13278297951@sina.cn>\n"
+"Last-Translator: KairikiFedora <13278297951@sina.cn>\n"
 "Language-Team: Chinese (Traditional)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -31,8 +31,6 @@ msgstr "永遠隱藏"
 msgid "Always Show"
 msgstr "永遠顯示"
 
-msgid "Always show slim"
-msgstr "永遠顯示細捲軸"
 
 msgid "Animations"
 msgstr "動畫"
@@ -238,8 +236,6 @@ msgstr "標題列、功能表列和工具列"
 msgid "Toolbar:"
 msgstr "工具列："
 
-msgid "Transient scrollbar"
-msgstr "暫時捲軸"
 
 msgid "Transparency"
 msgstr "透明度"
@@ -272,4 +268,48 @@ msgid "Width:"
 msgstr "寬度："
 
 msgid "Windows' &drag mode:"
-msgstr "窗口拖动模式(&W)："
+msgstr "視窗拖動模式(&W)："
+
+msgid "Draw a light outline around buttons, inputs, and the selected tab"
+msgstr "在按鈕、輸入欄位和選取的索引標籤周圍繪製淺色輪廓"
+
+msgid "Fade"
+msgstr "淡入淡出"
+
+msgid "Highlight on top"
+msgstr "頂部醒目提示"
+
+msgid "Opaque when the window is inactive"
+msgstr "視窗非作用中時不透明"
+
+msgid "Paint the translucent areas above fully opaque while their window is not focused"
+msgstr "視窗未取得焦點時，將上述半透明區域繪製為完全不透明"
+
+msgid "Text field focus animation:"
+msgstr "文字欄位焦點動畫："
+
+msgid "Use Dolphin's new selection style (less saturated)"
+msgstr "使用 Dolphin 的新選取樣式（飽和度較低）"
+
+msgid "Wipe"
+msgstr "擦除"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "None"
+msgstr "無"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Small"
+msgstr "小"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Medium"
+msgstr "中"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Large"
+msgstr "大"
+
+msgctxt "@item:inlistbox Shadow size:"
+msgid "Very Large"
+msgstr "非常大"

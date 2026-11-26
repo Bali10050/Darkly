@@ -439,15 +439,15 @@ void StyleConfig::load()
 
     for (QString &item : _shadowSizes) {
         if (item == "None") {
-            _shadowSize->addItem(item, "ShadowNone");
+            _shadowSize->addItem(i18nc("@item:inlistbox Shadow size:", "None"), "ShadowNone");
         } else if (item == "Small") {
-            _shadowSize->addItem(item, "ShadowSmall");
+            _shadowSize->addItem(i18nc("@item:inlistbox Shadow size:", "Small"), "ShadowSmall");
         } else if (item == "Medium") {
-            _shadowSize->addItem(item, "ShadowMedium");
+            _shadowSize->addItem(i18nc("@item:inlistbox Shadow size:", "Medium"), "ShadowMedium");
         } else if (item == "Large") {
-            _shadowSize->addItem(item, "ShadowLarge");
+            _shadowSize->addItem(i18nc("@item:inlistbox Shadow size:", "Large"), "ShadowLarge");
         } else if (item == "VeryLarge") {
-            _shadowSize->addItem(item, "ShadowVeryLarge");
+            _shadowSize->addItem(i18nc("@item:inlistbox Shadow size:", "Very Large"), "ShadowVeryLarge");
         }
     }
     _shadowSize->setCurrentIndex(StyleConfigData::shadowSize());
