@@ -553,6 +553,12 @@ void Style::polish(QWidget *widget)
         }
     }
 
+    if ((widget->inherits("SelectionMode::TopBar") || widget->inherits("SelectionMode::BottomBar")) && !widget->property("_darklyRoundedOverlay").isValid()) {
+        auto overlay = new RoundedOuterOutlineOverlay(widget, false, StyleConfigData::cornerRadius(), StyleConfigData::cornerRadius() * 2);
+        widget->installEventFilter(new ParentResizeFilter(overlay));
+        widget->setProperty("_darklyRoundedOverlay", QVariant::fromValue(static_cast<QObject*>(overlay)));
+    }
+
     if (widget->inherits("DolphinStatusBar") && !FloatingStatusBar::find(widget))
         new FloatingStatusBar(widget, *_helper);
 
